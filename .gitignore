@@ -1,0 +1,15 @@
+# ignores secret files
+secrets.yml
+
+# ignores compiled/node output
+/distribution
+/node_modules
+/coverage
+/.angular/cache
+
+# ignores cache & miscellaneous files
+.DS_Store
+Thumbs.db
+.vscode/*
+npm-debug.log
+yarn-error.log
