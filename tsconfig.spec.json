@@ -1,3 +1,8 @@
+/**
+ * Defines additional TypeScript configurations for tests.
+ */
+
+// --------------------------------------------------------------------------------
 
 {
     "extends": "./tsconfig.json",
@@ -8,6 +13,7 @@
     },
     "include": [
         "src/**/*.d.ts",
+        "vitest-setup.ts",
         "src/**/*.spec.ts"
     ]
 }

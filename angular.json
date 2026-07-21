@@ -16,13 +16,11 @@
                 "build": {
                     "builder": "@angular/build:application",
                     "options": {
+                        "outputPath": "distribution/scoreboard-ui",
                         "browser": "src/main.ts",
                         "tsConfig": "tsconfig.app.json",
                         "assets": [
-                            {
-                                "glob": "**/*",
-                                "input": "public"
-                            }
+                            "src/assets"
                         ],
                         "styles": [
                             "src/styles.css"
@@ -65,7 +63,17 @@
                     "defaultConfiguration": "development"
                 },
                 "test": {
-                    "builder": "@angular/build:unit-test"
+                    "builder": "@angular/build:unit-test",
+                    "options": {
+                        "setupFiles": [
+                            "vitest-setup.ts"
+                        ],
+                        "coverageReporters": [
+                            "html",
+                            "text-summary"
+                        ],
+                        "isolate": true
+                    }
                 }
             }
         }
