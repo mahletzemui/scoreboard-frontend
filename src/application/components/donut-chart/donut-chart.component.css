@@ -1,0 +1,89 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chart {
+    position: relative;
+    width: 350px;
+}
+
+.chart path {
+    transform-origin: center;
+    transition: transform var(--default-animation-delay) ease;
+}
+.chart path:hover {
+    transform: scale(1.08);
+}
+
+.chart text {
+    pointer-events: none;
+    font-size: 0.7rem;
+    font-weight: 600;
+    fill: var(--text-950);
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.tooltip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 8px 14px;
+    white-space: nowrap;
+    border-radius: 8px;
+    border: 1px solid var(--primary-100);
+    background-color: var(--background-50);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip .label {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.tooltip .value {
+    font-size: 0.8rem;
+    color: var(--text-500);
+}
+
+
+.legend {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.legend li {
+    list-style: none;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.legend span {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+/* ----------------------------------------------------------------------------- */
+
+@media (max-width: 500px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .legend {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

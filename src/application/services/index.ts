@@ -1,4 +1,5 @@
 export { LoaderService } from './loader/loader.service';
+export { NoticeService } from './notice/notice.service';
 export { ThemeService } from './theme/theme.service';
 
 export { AccountService } from './servers/account/account.service';

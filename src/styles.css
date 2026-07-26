@@ -1,1 +1,309 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+   --minimum-device-width: 400px;
+   --default-animation-delay: 0.3s;
+}
+
+:root[data-theme="light"] {
+    --text: rgb(46, 46, 46);
+    --text-50: rgb(13, 13, 13);
+    --text-100: rgb(26, 26, 26);
+    --text-200: rgb(51, 51, 51);
+    --text-300: rgb(77, 77, 77);
+    --text-400: rgb(102, 102, 102);
+    --text-500: rgb(128, 128, 128);
+    --text-600: rgb(153, 153, 153);
+    --text-700: rgb(179, 179, 179);
+    --text-800: rgb(204, 204, 204);
+    --text-900: rgb(230, 230, 230);
+    --text-950: rgb(242, 242, 242);
+
+    --background: rgb(255, 238, 219);
+    --background-30: rgb(255, 238, 219, 0.3);
+    --background-50: rgb(255, 243, 229);
+    --background-100: rgb(255, 231, 204);
+    --background-200: rgb(255, 207, 153);
+    --background-300: rgb(255, 184, 102);
+    --background-400: rgb(255, 160, 51);
+    --background-500: rgb(255, 136, 0);
+    --background-600: rgb(204, 109, 0);
+    --background-700: rgb(153, 82, 0);
+    --background-800: rgb(102, 54, 0);
+    --background-900: rgb(51, 27, 0);
+    --background-950: rgb(26, 14, 0);
+    
+    --primary: rgb(100, 110, 120);
+    --primary-30: rgb(100, 110, 120, 0.3);
+    --primary-50: rgb(241, 242, 243);
+    --primary-100: rgb(227, 230, 232);
+    --primary-200: rgb(199, 204, 209);
+    --primary-300: rgb(172, 179, 185);
+    --primary-400: rgb(144, 153, 162);
+    --primary-500: rgb(116, 127, 139);
+    --primary-600: rgb(93, 102, 111);
+    --primary-700: rgb(70, 76, 83);
+    --primary-800: rgb(46, 51, 56);
+    --primary-900: rgb(23, 26, 28);
+    --primary-950: rgb(12, 13, 14);
+
+    --secondary: rgb(140, 151, 166);
+    --secondary-30: rgb(140, 151, 166, 0.3);
+    --secondary-50: rgb(241, 242, 244);
+    --secondary-100: rgb(226, 229, 233);
+    --secondary-200: rgb(197, 203, 211);
+    --secondary-300: rgb(169, 177, 188);
+    --secondary-400: rgb(140, 151, 166);
+    --secondary-500: rgb(111, 125, 144);
+    --secondary-600: rgb(89, 100, 115);
+    --secondary-700: rgb(67, 75, 86);
+    --secondary-800: rgb(44, 50, 58);
+    --secondary-900: rgb(22, 25, 29);
+    --secondary-950: rgb(11, 12, 14);
+
+    --accent: rgb(216, 134, 34);
+    --accent-30: rgb(216, 134, 34, 0.3);
+    --accent-50: rgb(252, 243, 233);
+    --accent-100: rgb(248, 231, 211);
+    --accent-200: rgb(241, 208, 167);
+    --accent-300: rgb(234, 184, 123);
+    --accent-400: rgb(227, 160, 79);
+    --accent-500: rgb(221, 137, 34);
+    --accent-600: rgb(176, 109, 28);
+    --accent-700: rgb(132, 82, 21);
+    --accent-800: rgb(88, 55, 14);
+    --accent-900: rgb(44, 27, 7);
+    --accent-950: rgb(22, 14, 3);
+
+    --danger: rgb(214, 31, 31);
+    --danger-30: rgb(214, 31, 31, 0.3);
+    --danger-50: rgb(252, 233, 233);
+    --danger-100: rgb(249, 210, 210);
+    --danger-200: rgb(242, 166, 166);
+    --danger-300: rgb(236, 121, 121);
+    --danger-400: rgb(230, 77, 77);
+    --danger-500: rgb(223, 32, 32);
+    --danger-600: rgb(179, 26, 26);
+    --danger-700: rgb(134, 19, 19);
+    --danger-800: rgb(89, 13, 13);
+    --danger-900: rgb(45, 6, 6);
+    --danger-950: rgb(22, 3, 3);
+}
+
+:root[data-theme="dark"] {
+    --text: rgb(209, 209, 209);
+    --text-50: rgb(13, 13, 13);
+    --text-100: rgb(26, 26, 26);
+    --text-200: rgb(51, 51, 51);
+    --text-300: rgb(77, 77, 77);
+    --text-400: rgb(102, 102, 102);
+    --text-500: rgb(128, 128, 128);
+    --text-600: rgb(153, 153, 153);
+    --text-700: rgb(179, 179, 179);
+    --text-800: rgb(204, 204, 204);
+    --text-900: rgb(230, 230, 230);
+    --text-950: rgb(242, 242, 242);
+
+    --background: rgb(36, 19, 0);
+    --background-30: rgb(36, 19, 0, 0.3);
+    --background-50: rgb(26, 14, 0);
+    --background-100: rgb(51, 27, 0);
+    --background-200: rgb(102, 54, 0);
+    --background-300: rgb(153, 82, 0);
+    --background-400: rgb(204, 109, 0);
+    --background-500: rgb(255, 136, 0);
+    --background-600: rgb(255, 160, 51);
+    --background-700: rgb(255, 184, 102);
+    --background-800: rgb(255, 207, 153);
+    --background-900: rgb(255, 231, 204);
+    --background-950: rgb(255, 243, 229);
+
+    --primary: rgb(135, 145, 155);
+    --primary-30: rgb(135, 145, 155, 0.3);
+    --primary-50: rgb(12, 13, 14);
+    --primary-100: rgb(23, 26, 28);
+    --primary-200: rgb(46, 51, 56);
+    --primary-300: rgb(70, 76, 83);
+    --primary-400: rgb(93, 102, 111);
+    --primary-500: rgb(116, 127, 139);
+    --primary-600: rgb(144, 153, 162);
+    --primary-700: rgb(172, 179, 185);
+    --primary-800: rgb(199, 204, 209);
+    --primary-900: rgb(227, 230, 232);
+    --primary-950: rgb(241, 242, 243);
+    
+    --secondary: rgb(89, 100, 115);
+    --secondary-30: rgb(89, 100, 115, 0.3);
+    --secondary-50: rgb(11, 12, 14);
+    --secondary-100: rgb(22, 25, 29);
+    --secondary-200: rgb(44, 50, 58);
+    --secondary-300: rgb(67, 75, 86);
+    --secondary-400: rgb(89, 100, 115);
+    --secondary-500: rgb(111, 125, 144);
+    --secondary-600: rgb(140, 151, 166);
+    --secondary-700: rgb(169, 177, 188);
+    --secondary-800: rgb(197, 203, 211);
+    --secondary-900: rgb(226, 229, 233);
+    --secondary-950: rgb(241, 242, 244);
+
+    --accent: rgb(221, 139, 39);
+    --accent-30: rgb(221, 139, 39, 0.3);
+    --accent-50: rgb(22, 14, 3);
+    --accent-100: rgb(44, 27, 7);
+    --accent-200: rgb(88, 55, 14);
+    --accent-300: rgb(132, 82, 21);
+    --accent-400: rgb(176, 109, 28);
+    --accent-500: rgb(221, 137, 34);
+    --accent-600: rgb(227, 160, 79);
+    --accent-700: rgb(234, 184, 123);
+    --accent-800: rgb(241, 208, 167);
+    --accent-900: rgb(248, 231, 211);
+    --accent-950: rgb(252, 243, 233);
+
+    --danger: rgb(230, 77, 77);
+    --danger-30: rgb(230, 77, 77, 0.3);
+    --danger-50: rgb(22, 3, 3);
+    --danger-100: rgb(45, 6, 6);
+    --danger-200: rgb(89, 13, 13);
+    --danger-300: rgb(134, 19, 19);
+    --danger-400: rgb(179, 26, 26);
+    --danger-500: rgb(223, 32, 32);
+    --danger-600: rgb(230, 77, 77);
+    --danger-700: rgb(236, 121, 121);
+    --danger-800: rgb(242, 166, 166);
+    --danger-900: rgb(249, 210, 210);
+    --danger-950: rgb(252, 233, 233);
+}
+
+/* ----------------------------------------------------------------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: 400;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    min-width: var(--minimum-device-width);
+    height: 100vh;
+    background-color: var(--background);
+}
+
+
+/* h1, h2, h3, h4 {
+    line-height: 1.5;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 4.210rem;
+}
+
+h2 {
+    font-size: 3.158rem;
+}
+
+h3 {
+    font-size: 2.369rem;
+}
+
+h4 {
+    font-size: 1.777rem;
+}
+
+h5 {
+    line-height: 2;
+    font-weight: 500;
+    font-size: 1.1rem;
+} */
+
+p {
+    line-height: 2;
+    font-size: 1rem;
+}
+
+svg {
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    fill: var(--text);
+}
+
+button {
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+button:disabled {
+    cursor: default;
+}
+
+input {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+input:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s !important;
+}
+/* input:disabled {
+    cursor: default;
+} */
+
+/* ------------------------------- Components ---------------------------------- */
+
+/* router-outlet + * {
+    width: 100%;
+} */
+
+app-dropdown.small .caption.float {
+    top: -10px;
+    left: -10px;
+    width: max-content;
+    font-size: 0.7rem !important;
+}
+
+app-dropdown.small .value {
+    bottom: 0;
+}
+
+app-finder, app-paginator {
+    min-width: 350px;
+}
+
+/* ---------------------------------- Icons ------------------------------------ */
+
+.icon {
+    border-radius: 100px;
+}
+.icon:disabled {
+    background-color: transparent !important;
+}
+
+.icon svg {
+    max-width: 30px;
+    display: block;
+    fill-opacity: 0.8;
+    transition: fill-opacity var(--default-animation-delay) ease;
+}
+.icon:hover svg {
+    fill-opacity: 1;
+}
+.icon:disabled svg {
+    cursor: default;
+    fill-opacity: 0.4;
+}
+
+.badge {
+    cursor: default;
+}

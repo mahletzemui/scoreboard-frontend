@@ -1,0 +1,52 @@
+svg {
+    fill: var(--text-950);
+}
+
+p {
+    flex: 1;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    color: var(--text-950);
+}
+
+
+.wrapper {
+    position: fixed;
+    z-index: 20;
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -8px) scale(0.96);
+
+    gap: 12px;
+    display: flex;
+    align-items: center;
+
+    width: 60%;
+    min-width: 350px;
+    max-width: 500px;
+    padding: 14px 18px;
+
+    border-radius: 16px;
+    border: 1px solid var(--text-950);
+    background-color: var(--secondary);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+
+    opacity: 0;
+    transition: top 1s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 1s ease;
+}
+.wrapper.active {
+    top: 3%;
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+}
+
+
+.badge, .icon {
+    width: 32px;
+}
+
+.badge svg {
+    cursor: default;
+}

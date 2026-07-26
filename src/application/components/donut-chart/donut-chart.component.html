@@ -1,0 +1,26 @@
+<div class="wrapper">
+    <div class="chart">
+        <svg viewBox="0 0 300 300">
+            @for (item of displayed(); track item) {
+            <path [attr.d]="item.path" [attr.fill]="item.color"
+                (mouseenter)="selected.set(item)"
+                (mouseleave)="selected.set(undefined)" />
+            <text [attr.x]="item.percentage.xPos" [attr.y]="item.percentage.yPos">{{ item.percentage.value }}%</text>
+            }
+        </svg>
+        @if (selected(); as item) {
+        <div class="tooltip">
+            <span class="label">{{ item.label }}</span>
+            <span class="value">{{ item.value }} ({{ item.percentage.value }}%)</span>
+        </div>
+        }
+    </div>
+
+    <ul class="legend">
+        @for (item of displayed(); track item) {
+        <li>
+            <span [style.background]="item.color"></span>{{ item.label }}
+        </li>
+        }
+    </ul>
+</div>

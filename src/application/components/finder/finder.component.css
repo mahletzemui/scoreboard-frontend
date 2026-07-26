@@ -1,0 +1,196 @@
+.wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.bar {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    padding: 10px 16px;
+
+    border-radius: 10px;
+    border: 1px solid var(--primary-100);
+    background-color: var(--background-50);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    transition: box-shadow var(--default-animation-delay) ease;
+}
+.bar:focus-within {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.badge {
+    width: 22px;
+}
+
+
+.chips {
+    flex: 1;
+    gap: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.chips span {
+    gap: 6px;
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--accent-600);
+    padding: 4px 4px 4px 12px;
+    border-radius: 100px;
+    background-color: var(--accent-30);
+}
+
+.chips button {
+    width: 16px;
+    height: 16px;
+    font-size: 0.65rem;
+    color: var(--accent-600);
+    border-radius: 50%;
+    transition: background-color var(--default-animation-delay) ease;
+}
+.chips button:hover {
+    background-color: var(--accent-300);
+}
+
+.chips input {
+    font-size: 0.95rem;
+}
+
+
+.divider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--primary-100);
+}
+
+.icon {
+    gap: 6px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-500);
+    padding: 6px 12px;
+    transition: background-color var(--default-animation-delay) ease,
+                color var(--default-animation-delay) ease;
+}
+.icon svg {
+    width: 22px;
+    fill: var(--text-500);
+    transition: fill var(--default-animation-delay) ease;
+}
+.icon:hover, .icon.active {
+    color: var(--accent-600);
+    background-color: var(--accent-30);
+}
+.icon:hover svg, .icon.active svg {
+    fill: var(--accent-600);
+}
+
+.icon span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 600;
+    font-size: 0.7rem;
+    color: var(--background-50);
+
+    min-width: 20px;
+    height: 18px;
+    padding: 0 5px;
+
+    border-radius: 100px;
+    background-color: var(--accent-500);
+}
+
+
+.popover {
+    position: absolute;
+    z-index: 3;
+    top: calc(100% + 4px);
+    right: 0;
+
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+
+    min-width: 300px;
+    max-width: 400px;
+    padding: 18px;
+
+    border-radius: 16px;
+    border: 1px solid var(--primary-100);
+    background-color: var(--background-50);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.group h6 {
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-500);
+    margin-bottom: 10px;
+}
+
+.pills {
+    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pills button {
+    font-size: 0.85rem;
+    color: var(--text-500);
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--primary-200);
+    transition: background-color var(--default-animation-delay) ease,
+                color var(--default-animation-delay) ease,
+                border-color var(--default-animation-delay) ease;
+}
+.pills button:hover {
+    color: var(--accent-300);
+    border-color: var(--accent-300);
+}
+.pills button.active {
+    color: var(--background-50);
+    background-color: var(--accent-400);
+    border-color: var(--accent-400);
+}
+
+.dates {
+    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.dates input {
+    font-size: 0.8rem;
+    color: var(--text-500);
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--primary-200);
+    background: transparent;
+}
+.dates span {
+    font-size: 0.8rem;
+    color: var(--text-500);
+}
+
+.clear {
+    align-self: flex-end;
+    font-size: 0.85rem;
+    color: var(--text-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.clear:hover {
+    color: var(--danger);
+}
