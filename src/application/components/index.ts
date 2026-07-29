@@ -6,6 +6,7 @@ export { DropdownComponent } from './dropdown/dropdown.component';
 export { FinderComponent } from './finder/finder.component';
 export { PaginatorComponent } from './paginator/paginator.component';
 
-// export { FormModalComponent } from './modal/form-modal/form-modal.component';
-// export { MessageModalComponent } from './modal/message-modal/message-modal.component';
-// export { PlaybookModalComponent } from './modal/playbook-modal/playbook-modal.component';
+export { DominoRoundModalComponent } from './modal/domino-round-modal/domino-round-modal.component';
+export { FormModalComponent } from './modal/form-modal/form-modal.component';
+export { MessageModalComponent } from './modal/message-modal/message-modal.component';
+export { PlaybookModalComponent } from './modal/playbook-modal/playbook-modal.component';

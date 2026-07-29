@@ -1,0 +1,40 @@
+<app-modal (closed)="closed.emit()">
+    <div class="panel form">
+        <h4>Round {{ index() + 1 }}</h4>
+        <span class="error-text general">{{ roundError() }}</span>
+
+        <div class="toggle" style="margin-top: 15px;">
+            <h5>Won with the Double-Zero Tile?</h5>
+            <label>
+                <input type="checkbox" [checked]="doubleZero()" (click)="toggleWinType()" />
+                <span class="track"><span class="bulb"></span></span>
+            </label>
+        </div>
+
+        <div class="field" style="margin: 10px 0;">
+            <label for="points">Points</label>
+            <input id="points" [disabled]="doubleZero()" [value]="earned()" (input)="updatePoints($event)"
+                placeholder="Enter the total earned points" inputmode="numeric">
+        </div>
+
+        <div class="criteria column">
+            <h5>Winner(s)</h5>
+            <div>
+                @for (item of players(); track item; let i = $index) {
+                <label>
+                    <input [attr.type]="doubleZero() ? 'radio' : 'checkbox'" [checked]="winners()[i]" (click)="toggleWinner(i)" />
+                    <span class="checkmark"></span>
+                    <span>{{ item }}</span>
+                </label>
+                }
+            </div>
+        </div>
+
+        <div class="controls" style="margin-top: 10px;">
+            <button [disabled]="roundError()" (click)="finalize(true)">Save</button>
+            @if (data()) {
+            <button class="secondary" (click)="finalize(false)">Remove</button>
+            }
+        </div>
+    </div>
+</app-modal>

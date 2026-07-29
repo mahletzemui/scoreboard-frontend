@@ -48,7 +48,7 @@ describe('DropdownComponent', () => {
 
         beforeEach(() =>
         {
-            fixture.componentRef.setInput('selector', selector);
+            fixture.componentRef.setInput('data', selector);
             fixture.detectChanges();
         });
 
@@ -172,7 +172,7 @@ describe('DropdownComponent', () => {
 
         it('should update the value when the selector changes', () =>
         {
-            fixture.componentRef.setInput('selector', {
+            fixture.componentRef.setInput('data', {
                 heading: 'Vegetables',
                 options: [ { name: 'carrot', label: 'Carrot', active: true } ]
             });
@@ -214,7 +214,7 @@ describe('DropdownComponent', () => {
 
         beforeEach(() =>
         {
-            fixture.componentRef.setInput('selector', selector);
+            fixture.componentRef.setInput('data', selector);
             fixture.detectChanges();
         });
 
@@ -338,7 +338,7 @@ describe('DropdownComponent', () => {
 
         it('should update the value when the selector changes', () =>
         {
-            fixture.componentRef.setInput('selector', {
+            fixture.componentRef.setInput('data', {
                 heading: '',
                 options: [ { name: 'logout', label: 'Logout', active: true } ]
             });

@@ -15,6 +15,7 @@ p {
     z-index: 20;
     top: -10%;
     left: 50%;
+    opacity: 0;
     transform: translate(-50%, -8px) scale(0.96);
 
     gap: 12px;
@@ -30,8 +31,6 @@ p {
     border: 1px solid var(--text-950);
     background-color: var(--secondary);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-
-    opacity: 0;
     transition: top 1s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 1s cubic-bezier(0.16, 1, 0.3, 1),
                 opacity 1s ease;

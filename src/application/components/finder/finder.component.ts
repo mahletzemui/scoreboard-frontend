@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal } from '@angular/core';
 
 
-import { FILTER_STORE } from '../../constants/queries';
 import { CheckFilter, DateFilter, Filter, Option } from '../../models/queries';
 
 
@@ -17,7 +16,7 @@ import { CheckFilter, DateFilter, Filter, Option } from '../../models/queries';
 })
 export class FinderComponent {
     // Fields ---------------------------------------------------------------------
-    type = input<string>();
+    data = input<Filter[]>();
 
     private termsSignal = signal<string[]>([]);
     readonly terms = this.termsSignal.asReadonly();
@@ -26,10 +25,8 @@ export class FinderComponent {
     readonly filters = this.filtersSignal.asReadonly();
 
     openned = signal(false);
-
-    filterCount = computed(() => (this.filters() ?? []).reduce((sum, item) =>
-        item.type === 'check' ? sum + item.options.filter(element => element.active).length
-                              : sum + (item.from || item.to ? 1 : 0), 0));
+    filterCount = computed(() => (this.filters() ?? []).reduce((sum, item) => item.type === 'check' ? sum + item.options.filter(element => element.active).length
+                                                                                                    : sum + (item.from || item.to ? 1 : 0), 0));
 
     searched = output<string[]>();
     filtered = output<Filter[]>();
@@ -42,7 +39,7 @@ export class FinderComponent {
     constructor()
     {
         effect(() => {
-            this.filtersSignal.set(this.loadFilters(this.type()));
+            this.filtersSignal.set(structuredClone(this.data()));
         });
     }
 
@@ -130,7 +127,7 @@ export class FinderComponent {
      */
     clearFilters(): void
     {
-        this.filtersSignal.set(this.loadFilters(this.type()));
+        this.filtersSignal.set(structuredClone(this.data()));
         this.filtered.emit([]);
         this.openned.set(false);
     }
@@ -138,26 +135,7 @@ export class FinderComponent {
     // Helpers --------------------------------------------------------------------
 
     /**
-     * Loads the filters.
-     *
-     * @param type - Type of filters to load.
-     *
-     * @return the corresponding filters.
-     */
-    private loadFilters(type?: string): Filter[]|undefined
-    {
-        if (!type) {
-            return undefined;
-        }
-        if (type in FILTER_STORE) {
-            return FILTER_STORE[type]();
-        }
-        console.error(`Helper: Filter for '${type}' does not exist.`);
-        return undefined;
-    }
-
-    /**
-     * Emits the current filters after a mutation.
+     * Emits the current filters.
      */
     private applyFilters(): void
     {

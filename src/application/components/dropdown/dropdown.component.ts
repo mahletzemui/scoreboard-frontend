@@ -16,10 +16,10 @@ import { Option, Selector } from '../../models/queries';
 })
 export class DropdownComponent {
     // Fields ---------------------------------------------------------------------
-    selector = input.required<Selector>();
+    data = input.required<Selector>();
 
     options = signal<Option[]>([]);
-    caption = computed(() => this.selector().heading || 'Select an Option');
+    caption = computed(() => this.data().heading || 'Select an Option');
     value = computed(() => this.findLabel(this.options()));
     floated = computed(() => this.value() !== undefined);
 
@@ -36,7 +36,7 @@ export class DropdownComponent {
     constructor()
     {
         effect(() => {
-            this.options.set(structuredClone(this.selector().options));
+            this.options.set(structuredClone(this.data().options));
         });
     }
 

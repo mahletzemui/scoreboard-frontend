@@ -18,7 +18,7 @@ export class DonutChartComponent {
     // Fields ---------------------------------------------------------------------
     data = input.required<Slice[]>();
 
-    displayed = computed<Slice[]>(() => this.buildChart());
+    slices = computed<Slice[]>(() => this.buildChart());
     
     private readonly CENTER = 150;
     private readonly INNER_RADIUS = 50;

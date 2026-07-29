@@ -2,7 +2,7 @@
     <div class="control">
         <span>Items per page:</span>
         <div>
-            <app-dropdown class="small" [selector]="selector()" (selected)="onResize($event)" />
+            <app-dropdown class="small" [data]="selector()" (selected)="onResize($event)" />
         </div>
     </div>
 

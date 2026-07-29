@@ -37,7 +37,7 @@ describe('BannerComponent', () => {
     {
         expect(component).toBeTruthy();
         expect(component.notice()).toBe('');
-        expect(component.active()).toBe(false);
+        expect(component.activated()).toBe(false);
 
         expect(dom.querySelector('.wrapper.active')).toBeFalsy();
         expect(dom.querySelector('p')?.textContent).toBe('');
@@ -50,7 +50,7 @@ describe('BannerComponent', () => {
         fixture.detectChanges();
 
         expect(component.notice()).toBe('Action taken successfully.');
-        expect(component.active()).toBe(true);
+        expect(component.activated()).toBe(true);
 
         expect(dom.querySelector('.wrapper.active')).toBeTruthy();
         expect(dom.querySelector('p')?.textContent).toBe('Action taken successfully.');
@@ -66,12 +66,12 @@ describe('BannerComponent', () => {
 
         vi.advanceTimersByTime(4999);
         fixture.detectChanges();
-        expect(component.active()).toBe(true);
+        expect(component.activated()).toBe(true);
         expect(dom.querySelector('.wrapper.active')).toBeTruthy();
 
         vi.advanceTimersByTime(1);
         fixture.detectChanges();
-        expect(component.active()).toBe(false);
+        expect(component.activated()).toBe(false);
         expect(dom.querySelector('.wrapper.active')).toBeFalsy();
 
         vi.useRealTimers();
@@ -85,7 +85,7 @@ describe('BannerComponent', () => {
 
         (dom.querySelector('button') as HTMLElement).click();
         fixture.detectChanges();
-        expect(component.active()).toBe(false);
+        expect(component.activated()).toBe(false);
         expect(dom.querySelector('.wrapper.active')).toBeFalsy();
     });
 });

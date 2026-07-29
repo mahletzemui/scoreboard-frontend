@@ -130,7 +130,7 @@ describe('FinderComponent', () => {
     describe('With Filter', () => {
         beforeEach(() =>
         {
-            fixture.componentRef.setInput('type', 'connect4');
+            fixture.componentRef.setInput('data', createGameFilter('connect4'));
             fixture.detectChanges();
             expect(console.error).not.toHaveBeenCalled();
         });
@@ -320,21 +320,5 @@ describe('FinderComponent', () => {
             expect(component.filters()).toEqual(createGameFilter('connect4'));
             expect(dom.querySelector('.popover')).toBeFalsy();
         });
-    });
-
-
-    it('should log an error for an unrecognized filter type', () =>
-    {
-        fixture.componentRef.setInput('type', 'unknown');
-        fixture.detectChanges();
-
-        expect(console.error).toHaveBeenCalledTimes(1);
-        expect(component.filters()).toBeUndefined();
-        expect(component.filterCount()).toBe(0);
-        expect(dom.querySelector('#keywords')).toBeTruthy();
-        expect(dom.querySelectorAll('.chips span').length).toBe(0);
-        expect(dom.querySelector('.divider')).toBeFalsy();
-        expect(dom.querySelector('.icon')).toBeFalsy();
-        expect(dom.querySelector('.popover')).toBeFalsy();
     });
 });

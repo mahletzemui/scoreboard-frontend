@@ -1,7 +1,7 @@
 <div class="wrapper">
     <div class="chart">
         <svg viewBox="0 0 300 300">
-            @for (item of displayed(); track item) {
+            @for (item of slices(); track item) {
             <path [attr.d]="item.path" [attr.fill]="item.color"
                 (mouseenter)="selected.set(item)"
                 (mouseleave)="selected.set(undefined)" />
@@ -17,7 +17,7 @@
     </div>
 
     <ul class="legend">
-        @for (item of displayed(); track item) {
+        @for (item of slices(); track item) {
         <li>
             <span [style.background]="item.color"></span>{{ item.label }}
         </li>

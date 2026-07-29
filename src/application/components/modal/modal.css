@@ -1,0 +1,100 @@
+.backdrop {
+    position: fixed;
+    z-index: 5;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.wrapper {
+    position: fixed;
+    z-index: 10;
+    opacity: 0;
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+
+    width: 90%;
+    max-width: 440px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 30px;
+
+    border-radius: 20px;
+    border: 1px solid var(--text-950);
+    background-color: var(--background-50);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transition: top 1s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity var(--default-animation-delay) ease;
+}
+.wrapper.active {
+    top: 50%;
+    opacity: 1;
+}
+
+#modal-trigger {
+    align-self: flex-end;
+    padding: 6px;
+    transition: background-color var(--default-animation-delay) ease;
+}
+#modal-trigger:hover {
+    background-color: var(--secondary-30);
+}
+
+#modal-trigger svg {
+    width: 26px;
+}
+
+
+.panel {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+h4 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+
+.controls {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.controls button {
+    color: var(--background-50);
+    padding: 10px 22px;
+    border-radius: 10px;
+    background-color: var(--accent-300);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.controls button:hover {
+    background-color: var(--accent-400);
+}
+.controls button:disabled {
+    background-color: var(--accent-300);
+}
+
+.controls button.secondary {
+    background-color: var(--primary-300);
+}
+.controls button.secondary:hover {
+    background-color: var(--primary-400);
+}
+
+.controls button.serious {
+    background-color: var(--danger-300);
+}
+.controls button.serious:hover {
+    background-color: var(--danger-400);
+}

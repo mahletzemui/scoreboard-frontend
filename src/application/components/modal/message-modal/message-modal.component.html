@@ -1,0 +1,12 @@
+<app-modal (closed)="close()">
+    <div class="panel">
+        <h4>{{ model().title }}</h4>
+        <span class="error-text general">{{ model().error }}</span>
+        <p [innerHTML]="model().notice"></p>
+        <div class="controls">
+            @for (item of model().actions; track item; let i = $index) {
+            <button [class.secondary]="!item.value" (click)="item.value ? submitted.emit() : close()">{{ item.label }}</button>
+            }
+        </div>
+    </div>
+</app-modal>

@@ -19,7 +19,7 @@ export class BannerComponent {
     private service = inject(NoticeService);
 
     notice = this.service.bannerNotice;
-    active = computed(() => this.service.bannerNotice() !== '');
+    activated = computed(() => this.service.bannerNotice() !== '');
 
     // Methods --------------------------------------------------------------------
 

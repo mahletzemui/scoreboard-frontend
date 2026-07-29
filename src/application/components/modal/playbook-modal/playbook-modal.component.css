@@ -1,0 +1,25 @@
+hr {
+    width: 100%;
+    border-top: 2px solid var(--accent-500);
+}
+
+h5 {
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-600);
+}
+
+::ng-deep .details b {
+    font-weight: 600;
+}
+
+::ng-deep .details li {
+    line-height: 1.7;
+    margin: 10px;
+}
+
+::ng-deep .details li ul {
+    margin-left: 10px;
+}

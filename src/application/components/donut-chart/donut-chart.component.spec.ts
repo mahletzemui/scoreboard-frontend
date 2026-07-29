@@ -40,12 +40,12 @@ describe('DonutChartComponent', () => {
     it('should create component', () =>
     {
         expect(component).toBeTruthy();
-        expect(component.displayed().length).toBe(3);
+        expect(component.slices().length).toBe(3);
         expect(component.selected()).toBeUndefined();
 
         let angle = 0;
         let percentage = 0;
-        component.displayed().forEach(item => {
+        component.slices().forEach(item => {
             expect(item.path).toBeTruthy();
             angle += item.angle.end - item.angle.start;
             percentage += item.percentage.value;
@@ -96,10 +96,10 @@ describe('DonutChartComponent', () => {
     {
         fixture.componentRef.setInput('data', [ToolBox.createPartialSlice('Apple', 10, 'red')]);
         fixture.detectChanges();
-        expect(component.displayed().length).toBe(1);
-        expect(component.displayed()[0].path).toBeTruthy();
-        expect(component.displayed()[0].angle.end - component.displayed()[0].angle.start).toBe(360);
-        expect(component.displayed()[0].percentage.value).toBe(100);
+        expect(component.slices().length).toBe(1);
+        expect(component.slices()[0].path).toBeTruthy();
+        expect(component.slices()[0].angle.end - component.slices()[0].angle.start).toBe(360);
+        expect(component.slices()[0].percentage.value).toBe(100);
 
         expect(dom.querySelectorAll('.chart path').length).toBe(1);
         const labels = dom.querySelectorAll('.chart text');

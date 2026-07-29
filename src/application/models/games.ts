@@ -36,3 +36,14 @@ export interface Player
     points: number,
     summaries: string[]
 }
+
+
+/**
+ * Represents domino round models.
+ */
+export interface DominoRound
+{
+    gain: number,
+    total: number,
+    special: boolean
+}

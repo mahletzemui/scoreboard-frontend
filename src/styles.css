@@ -194,6 +194,23 @@ body {
 }
 
 
+h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 4.210rem;
+}
+
+h2 {
+    font-size: 3.158rem;
+}
+
+h3 {
+    font-size: 2.369rem;
+}
+
 /* h1, h2, h3, h4 {
     line-height: 1.5;
 }
@@ -225,8 +242,22 @@ h5 {
 } */
 
 p {
-    line-height: 2;
     font-size: 1rem;
+    line-height: 2;
+}
+
+.error-text {
+    color: var(--danger);
+}
+.error-text.general {
+    font-size: 0.85rem;
+    text-align: center;
+}
+.error-text.input {
+    display: block;
+    font-size: 0.8rem;
+    text-align: start;
+    margin: 5px 0 0 3px;
 }
 
 svg {
@@ -234,18 +265,6 @@ svg {
     width: 100%;
     height: auto;
     fill: var(--text);
-}
-
-button {
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    border: none;
-    outline: none;
-    background-color: transparent;
-}
-button:disabled {
-    cursor: default;
 }
 
 input {
@@ -260,11 +279,27 @@ input:-webkit-autofill {
     cursor: default;
 } */
 
+button {
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+button:disabled {
+    cursor: default;
+}
+
 /* ------------------------------- Components ---------------------------------- */
 
 /* router-outlet + * {
     width: 100%;
 } */
+
+app-dropdown {
+    min-width: 110px;
+}
 
 app-dropdown.small .caption.float {
     top: -10px;
@@ -279,6 +314,163 @@ app-dropdown.small .value {
 
 app-finder, app-paginator {
     min-width: 350px;
+}
+
+/* ---------------------------------- Forms ------------------------------------ */
+
+.form .field {
+    position: relative;
+    margin: 5px 0;
+}
+
+.form .field label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-500);
+    margin-bottom: 8px;
+}
+
+.form .field input {
+    font-size: 0.9rem;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1.5px solid var(--primary-200);
+    transition: border-color var(--default-animation-delay) ease;
+}
+.form .field input:focus {
+    border-color: var(--accent-400);
+}
+
+.form .field .icon {
+    position: absolute;
+    right: 6px;
+    padding: 6px;
+    border-radius: 50%;
+    background-color: var(--primary-30);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.form .field .icon:hover {
+    background-color: var(--primary-400);
+}
+
+.form .field .icon svg {
+    width: 18px;
+}
+
+.form button {
+    color: var(--background-50);
+    width: fit-content;
+    align-self: center;
+    padding: 10px 22px;
+    border-radius: 10px;
+    background-color: var(--accent-300);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.form button:hover {
+    background-color: var(--accent-400);
+}
+
+
+.toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.toggle h5 {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-500);
+}
+
+.toggle label {
+    cursor: pointer;
+    position: relative;
+    width: 45px;
+    height: 25px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle .track {
+    position: absolute;
+    inset: 0;
+    border-radius: 100px;
+    background-color: var(--primary-200);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.toggle input:checked + .track {
+    background-color: var(--accent-400);
+}
+
+.toggle .bulb {
+    position: absolute;
+    top: 2.5px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--background-50);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: transform var(--default-animation-delay) ease;
+}
+.toggle input:checked + .track .bulb {
+    transform: translateX(20px);
+}
+
+
+.criteria h5 {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-500);
+    margin-bottom: 8px;
+}
+
+.criteria.column div {
+    gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 15px;
+}
+
+.criteria label {
+    cursor: pointer;
+    position: relative;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.criteria input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.criteria .checkmark {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1.5px solid var(--primary-200);
+    transition: background-color var(--default-animation-delay) ease,
+                border-color var(--default-animation-delay) ease;
+}
+.criteria input[type="radio"] + .checkmark {
+    border-radius: 50%;
+}
+.criteria input:checked + .checkmark {
+    border-color: var(--accent-400);
+    background-color: var(--accent-400);
 }
 
 /* ---------------------------------- Icons ------------------------------------ */
