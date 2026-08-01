@@ -25,7 +25,6 @@ export interface Register
     pin: string
 }
 
-
 /**
  * Represents identity models.
  */
@@ -33,6 +32,7 @@ export interface Identity
 {
     username: string
 }
+
 
 /**
  * Represents password models.

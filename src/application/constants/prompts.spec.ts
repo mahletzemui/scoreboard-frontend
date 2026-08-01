@@ -1,4 +1,4 @@
-import { createConfirmationMessage, createForgotPasswordForm, createLoginForm, createRegisterForm, createSessionMessage, createUpdatePasswordForm, createUpdatePinForm, createUpdateProfileForm, createVerifyPlayerForm, CUSTOM_MESSAGE, FORM_STORE, IDENTITY_FIELDS, LOGIN_FIELDS, MESSAGE_STORE, PASSWORD_FIELDS, PIN_FIELDS, PROFILE_FIELDS, REGISTER_FIELDS, VERIFY_FIELDS } from './prompts';
+import { createConfirmationMessage, createForgotPasswordForm, createLoginForm, createRegisterForm, createSessionMessage, createUpdatePasswordForm, createUpdatePinForm, createUpdateProfileForm, createVerifyPlayerForm, FORM_STORE, IDENTITY_FIELDS, LOGIN_FIELDS, PASSWORD_FIELDS, PIN_FIELDS, PROFILE_FIELDS, REGISTER_FIELDS, VERIFY_FIELDS } from './prompts';
 
 
 /**
@@ -19,10 +19,9 @@ describe('Prompt Constants', () => {
 
     it('should create a confirmation message', () =>
     {
-        CUSTOM_MESSAGE.value = "You're about to log out — you'll need your credentials to sign back in.";
         expect(createConfirmationMessage()).toEqual({
             title: 'Are You Sure?',
-            notice: "You're about to log out — you'll need your credentials to sign back in.",
+            notice: '',
             actions: [
                 { label: 'Yes', value: true },
                 { label: 'No', value: false }
@@ -88,8 +87,8 @@ describe('Prompt Constants', () => {
         expect(form.fields).toEqual(IDENTITY_FIELDS);
         expect(form.fields).not.toBe(IDENTITY_FIELDS);
 
-        form.intake.get('identity')?.setValue('john@doe');
-        expect(form.intake.get('identity')?.invalid).toBe(true);
+        form.intake.get('username')?.setValue('john@doe');
+        expect(form.intake.get('username')?.invalid).toBe(true);
     });
 
 
@@ -162,20 +161,11 @@ describe('Prompt Constants', () => {
     });
 
 
-    describe('Stores', () => {
-        it('should map messages by name', () =>
-        {
-            expect(MESSAGE_STORE['session']()).toEqual(createSessionMessage());
-            expect(MESSAGE_STORE['confirm']()).toEqual(createConfirmationMessage());
-        });
-
-        it('should map forms by name', () =>
-        {
-            expect(FORM_STORE['forgotPassword']().title).toEqual('Request Password Reset');
-            expect(FORM_STORE['updateProfile']().title).toEqual('Update Profile');
-            expect(FORM_STORE['updatePassword']().title).toEqual('Update Password');
-            expect(FORM_STORE['updatePin']().title).toEqual('Update Pin');
-            expect(FORM_STORE['verifyPlayer']().title).toEqual('Verify Player');
-        });
+    it('should map modal forms by name', () =>
+    {
+        expect(FORM_STORE['updateProfile']().title).toEqual('Update Profile');
+        expect(FORM_STORE['updatePassword']().title).toEqual('Update Password');
+        expect(FORM_STORE['updatePin']().title).toEqual('Update Pin');
+        expect(FORM_STORE['verifyPlayer']().title).toEqual('Verify Player');
     });
 });

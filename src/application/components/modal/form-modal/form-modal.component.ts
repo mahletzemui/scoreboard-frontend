@@ -22,7 +22,7 @@ import { FormFieldComponent } from '../../form-field/form-field.component';
 export class FormModalComponent {
     // Fields ---------------------------------------------------------------------
     type = input.required<string>();
-    updates = input<string>();
+    updates = input<string>('');
 
     model = computed<Form|undefined>(() => this.loadForm(this.type()));
 
@@ -71,14 +71,14 @@ export class FormModalComponent {
     /**
      * Loads the form.
      *
-     * @param type - Type of form to load.
+     * @param name - Name of form to load.
      *
      * @return the corresponding form.
      */
-    private loadForm(type: string): Form|undefined
+    private loadForm(name: string): Form|undefined
     {
-        if (type in FORM_STORE) {
-            const model = FORM_STORE[type]();
+        if (name in FORM_STORE) {
+            const model = FORM_STORE[name]();
             model.error = undefined;
             model.fields.forEach(item => item.error = undefined);
             return model;

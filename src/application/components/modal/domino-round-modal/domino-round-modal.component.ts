@@ -19,9 +19,10 @@ import { ModalComponent } from '../modal.component';
 })
 export class DominoRoundModalComponent {
     // Fields ---------------------------------------------------------------------
-    data = input<DominoRound[]>();
     index = input.required<number>();
     players = input.required<string[]>();
+
+    data = input<DominoRound[]>();
 
     private earnedSignal = signal(0);
     readonly earned = this.earnedSignal.asReadonly();
@@ -75,7 +76,7 @@ export class DominoRoundModalComponent {
     // Methods --------------------------------------------------------------------
 
     /**
-     * Toggles the double zero win type.
+     * Toggles the win type.
      */
     toggleWinType(): void
     {
@@ -86,9 +87,9 @@ export class DominoRoundModalComponent {
     }
 
     /**
-     * Updates the number of points.
+     * Updates the number of points as needed.
      *
-     * @param event - Input to update to.
+     * @param event - Event with input to update to.
      */
     updatePoints(event: Event): void
     {
@@ -100,7 +101,7 @@ export class DominoRoundModalComponent {
     /**
      * Toggles the winning player.
      *
-     * @param index - Index of winner.
+     * @param index - Index of winner to toggle.
      */
     toggleWinner(index: number): void
     {

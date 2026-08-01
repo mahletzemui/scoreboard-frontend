@@ -33,7 +33,7 @@ describe('FormValidator', () => {
         {
             form.get('name')?.setValue('John');
             expect(form.get('name')?.valid).toBe(true);
-            expect(FormValidator.retrieveErrorMessage('name', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('name', form)).toBeFalsy();
             expect(console.error).not.toHaveBeenCalled();
         });
 
@@ -82,7 +82,7 @@ describe('FormValidator', () => {
         {
             form.get('username')?.setValue('johndoe');
             expect(form.get('username')?.valid).toBe(true);
-            expect(FormValidator.retrieveErrorMessage('username', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('username', form)).toBeFalsy();
             expect(console.error).not.toHaveBeenCalled();
         });
 
@@ -90,7 +90,7 @@ describe('FormValidator', () => {
         {
             form.get('username')?.setValue('john_doe.the-first');
             expect(form.get('username')?.valid).toBe(true);
-            expect(FormValidator.retrieveErrorMessage('username', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('username', form)).toBeFalsy();
             expect(console.error).not.toHaveBeenCalled();
         });
 
@@ -139,7 +139,7 @@ describe('FormValidator', () => {
         {
             form.get('email')?.setValue('johndoe@email.com');
             expect(form.get('email')?.valid).toBe(true);
-            expect(FormValidator.retrieveErrorMessage('email', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('email', form)).toBeFalsy();
             expect(console.error).not.toHaveBeenCalled();
         });
 
@@ -147,7 +147,7 @@ describe('FormValidator', () => {
         {
             form.get('email')?.setValue('johndoe@email');
             expect(form.get('email')?.valid).toBe(true);
-            expect(FormValidator.retrieveErrorMessage('email', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('email', form)).toBeFalsy();
             expect(console.error).not.toHaveBeenCalled();
         });
 
@@ -204,7 +204,7 @@ describe('FormValidator', () => {
         {
             form.get('password')?.setValue('j123456!');
             expect(form.get('password')?.valid).toBe(true);
-            expect(FormValidator.retrieveErrorMessage('password', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('password', form)).toBeFalsy();
             expect(console.error).not.toHaveBeenCalled();
         });
 
@@ -261,7 +261,7 @@ describe('FormValidator', () => {
         {
             form.get('pin')?.setValue('1234');
             expect(form.get('pin')?.valid).toBe(true);
-            expect(FormValidator.retrieveErrorMessage('pin', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('pin', form)).toBeFalsy();
             expect(console.error).not.toHaveBeenCalled();
         });
 
@@ -305,7 +305,7 @@ describe('FormValidator', () => {
                                  { validators: [FormValidator.match('actual', 'expected')] });
             expect(form.hasError('match')).toBe(false);
             expect(form.get('actual')?.hasError('match')).toBe(false);
-            expect(FormValidator.retrieveErrorMessage('actual', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('actual', form)).toBeFalsy();
             expect(console.error).not.toHaveBeenCalled();
         });
 
@@ -349,7 +349,7 @@ describe('FormValidator', () => {
 
         it('should warn for unknown fields and return default value', () =>
         {
-            expect(FormValidator.retrieveErrorMessage('unknown', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('unknown', form)).toBeFalsy();
             expect(console.error).toHaveBeenCalledTimes(1);
             expect(console.error).toHaveBeenCalledWith("Helper: Field 'unknown' does not exist in form.");
         });
@@ -357,7 +357,7 @@ describe('FormValidator', () => {
         it('should warn for unknown errors and return default value', () =>
         {
             form.get('field')?.setErrors({ unknown: true });
-            expect(FormValidator.retrieveErrorMessage('field', form)).toBeUndefined();
+            expect(FormValidator.retrieveErrorMessage('field', form)).toBeFalsy();
             expect(console.error).toHaveBeenCalledTimes(1);
             expect(console.error).toHaveBeenCalledWith(`Helper: Field 'field' in form has an unrecognized error: '{"unknown":true}'.`);
         });

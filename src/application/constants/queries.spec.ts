@@ -1,4 +1,4 @@
-import { createAccountSelector, createGameFilter, createGameSelector, createLabelSelector, DROPDOWN_STORE, FILTER_STORE } from './queries';
+import { createAccountSelector, createGameFilter, createGameSelector, createGameLabelSelector } from './queries';
 
 
 /**
@@ -36,7 +36,8 @@ describe('Queries Constants', () => {
     describe('Label Selector', () => {
         it('should create known games', () =>
         {
-            expect(createLabelSelector('connect4')).toEqual({
+            // for connect4 games
+            expect(createGameLabelSelector('connect4')).toEqual({
                 heading: '',
                 options: [
                     { name: '', label: 'None', active: false },
@@ -45,7 +46,8 @@ describe('Queries Constants', () => {
                 ]
             });
 
-            expect(createLabelSelector('conquer')).toEqual({
+            // for conquer games
+            expect(createGameLabelSelector('conquer')).toEqual({
                 heading: '',
                 options: [
                     { name: '', label: 'None', active: false },
@@ -56,7 +58,8 @@ describe('Queries Constants', () => {
                 ]
             });
 
-            expect(createLabelSelector('domino')).toEqual({
+            // for domino games
+            expect(createGameLabelSelector('domino')).toEqual({
                 heading: '',
                 options: [
                     { name: '', label: 'None', active: false },
@@ -68,7 +71,7 @@ describe('Queries Constants', () => {
 
         it('should return a default value for unrecognized games', () =>
         {
-            expect(createLabelSelector('test')).toEqual({ heading: '', options: [] });
+            expect(createGameLabelSelector('test')).toEqual({ heading: '', options: [] });
         });
     });
 
@@ -76,6 +79,7 @@ describe('Queries Constants', () => {
     describe('Game Filter', () => {
         it('should create filters for known games', () =>
         {
+            // for connect4 games
             expect(createGameFilter('connect4')).toEqual([
                 {
                     heading: 'Status',
@@ -105,6 +109,7 @@ describe('Queries Constants', () => {
                 }
             ]);
 
+            // for conquer games
             expect(createGameFilter('conquer')).toEqual([
                 {
                     heading: 'Status',
@@ -136,6 +141,7 @@ describe('Queries Constants', () => {
                 }
             ]);
 
+            // for domino games
             expect(createGameFilter('domino')).toEqual([
                 {
                     heading: 'Status',
@@ -169,25 +175,6 @@ describe('Queries Constants', () => {
         it('should return a default value for unrecognized games', () =>
         {
             expect(createGameFilter('test')).toEqual([]);
-        });
-    });
-
-
-    describe('Stores', () => {
-        it('should map dropdowns by name', () =>
-        {
-            expect(DROPDOWN_STORE['gameMenu']()).toEqual(createGameSelector());
-            expect(DROPDOWN_STORE['accountMenu']()).toEqual(createAccountSelector());
-            expect(DROPDOWN_STORE['connect4']()).toEqual(createLabelSelector('connect4'));
-            expect(DROPDOWN_STORE['conquer']()).toEqual(createLabelSelector('conquer'));
-            expect(DROPDOWN_STORE['domino']()).toEqual(createLabelSelector('domino'));
-        });
-
-        it('should map filters by name', () =>
-        {
-            expect(FILTER_STORE['connect4']()).toEqual(createGameFilter('connect4'));
-            expect(FILTER_STORE['conquer']()).toEqual(createGameFilter('conquer'));
-            expect(FILTER_STORE['domino']()).toEqual(createGameFilter('domino'));
         });
     });
 });

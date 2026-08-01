@@ -55,7 +55,7 @@ export class AccountService {
     /**
      * Initiates an update profile request with the server.
      * 
-     * @param detail - New profile information.
+     * @param detail - New profile information to update to.
      * 
      * @return an http response observable with the server's updated session.
      */
@@ -66,7 +66,7 @@ export class AccountService {
     /**
      * Initiates an update password request with the server.
      * 
-     * @param detail - New password information.
+     * @param detail - New password information to update to.
      * 
      * @return an http response observable with the server's response.
      */
@@ -77,7 +77,7 @@ export class AccountService {
     /**
      * Initiates an update pin request with the server.
      * 
-     * @param detail - New pin information.
+     * @param detail - New pin information to update to.
      * 
      * @return an http response observable with the server's response.
      */

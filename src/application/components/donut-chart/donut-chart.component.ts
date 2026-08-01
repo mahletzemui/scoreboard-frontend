@@ -31,7 +31,7 @@ export class DonutChartComponent {
     /**
      * Builds the chart's slices.
      *
-     * @return the corresponding displayed slices.
+     * @return the corresponding slices.
      */
     private buildChart(): Slice[]
     {

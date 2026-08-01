@@ -1,4 +1,4 @@
-<div class="field">
+<div class="wrapper">
     <label [attr.for]="prefix() + field().name">{{ field().label }}</label>
     <input [attr.id]="prefix() + field().name" [attr.type]="field().type ?? (field().visible ? 'text' : 'password')"
         (input)="updateField($event)" (blur)="validateField()"

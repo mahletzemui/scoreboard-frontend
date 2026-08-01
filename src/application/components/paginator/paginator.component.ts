@@ -80,7 +80,7 @@ export class PaginatorComponent implements OnInit {
     /**
      * Updates the size.
      *
-     * @param event - Size to update to.
+     * @param event - Event with size to update to.
      */
     onResize(event: string[]): void
     {

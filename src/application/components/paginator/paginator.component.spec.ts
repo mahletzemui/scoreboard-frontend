@@ -22,6 +22,7 @@ describe('PaginatorComponent', () => {
         await TestBed.configureTestingModule({ imports: [PaginatorComponent] }).compileComponents();
         fixture = TestBed.createComponent(PaginatorComponent);
         component = fixture.componentInstance;
+
         fixture.componentRef.setInput('total', 5);
         fixture.componentRef.setInput('options', ['3', '6', '9']);
 
@@ -79,11 +80,11 @@ describe('PaginatorComponent', () => {
     it('should move the page forward and backward', () =>
     {
         // when there's no previous page
-        TestFactory.movePage(dom, fixture, false);
+        TestFactory.changePage(dom, fixture, false);
         expect(component.paged.emit).not.toHaveBeenCalled();
 
         // when there's a next page
-        TestFactory.movePage(dom, fixture, true);
+        TestFactory.changePage(dom, fixture, true);
         expect(component.paged.emit).toHaveBeenCalledTimes(1);
         expect(component.paged.emit).toHaveBeenCalledWith({ size: 3, index: 1 });
         expect(component.index()).toBe(1);
@@ -96,11 +97,11 @@ describe('PaginatorComponent', () => {
         expect(buttons[1].disabled).toBe(true);
 
         // when there's no next page
-        TestFactory.movePage(dom, fixture, true);
+        TestFactory.changePage(dom, fixture, true);
         expect(component.paged.emit).toHaveBeenCalledTimes(1);
 
         // when there's a previous page
-        TestFactory.movePage(dom, fixture, false);
+        TestFactory.changePage(dom, fixture, false);
         expect(component.paged.emit).toHaveBeenCalledTimes(2);
         expect(component.paged.emit).toHaveBeenCalledWith({ size: 3, index: 0 });
         expect(component.index()).toBe(0);
@@ -116,7 +117,7 @@ describe('PaginatorComponent', () => {
 
     it('should reset the index when the total changes', () =>
     {
-        TestFactory.movePage(dom, fixture, true);
+        TestFactory.changePage(dom, fixture, true);
         expect(dom.querySelectorAll('.control')[1].querySelector('span')?.textContent).toBe('4 - 5 of 5');
 
         fixture.componentRef.setInput('total', 0);

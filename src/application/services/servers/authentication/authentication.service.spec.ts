@@ -20,7 +20,7 @@ describe('AuthenticationService', () => {
 
     beforeEach(() =>
     {
-        TestBed.configureTestingModule({ providers: [ provideHttpClient(), provideHttpClientTesting() ] });
+        TestBed.configureTestingModule({ providers: [provideHttpClient(), provideHttpClientTesting()] });
         service = TestBed.inject(AuthenticationService);
         mockHttpClient = TestBed.inject(HttpTestingController);
     });
@@ -83,13 +83,11 @@ describe('AuthenticationService', () => {
             const response = await result;
             expect(response?.status).toBe(200);
             expect(response?.body).toEqual(mockResponse);
-
             expect(service.preferredName()).toBe('John');
-
+            expect(console.error).not.toHaveBeenCalled();
             expect(localStorage.setItem).toHaveBeenCalledTimes(2);
             expect(localStorage.setItem).toHaveBeenCalledWith('name', 'John');
             expect(localStorage.setItem).toHaveBeenCalledWith('username', 'johndoe');
-            expect(console.error).not.toHaveBeenCalled();
         });
 
 
@@ -106,13 +104,11 @@ describe('AuthenticationService', () => {
             const response = await result;
             expect(response?.status).toBe(200);
             expect(response?.body).toBeFalsy();
-
             expect(service.preferredName()).toBe('');
-
+            expect(console.error).toHaveBeenCalledTimes(1);
             expect(localStorage.setItem).toHaveBeenCalledTimes(2);
             expect(localStorage.setItem).toHaveBeenCalledWith('name', '');
             expect(localStorage.setItem).toHaveBeenCalledWith('username', '');
-            expect(console.error).toHaveBeenCalledTimes(1);
         });
 
 
@@ -128,13 +124,11 @@ describe('AuthenticationService', () => {
 
             const response = await result;
             expect(response).toBeFalsy();
-
             expect(service.preferredName()).toBe('');
-
+            expect(console.error).not.toHaveBeenCalled();
             expect(localStorage.setItem).toHaveBeenCalledTimes(2);
             expect(localStorage.setItem).toHaveBeenCalledWith('name', '');
             expect(localStorage.setItem).toHaveBeenCalledWith('username', '');
-            expect(console.error).not.toHaveBeenCalled();
         });
 
         
@@ -150,13 +144,11 @@ describe('AuthenticationService', () => {
 
             const response = await result;
             expect(response).toBeFalsy();
-
             expect(service.preferredName()).toBe('');
-
+            expect(console.error).toHaveBeenCalledTimes(1);
             expect(localStorage.setItem).toHaveBeenCalledTimes(2);
             expect(localStorage.setItem).toHaveBeenCalledWith('name', '');
             expect(localStorage.setItem).toHaveBeenCalledWith('username', '');
-            expect(console.error).toHaveBeenCalledTimes(1);
         });
     });
 

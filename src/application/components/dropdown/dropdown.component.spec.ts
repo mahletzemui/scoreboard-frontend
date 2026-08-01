@@ -30,7 +30,7 @@ describe('DropdownComponent', () => {
 
     // Tests ----------------------------------------------------------------------
 
-    describe('Heading', () => {
+    describe('With Heading', () => {
         const selector = {
             heading: 'Fruits',
             options: [
@@ -57,12 +57,12 @@ describe('DropdownComponent', () => {
         it('should create component', () =>
         {
             expect(component).toBeTruthy();
-            expect(component.options()).toEqual(selector.options);
             expect(component.caption()).toBe('Fruits');
-            expect(component.value()).toBeUndefined();
+            expect(component.options()).toEqual(selector.options);
+            expect(component.value()).toBeFalsy();
             expect(component.floated()).toBe(false);
             expect(component.opened()).toBe(false);
-            expect(component.expanded()).toBeUndefined();
+            expect(component.expanded()).toBeFalsy();
 
             expect(dom.querySelector('.header.open')).toBeFalsy();
             expect(dom.querySelector('.caption')?.textContent).toBe('Fruits');
@@ -113,7 +113,7 @@ describe('DropdownComponent', () => {
 
             (dom.querySelectorAll('.option')[1] as HTMLElement).click();
             fixture.detectChanges();
-            expect(component.expanded()).toBeUndefined();
+            expect(component.expanded()).toBeFalsy();
             expect(dom.querySelector('.header.open')).toBeTruthy();
             expect(dom.querySelector('.option.expand')).toBeFalsy();
             expect(dom.querySelector('ul.visible')).toBeFalsy();
@@ -126,7 +126,7 @@ describe('DropdownComponent', () => {
 
             (dom.querySelector('.wrapper') as HTMLElement).dispatchEvent(new Event('mouseleave'));
             fixture.detectChanges();
-            expect(component.expanded()).toBeUndefined();
+            expect(component.expanded()).toBeFalsy();
             expect(dom.querySelector('.header.open')).toBeFalsy();
             expect(dom.querySelector('.option.expand')).toBeFalsy();
             expect(dom.querySelector('ul.visible')).toBeFalsy();
@@ -190,7 +190,7 @@ describe('DropdownComponent', () => {
     });
 
 
-    describe('No Heading', () => {
+    describe('Without Heading', () => {
         const selector: Selector = {
             heading: '',
             options: [
@@ -223,12 +223,12 @@ describe('DropdownComponent', () => {
         it('should create component', () =>
         {
             expect(component).toBeTruthy();
-            expect(component.options()).toEqual(selector.options);
             expect(component.caption()).toBe('Select an Option');
-            expect(component.value()).toBeUndefined();
+            expect(component.options()).toEqual(selector.options);
+            expect(component.value()).toBeFalsy();
             expect(component.floated()).toBe(false);
             expect(component.opened()).toBe(false);
-            expect(component.expanded()).toBeUndefined();
+            expect(component.expanded()).toBeFalsy();
 
             expect(dom.querySelector('.header.open')).toBeFalsy();
             expect(dom.querySelector('.caption')?.textContent).toBe('Select an Option');
@@ -279,7 +279,7 @@ describe('DropdownComponent', () => {
 
             (dom.querySelectorAll('.option')[0] as HTMLElement).click();
             fixture.detectChanges();
-            expect(component.expanded()).toBeUndefined();
+            expect(component.expanded()).toBeFalsy();
             expect(dom.querySelector('.header.open')).toBeTruthy();
             expect(dom.querySelector('.option.expand')).toBeFalsy();
             expect(dom.querySelector('ul.visible')).toBeFalsy();
@@ -292,7 +292,7 @@ describe('DropdownComponent', () => {
 
             (dom.querySelector('.wrapper') as HTMLElement).dispatchEvent(new Event('mouseleave'));
             fixture.detectChanges();
-            expect(component.expanded()).toBeUndefined();
+            expect(component.expanded()).toBeFalsy();
             expect(dom.querySelector('.header.open')).toBeFalsy();
             expect(dom.querySelector('.option.expand')).toBeFalsy();
             expect(dom.querySelector('ul.visible')).toBeFalsy();

@@ -80,6 +80,7 @@
 }
 .icon svg {
     width: 22px;
+    fill-opacity: 1;
     fill: var(--text-500);
     transition: fill var(--default-animation-delay) ease;
 }
@@ -184,13 +185,13 @@
     color: var(--text-500);
 }
 
-.clear {
+.popover > button {
     align-self: flex-end;
     font-size: 0.85rem;
     color: var(--text-500);
     text-decoration: underline;
     text-underline-offset: 2px;
 }
-.clear:hover {
+.popover > button:hover {
     color: var(--danger);
 }

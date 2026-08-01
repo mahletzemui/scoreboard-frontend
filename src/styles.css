@@ -211,40 +211,11 @@ h3 {
     font-size: 2.369rem;
 }
 
-/* h1, h2, h3, h4 {
-    line-height: 1.5;
-}
-
-h1, h2, h3 {
-    font-weight: 700;
-}
-
-h1 {
-    font-size: 4.210rem;
-}
-
-h2 {
-    font-size: 3.158rem;
-}
-
-h3 {
-    font-size: 2.369rem;
-}
-
-h4 {
-    font-size: 1.777rem;
-}
-
-h5 {
-    line-height: 2;
-    font-weight: 500;
-    font-size: 1.1rem;
-} */
-
 p {
     font-size: 1rem;
     line-height: 2;
 }
+
 
 .error-text {
     color: var(--danger);
@@ -260,12 +231,33 @@ p {
     margin: 5px 0 0 3px;
 }
 
+
+.icon {
+    border-radius: 100px;
+}
+.icon:disabled {
+    background-color: transparent !important;
+}
+
+.badge, .badge svg {
+    cursor: default;
+}
+
 svg {
     cursor: pointer;
+    display: block;
     width: 100%;
     height: auto;
-    fill: var(--text);
+    fill-opacity: 0.8;
 }
+.icon svg:hover, .badge svg {
+    fill-opacity: 1;
+}
+.icon:disabled svg {
+    cursor: default;
+    fill-opacity: 0.4;
+}
+
 
 input {
     border: none;
@@ -275,9 +267,10 @@ input {
 input:-webkit-autofill {
     transition: background-color 5000s ease-in-out 0s !important;
 }
-/* input:disabled {
+input:disabled {
     cursor: default;
-} */
+}
+
 
 button {
     cursor: pointer;
@@ -360,12 +353,11 @@ app-finder, app-paginator {
     width: 100%;
 }
 
-.frame .field {
-    text-align: left;
+/* ------------------------------- Miscellaneous -------------------------------- */
+
+.form h3 {
+    color: var(--accent-500);
 }
-
-/* ---------------------------------- Forms ------------------------------------ */
-
 
 .form button {
     color: var(--background-50);
@@ -490,31 +482,4 @@ app-finder, app-paginator {
 .criteria input:checked + .checkmark {
     border-color: var(--accent-400);
     background-color: var(--accent-400);
-}
-
-/* ---------------------------------- Icons ------------------------------------ */
-
-.icon {
-    border-radius: 100px;
-}
-.icon:disabled {
-    background-color: transparent !important;
-}
-
-.icon svg {
-    max-width: 30px;
-    display: block;
-    fill-opacity: 0.8;
-    transition: fill-opacity var(--default-animation-delay) ease;
-}
-.icon:hover svg {
-    fill-opacity: 1;
-}
-.icon:disabled svg {
-    cursor: default;
-    fill-opacity: 0.4;
-}
-
-.badge {
-    cursor: default;
 }

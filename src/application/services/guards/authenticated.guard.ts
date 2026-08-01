@@ -7,11 +7,11 @@ import { AuthenticationService } from '../servers/authentication/authentication.
 
 
 /**
- * Manages the application's access to routes based on authentication.
+ * Manages the application's access to authenticated routes.
  *
  * @return true if accessible, else false.
  */
-export const authenticationGuard: CanActivateFn = () =>
+export const authenticatedGuard: CanActivateFn = () =>
 {
     const server = inject(AuthenticationService);
     if (server.synchronizeSession()) {

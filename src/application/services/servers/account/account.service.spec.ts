@@ -24,7 +24,7 @@ describe('AccountService', () => {
 
     beforeEach(() =>
     {
-        TestBed.configureTestingModule({ providers: [ AuthenticationService, provideHttpClient(), provideHttpClientTesting() ] });
+        TestBed.configureTestingModule({ providers: [AuthenticationService, provideHttpClient(), provideHttpClientTesting()] });
         service = TestBed.inject(AccountService);
         authenticationService = TestBed.inject(AuthenticationService);
         mockHttpClient = TestBed.inject(HttpTestingController);

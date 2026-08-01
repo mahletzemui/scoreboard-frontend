@@ -14,7 +14,7 @@ import { AuthenticationService, LoaderService } from '../../services';
 
 
 /**
- * Represents the application's combined login/registration page.
+ * Represents the application's access page.
  */
 @Component({
     selector: 'app-access',
@@ -55,7 +55,7 @@ export class AccessComponent extends BaseLayout {
      *
      * @param view - View to switch to.
      */
-    switchTo(view: 'login'|'register'): void
+    switchView(view: 'login'|'register'): void
     {
         this.transitioning.set(true);
         this.view.set(view);

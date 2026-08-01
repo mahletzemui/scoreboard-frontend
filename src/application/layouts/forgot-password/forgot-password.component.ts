@@ -60,9 +60,9 @@ export class ForgotPasswordComponent extends BaseLayout {
 
         const model = this.model();
         if (model.intake.valid) {
-            const { identity } = model.intake.value;
+            const { username } = model.intake.value;
 
-            this.server.forgotPassword({ username: identity }).subscribe({
+            this.server.forgotPassword({ username }).subscribe({
                 next: () => {
                     this.submitted.set(true);
                 },

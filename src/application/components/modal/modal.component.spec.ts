@@ -59,7 +59,7 @@ describe('ModalComponent', () => {
     });
 
 
-    it('should lock body scroll while open, and restore once destroyed', () =>
+    it('should restore body scroll on destruction', () =>
     {
         fixture.destroy();
         expect(document.body.style.overflow).toBe('visible');

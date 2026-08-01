@@ -5,6 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 
 import { ForgotPasswordComponent } from './forgot-password.component';
+import { TestFactory } from '../../utils/test-factory';
 
 import { AuthenticationService, LoaderService } from '../../services';
 
@@ -29,6 +30,7 @@ describe('ForgotPasswordComponent', () => {
         await TestBed.configureTestingModule({ imports: [ForgotPasswordComponent] }).compileComponents();
         routerSpy = TestBed.inject(Router);
         serverSpy = TestBed.inject(AuthenticationService);
+
         fixture = TestBed.createComponent(ForgotPasswordComponent);
         component = fixture.componentInstance;
 
@@ -48,7 +50,8 @@ describe('ForgotPasswordComponent', () => {
         expect(component.submitted()).toBe(false);
         expect(dom.querySelector('h4')?.textContent).toBe('Forgot your password?');
         expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
-        expect(dom.querySelectorAll('.field').length).toBe(1);
+        expect(dom.querySelectorAll('.form .wrapper').length).toBe(1);
+        expect(dom.querySelector('.error-text.input')?.textContent).toBeFalsy();
         expect(dom.querySelector('.message')).toBeFalsy();
     });
 
@@ -61,7 +64,6 @@ describe('ForgotPasswordComponent', () => {
 
         fixture.detectChanges();
         expect(loaderSpy.setLoadedContent).not.toHaveBeenCalled();
-
         await vi.advanceTimersByTimeAsync(1000);
         expect(loaderSpy.setLoadedContent).toHaveBeenCalledWith(true);
 
@@ -69,7 +71,18 @@ describe('ForgotPasswordComponent', () => {
     });
 
 
-    it('should navigate to login when changing your mind', () =>
+    it('should update but not validate fields', () =>
+    {
+        fixture.detectChanges();
+        TestFactory.fillForm(dom.querySelector('.form')!, fixture, { 'username': '$' });
+        expect(component.model().intake.get('username')?.value).toBe('$');
+        expect(component.model().fields[0].error).toBeFalsy();
+        expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
+        expect(dom.querySelector('.error-text.input')?.textContent).toBeFalsy();
+    });
+
+
+    it('should navigate to the login page', () =>
     {
         fixture.detectChanges();
         (dom.querySelector('.form a') as HTMLElement).click();
@@ -77,7 +90,23 @@ describe('ForgotPasswordComponent', () => {
     });
 
 
-    it('should show an error when submitting an invalid form', () =>
+    it('should show the success message on successful requests', () =>
+    {
+        fixture.detectChanges();
+        vi.spyOn(serverSpy, 'forgotPassword').mockReturnValue(of(new HttpResponse({ status: 202, body: 'Accepted' })));
+
+        TestFactory.fillForm(dom.querySelector('.form')!, fixture, { 'username': 'johndoe' });
+        (dom.querySelector('.form > button') as HTMLElement).click();
+        fixture.detectChanges();
+
+        expect(serverSpy.forgotPassword).toHaveBeenCalledWith({ username: 'johndoe' });
+        expect(component.submitted()).toBe(true);
+        expect(dom.querySelector('.form')).toBeFalsy();
+        expect(dom.querySelector('.message h4')?.textContent).toBe('Check your email');
+    });
+
+
+    it('should show an error message on invalid requests', () =>
     {
         fixture.detectChanges();
         vi.spyOn(serverSpy, 'forgotPassword');
@@ -88,44 +117,23 @@ describe('ForgotPasswordComponent', () => {
         expect(serverSpy.forgotPassword).not.toHaveBeenCalled();
         expect(component.model().error).toBe('Please enter a valid username.');
         expect(dom.querySelector('.error-text.general')?.textContent).toBe('Please enter a valid username.');
+        expect(dom.querySelector('.error-text.input')?.textContent).toBeFalsy();
     });
 
 
-    it('should show the success message when the request succeeds', () =>
-    {
-        fixture.detectChanges();
-        vi.spyOn(serverSpy, 'forgotPassword').mockReturnValue(of(new HttpResponse({ status: 202, body: 'Accepted' })));
-
-        const input = dom.querySelector('#identity') as HTMLInputElement;
-        input.value = 'johndoe';
-        input.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-
-        (dom.querySelector('.form > button') as HTMLElement).click();
-        fixture.detectChanges();
-        expect(serverSpy.forgotPassword).toHaveBeenCalledWith({ username: 'johndoe' });
-        expect(component.submitted()).toBe(true);
-        expect(dom.querySelector('.form')).toBeFalsy();
-        expect(dom.querySelector('.message h4')?.textContent).toBe('Check your email');
-    });
-
-
-    it('should show an error message on unknown API errors', () =>
+    it('should show an error message on unknown request API errors', () =>
     {
         fixture.detectChanges();
         vi.spyOn(serverSpy, 'forgotPassword').mockReturnValue(throwError(() => ({ status: 500, statusText: 'Server Error' })));
 
-        const input = dom.querySelector('#identity') as HTMLInputElement;
-        input.value = 'johndoe';
-        input.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-
+        TestFactory.fillForm(dom.querySelector('.form')!, fixture, { 'username': 'johndoe' });
         (dom.querySelector('.form > button') as HTMLElement).click();
         fixture.detectChanges();
+
         expect(console.error).toHaveBeenCalledTimes(1);
         expect(serverSpy.forgotPassword).toHaveBeenCalledWith({ username: 'johndoe' });
         expect(component.model().error).toBe('An unexpected error occurred, try again later.');
-        expect(component.submitted()).toBe(false);
         expect(dom.querySelector('.error-text.general')?.textContent).toBe('An unexpected error occurred, try again later.');
+        expect(dom.querySelector('.error-text.input')?.textContent).toBeFalsy();
     });
 });

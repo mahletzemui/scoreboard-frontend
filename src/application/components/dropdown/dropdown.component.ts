@@ -18,8 +18,9 @@ export class DropdownComponent {
     // Fields ---------------------------------------------------------------------
     data = input.required<Selector>();
 
-    options = signal<Option[]>([]);
     caption = computed(() => this.data().heading || 'Select an Option');
+    options = signal<Option[]>([]);
+    
     value = computed(() => this.findLabel(this.options()));
     floated = computed(() => this.value() !== undefined);
 
@@ -45,17 +46,17 @@ export class DropdownComponent {
     /**
      * Toggles the panel.
      */
-    toggle(): void
+    togglePanel(): void
     {
         this.opened.update(item => !item);
     }
 
     /**
-     * Toggles the nested options.
+     * Toggles the main option.
      *
      * @param index - Index of option.
      */
-    toggleNested(index: number): void
+    toggleOption(index: number): void
     {
         this.expanded.update(item => item === index ? undefined : index);
     }
@@ -64,7 +65,7 @@ export class DropdownComponent {
      * Selects the option.
      *
      * @param mainIndex   - Index of main option.
-     * @param nestedIndex - Index of nested option, if provided.
+     * @param nestedIndex - Index of nested option.
      */
     selectOption(mainIndex: number, nestedIndex?: number): void
     {
@@ -98,9 +99,9 @@ export class DropdownComponent {
     // Helpers --------------------------------------------------------------------
 
     /**
-     * Finds the active option's label, if any.
+     * Finds the active option's label.
      *
-     * @param options - Options to search through.
+     * @param options - Options to look through.
      *
      * @return the corresponding label.
      */

@@ -14,9 +14,9 @@ export const BASE_API: string = '/api';
 
 
 /**
- * Maps profile fields.
+ * Maps profile fields to entries.
  * 
- * @param profile - Profile to map, if provided.
+ * @param profile - Profile to map.
  */
 export function mapProfileFields(profile: Profile|null): Entry[]
 {

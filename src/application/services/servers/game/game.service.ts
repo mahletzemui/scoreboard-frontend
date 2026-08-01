@@ -33,7 +33,7 @@ export class GameService {
     /**
      * Initiates a verify player request with the server.
      * 
-     * @param detail - Verification information.
+     * @param detail - Verification information to send.
      * 
      * @return an http response observable with the server's response.
      */
@@ -44,8 +44,8 @@ export class GameService {
     /**
      * Initiates a submit game scores request with the server.
      * 
-     * @param gameId - Id of game.
-     * @param detail - Score information.
+     * @param gameId - Id of game to submit for.
+     * @param detail - Score information to submit.
      * 
      * @return an http response observable with the server's response.
      */
@@ -56,7 +56,7 @@ export class GameService {
     /**
      * Initiates a fetch game scores request with the server.
      * 
-     * @param gameId - Id of game.
+     * @param gameId - Id of game to fetch.
      * 
      * @return an http response observable with the user's scores.
      */

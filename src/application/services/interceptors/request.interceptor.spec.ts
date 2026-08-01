@@ -19,7 +19,7 @@ describe('requestInterceptor', () => {
 
     beforeEach(() =>
     {
-        TestBed.configureTestingModule({ providers: [ LoaderService ] });
+        TestBed.configureTestingModule({ providers: [LoaderService] });
         loaderSpy = TestBed.inject(LoaderService);
         document.body.style.overflow = 'visible';
     });

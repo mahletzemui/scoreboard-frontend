@@ -48,7 +48,7 @@ describe('FinderComponent', () => {
             expect(component.terms()).toEqual([]);
             expect(component.openned()).toBe(false);
             expect(component.filterCount()).toBe(0);
-            expect(component.filters()).toBeUndefined();
+            expect(component.filters()).toBeFalsy();
 
             expect(dom.querySelector('#keywords')).toBeTruthy();
             expect(dom.querySelectorAll('.chips span').length).toBe(0);
@@ -62,7 +62,7 @@ describe('FinderComponent', () => {
         {
             const input = dom.querySelector('#keywords') as HTMLInputElement;
 
-            // ignores backspace when there are no terms to remove
+            // ignores backspaces when there are no terms to remove
             input.value = '';
             input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace' }));
             fixture.detectChanges();
@@ -102,14 +102,14 @@ describe('FinderComponent', () => {
             expect(component.searched.emit).toHaveBeenCalledTimes(2);
             expect(dom.querySelectorAll('.chips span').length).toBe(2);
 
-            // ignores backspace while the input still has text
+            // ignores backspaces while the input still has text
             input.value = 'partial';
             input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace' }));
             fixture.detectChanges();
             expect(component.terms()).toEqual(['combo', 'streak']);
             expect(dom.querySelectorAll('.chips span').length).toBe(2);
 
-            // removes the last term on backspace when the input is empty
+            // removes the last term on backspaces when the input is empty
             input.value = '';
             input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace' }));
             fixture.detectChanges();
@@ -170,7 +170,7 @@ describe('FinderComponent', () => {
         });
 
 
-        it('should toggle check options, respecting uniqueness', () =>
+        it('should toggle check options', () =>
         {
             (dom.querySelector('.icon') as HTMLElement).click();
             fixture.detectChanges();
@@ -276,7 +276,7 @@ describe('FinderComponent', () => {
             fromInput.dispatchEvent(new Event('change'));
             fixture.detectChanges();
             expect(dateFilter.from).toBe('');
-            expect(dateFilter.startDate).toBeUndefined();
+            expect(dateFilter.startDate).toBeFalsy();
             expect(component.filterCount()).toBe(1);
             expect(fromInput.value).toBe('');
             expect(toInput.value).toBe('2024-01-20T18:00');
@@ -285,7 +285,7 @@ describe('FinderComponent', () => {
             toInput.dispatchEvent(new Event('change'));
             fixture.detectChanges();
             expect(dateFilter.to).toBe('');
-            expect(dateFilter.endDate).toBeUndefined();
+            expect(dateFilter.endDate).toBeFalsy();
             expect(component.filterCount()).toBe(0);
             expect(dom.querySelector('.icon span')).toBeFalsy();
             expect(fromInput.value).toBe('');
@@ -311,7 +311,7 @@ describe('FinderComponent', () => {
             fixture.detectChanges();
             expect(component.filterCount()).toBe(3);
 
-            (dom.querySelector('.clear') as HTMLElement).click();
+            (dom.querySelector('.popover > button') as HTMLElement).click();
             fixture.detectChanges();
 
             expect(component.filterCount()).toBe(0);

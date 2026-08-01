@@ -88,7 +88,7 @@ export class AuthenticationService {
     /**
      * Initiates a login request with the server.
      * 
-     * @param detail - Login information.
+     * @param detail - Login information to send.
      * 
      * @return an http response observable with the server's response.
      */
@@ -99,7 +99,7 @@ export class AuthenticationService {
     /**
      * Initiates a registration request with the server.
      * 
-     * @param detail - Registration information.
+     * @param detail - Registration information to send.
      * 
      * @return an http response observable with the server's response.
      */
@@ -110,7 +110,7 @@ export class AuthenticationService {
     /**
      * Initiates a forgot password request with the server.
      * 
-     * @param detail - Identity information.
+     * @param detail - Identity information to send.
      * 
      * @return an http response observable with the server's response.
      */
@@ -121,8 +121,8 @@ export class AuthenticationService {
     /**
      * Initiates a reset password request with the server.
      * 
-     * @param token  - Verification token.
-     * @param detail - New password information.
+     * @param token  - Verification token for reset.
+     * @param detail - New password information to reset to.
      * 
      * @return an http response observable with the server's response.
      */

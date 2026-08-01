@@ -3,8 +3,7 @@
         <svg viewBox="0 0 300 300">
             @for (item of slices(); track item) {
             <path [attr.d]="item.path" [attr.fill]="item.color"
-                (mouseenter)="selected.set(item)"
-                (mouseleave)="selected.set(undefined)" />
+                (mouseenter)="selected.set(item)" (mouseleave)="selected.set(undefined)" />
             <text [attr.x]="item.percentage.xPos" [attr.y]="item.percentage.yPos">{{ item.percentage.value }}%</text>
             }
         </svg>

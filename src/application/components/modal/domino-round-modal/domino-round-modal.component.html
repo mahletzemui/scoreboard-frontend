@@ -13,7 +13,8 @@
 
         <div class="field">
             <label for="points">Points</label>
-            <input id="points" [disabled]="doubleZero()" [value]="earned()" (input)="updatePoints($event)"
+            <input id="points" [disabled]="doubleZero()" [value]="earned()"
+                (input)="updatePoints($event)"
                 placeholder="Enter the total earned points" inputmode="numeric">
         </div>
 

@@ -3,22 +3,22 @@ import { firstValueFrom, isObservable, of } from 'rxjs';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 
 
-import { authenticationGuard } from './authentication.guard';
+import { authenticatedGuard } from './authenticated.guard';
 
 import { AuthenticationService } from '../servers/authentication/authentication.service';
 
 
 /**
- * Tests the AuthenticationGuard's functionality.
+ * Tests the AuthenticatedGuard's functionality.
  */
-describe('authenticationGuard', () => {
+describe('authenticatedGuard', () => {
     // Fields ---------------------------------------------------------------------
     let serverSpy: AuthenticationService;
     let routerSpy: Router;
     
     // Setup ----------------------------------------------------------------------
 
-    const executeGuard: CanActivateFn = (...guardParameters) => TestBed.runInInjectionContext(() => authenticationGuard(...guardParameters));
+    const executeGuard: CanActivateFn = (...guardParameters) => TestBed.runInInjectionContext(() => authenticatedGuard(...guardParameters));
 
     beforeEach(() =>
     {
@@ -81,7 +81,7 @@ describe('authenticationGuard', () => {
         const mockState = {} as RouterStateSnapshot;
         const mockRoute = {} as ActivatedRouteSnapshot;
 
-        const result = TestBed.runInInjectionContext(() => authenticationGuard(mockRoute, mockState));
+        const result = TestBed.runInInjectionContext(() => authenticatedGuard(mockRoute, mockState));
         if (isObservable(result)) {
             return await firstValueFrom(result);
         }

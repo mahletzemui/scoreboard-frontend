@@ -19,13 +19,13 @@
     transform: translateX(-50%);
 }
 
+
 .scene {
     position: relative;
     width: 50%;
     height: 100%;
     overflow: hidden;
 }
-
 
 .panel {
     pointer-events: none;
@@ -104,10 +104,6 @@
     position: absolute;
     align-items: baseline;
     overflow: scroll;
-}
-
-.form h3 {
-    color: var(--accent-500);
 }
 
 /* ----------------------------------------------------------------------------- */

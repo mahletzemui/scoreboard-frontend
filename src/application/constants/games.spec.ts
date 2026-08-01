@@ -20,6 +20,7 @@ describe('Games Constants', () => {
             ]);
         });
 
+
         it('should create draw scores', () =>
         {
             const participants = [
@@ -48,6 +49,7 @@ describe('Games Constants', () => {
             ]);
         });
 
+
         it('should create joker drop win scores', () =>
         {
             const participants = [
@@ -62,6 +64,7 @@ describe('Games Constants', () => {
             ]);
         });
 
+
         it('should create bottom draw win scores', () =>
         {
             const participants = [
@@ -75,6 +78,7 @@ describe('Games Constants', () => {
                 { username: 'maggiewells', points: 0, summaries: ['Lost against janesmith.'] }
             ]);
         });
+
 
         it('should create combo win scores', () =>
         {
@@ -96,8 +100,8 @@ describe('Games Constants', () => {
         it('should create regular win scores', () =>
         {
             const rounds = [
-                { special: false, matches: [ { username: 'johndoe', score: 50 }, { username: 'janesmith', score: 50 }, { username: 'maggiewells', score: 0 } ] },
-                { special: false, matches: [ { username: 'johndoe', score: 50 }, { username: 'janesmith', score: 100 }, { username: 'maggiewells', score: 50 } ] }
+                { special: false, matches: [{ username: 'johndoe', score: 50 }, { username: 'janesmith', score: 50 }, { username: 'maggiewells', score: 0 }] },
+                { special: false, matches: [{ username: 'johndoe', score: 50 }, { username: 'janesmith', score: 100 }, { username: 'maggiewells', score: 50 }] }
             ];
             expect(createPlayers('domino', rounds)).toEqual([
                 { username: 'johndoe', points: 0, summaries: ['Lost against janesmith.'] },
@@ -106,9 +110,10 @@ describe('Games Constants', () => {
             ]);
         });
 
+        
         it('should create double zero win scores', () =>
         {
-            const rounds = [ { special: true, matches: [ { username: 'johndoe', score: 0 }, { username: 'janesmith', score: 100 }, { username: 'maggiewells', score: 0 } ] } ];
+            const rounds = [ { special: true, matches: [{ username: 'johndoe', score: 0 }, { username: 'janesmith', score: 100 }, { username: 'maggiewells', score: 0 }] } ];
             expect(createPlayers('domino', rounds)).toEqual([
                 { username: 'johndoe', points: 0, summaries: ['Lost against janesmith.'] },
                 { username: 'janesmith', points: 2, summaries: ['Won with a double zero against johndoe & maggiewells.'] },

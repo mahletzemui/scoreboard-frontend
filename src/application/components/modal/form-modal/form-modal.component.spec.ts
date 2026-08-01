@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 
 import { FormModalComponent } from './form-modal.component';
+import { TestFactory } from '../../../utils/test-factory';
 
 import { createVerifyPlayerForm } from '../../../constants/prompts';
 
@@ -34,7 +35,7 @@ describe('FormModalComponent', () => {
 
     // Tests ----------------------------------------------------------------------
 
-    describe('Existing Form', () => {
+    describe('With Form', () => {
         const form = createVerifyPlayerForm();
 
         beforeEach(() =>
@@ -55,7 +56,7 @@ describe('FormModalComponent', () => {
 
             expect(dom.querySelector('h4')?.textContent).toBe(form.title);
             expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
-            expect(dom.querySelectorAll('.field').length).toBe(2);
+            expect(dom.querySelectorAll('.form .wrapper').length).toBe(2);
             expect((dom.querySelector('#username') as HTMLInputElement).type).toBe('text');
             expect(dom.querySelectorAll('.error-text.input')[0]?.textContent).toBeFalsy();
             expect((dom.querySelector('#pin') as HTMLInputElement).type).toBe('password');
@@ -75,31 +76,20 @@ describe('FormModalComponent', () => {
 
         it('should submit when all fields are valid', () =>
         {
-            const pinInput = dom.querySelector('#username') as HTMLInputElement;
-            pinInput.value = 'johndoe';
-            pinInput.dispatchEvent(new Event('input'));
-
-            const confirmInput = dom.querySelector('#pin') as HTMLInputElement;
-            confirmInput.value = '1234';
-            confirmInput.dispatchEvent(new Event('input'));
-            fixture.detectChanges();
-
+            TestFactory.fillForm(dom.querySelector('.form')!, fixture, { username: 'johndoe', pin: '1234' });
             (dom.querySelector('.panel.form > button') as HTMLElement).click();
             fixture.detectChanges();
+
             expect(component.submitted.emit).toHaveBeenCalledTimes(1);
             expect(component.submitted.emit).toHaveBeenCalledWith(component.model());
-            expect(component.model()?.fields[0].error).toBeUndefined();
-            expect(component.model()?.fields[1].error).toBeUndefined();
+            expect(component.model()?.fields[0].error).toBeFalsy();
+            expect(component.model()?.fields[1].error).toBeFalsy();
         });
 
 
         it('should not submit when fields are invalid', () =>
         {
-            const pinInput = dom.querySelector('#username') as HTMLInputElement;
-            pinInput.value = '$';
-            pinInput.dispatchEvent(new Event('input'));
-            fixture.detectChanges();
-
+            TestFactory.fillForm(dom.querySelector('.form')!, fixture, { username: '$' });
             (dom.querySelector('.panel.form > button') as HTMLElement).click();
             fixture.detectChanges();
 
@@ -121,13 +111,13 @@ describe('FormModalComponent', () => {
     });
 
     
-    it('should log an error for an unrecognized form type', () =>
+    it('should log an error for an unrecognized form name', () =>
     {
         fixture.componentRef.setInput('type', 'unknown');
         fixture.detectChanges();
 
         expect(console.error).toHaveBeenCalledTimes(1);
-        expect(component.model()).toBeUndefined();
+        expect(component.model()).toBeFalsy();
         expect(dom.querySelector('h4')?.textContent).toBe('Well... This Is Awkward');
         expect(dom.querySelector('p')?.textContent).toBe("I don't know what to do with this, so I'm going to assume there's nothing to show.");
 

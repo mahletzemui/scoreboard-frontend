@@ -455,10 +455,10 @@ export const GAME_STEPS: Record<string, Entry[]> =
 
 
 /**
- * Creates the game's player scores.
+ * Creates a game's player scores.
  * 
- * @param gameId - Id of game.
- * @param scores - Scores of game.
+ * @param gameId - Id of game to create for.
+ * @param scores - Scores to create with.
  */
 export function createPlayers(gameId: string, scores: Scorecard): Player[]
 {
@@ -475,12 +475,11 @@ export function createPlayers(gameId: string, scores: Scorecard): Player[]
 /**
  * Creates connect4 player scores.
  * 
- * @param matches - Scores of game.
+ * @param matches - Scores to create with.
  */
 function createConnect4Players(matches: Match[]): Player[]
 {
     let players: Player[] = [];
-
     matches.forEach((item, i) => {
         const other = i === 0 ? matches[1].username : matches[0].username;
         if (item.score === 'Draw') {
@@ -491,14 +490,13 @@ function createConnect4Players(matches: Match[]): Player[]
             players.push({ username: item.username, points: 0, summaries: [`Lost against ${other}.`] });
         }
     });
-    
     return players;
 };
 
 /**
  * Creates conquer player scores.
  * 
- * @param matches - Scores of game.
+ * @param matches - Scores to create with.
  */
 function createConquerPlayers(matches: Match[]): Player[]
 {
@@ -519,29 +517,27 @@ function createConquerPlayers(matches: Match[]): Player[]
             players.push({ username: item.username, points: 0, summaries: [`Lost against ${winner}.`] });
         }
     });
-    
     return players;
 };
 
 /**
  * Creates domino player scores.
  * 
- * @param heat - Last scores of game.
+ * @param lastHeat - Scores to create with.
  */
-function createDominoPlayers(heat: Heat): Player[]
+function createDominoPlayers(lastHeat: Heat): Player[]
 {
     let players: Player[] = [];
-    const losers = ToolBox.formatList(heat.matches.filter(item => item.score !== 100).map(item => item.username));
-    const winners = ToolBox.formatList(heat.matches.filter(item => item.score === 100).map(item => item.username));
+    const losers = ToolBox.formatList(lastHeat.matches.filter(item => item.score !== 100).map(item => item.username));
+    const winners = ToolBox.formatList(lastHeat.matches.filter(item => item.score === 100).map(item => item.username));
 
-    heat.matches.forEach(item => {
+    lastHeat.matches.forEach(item => {
         if (item.score === 100) {
-            const method = heat.special ? `Won with a double zero against ${losers}.` : `Won regularly against ${losers}.`;
-            players.push({ username: item.username, points: heat.special ? 2 : 1, summaries: [method] });
+            const method = lastHeat.special ? `Won with a double zero against ${losers}.` : `Won regularly against ${losers}.`;
+            players.push({ username: item.username, points: lastHeat.special ? 2 : 1, summaries: [method] });
         } else {
             players.push({ username: item.username, points: 0, summaries: [`Lost against ${winners}.`] });
         }
     });
-    
     return players;
 };

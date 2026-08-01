@@ -51,7 +51,7 @@ describe('MessageModalComponent', () => {
         it('should create component', () =>
         {
             expect(component).toBeTruthy();
-            expect(component.model()).toEqual(message);
+            expect(component.model()).toEqual({ ...message, error: '' });
             expect(component.model()).not.toBe(message);
 
             expect(dom.querySelector('h4')?.textContent).toBe('Are You Sure?');
@@ -108,7 +108,7 @@ describe('MessageModalComponent', () => {
         it('should create component', () =>
         {
             expect(component).toBeTruthy();
-            expect(component.model()).toEqual(message);
+            expect(component.model()).toEqual({ ...message, error: '' });
             expect(component.model()).not.toBe(message);
 
             expect(dom.querySelector('h4')?.textContent).toBe(message.title);

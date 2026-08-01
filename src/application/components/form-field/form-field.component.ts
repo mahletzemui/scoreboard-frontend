@@ -27,7 +27,7 @@ export class FormFieldComponent {
     // Methods --------------------------------------------------------------------
 
     /**
-     * Updates the field with the input.
+     * Updates the field's input.
      *
      * @param event - Event with input to update to.
      */
@@ -38,7 +38,7 @@ export class FormFieldComponent {
     }
 
     /**
-     * Validates the field's input, if needed.
+     * Validates the field's input as needed.
      */
     validateField(): void
     {

@@ -75,9 +75,9 @@ export class ToolBox {
     /**
      * Maps score labels by players.
      * 
-     * @param key    - Score of main player.
-     * @param index  - Index of main player.
-     * @param labels - Labels to map.
+     * @param key    - Score of player to map for.
+     * @param index  - Index of player to map for.
+     * @param labels - Score labels of players to map.
      * 
      * @return the corresponding score labels.
      */
@@ -97,9 +97,9 @@ export class ToolBox {
     /**
      * Creates a partial donut slice.
      *
-     * @param label - Label of slice.
-     * @param value - Value of slice.
-     * @param color - Color of slice, if provided.
+     * @param label - Label of to create for.
+     * @param value - Value of to create for.
+     * @param color - Color of to create for.
      * 
      * @return the corresponding partial slice.
      */

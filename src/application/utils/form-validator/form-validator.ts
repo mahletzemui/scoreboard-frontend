@@ -92,8 +92,8 @@ export class FormValidator {
     /**
      * Validates matching fields.
      * 
-     * @param actual   - Name of actual field.
-     * @param expected - Name of expected field.
+     * @param actual   - Name of actual field to validate.
+     * @param expected - Name of expected field to validate against.
      * 
      * @return a 'match' error tag on mismatch, else null.
      */
@@ -116,8 +116,8 @@ export class FormValidator {
     /**
      * Retrieves a form field's error message.
      * 
-     * @param name - Name of field.
-     * @param form - Form with field.
+     * @param name - Name of field to retrieve for.
+     * @param form - Form with field to retrieve for.
      * 
      * @return the corresponding error message.
      */
@@ -157,8 +157,8 @@ export class FormValidator {
      * Validates a username against the current list of players (i.e., unique username).
      * 
      * @param username - Username to validate.
-     * @param index    - Position of username.
-     * @param players  - List of players.
+     * @param index    - Position of username to validate.
+     * @param players  - List of players to validate against.
      * 
      * @return true if invalid, else false.
      */

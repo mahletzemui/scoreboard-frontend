@@ -41,7 +41,7 @@ describe('DonutChartComponent', () => {
     {
         expect(component).toBeTruthy();
         expect(component.slices().length).toBe(3);
-        expect(component.selected()).toBeUndefined();
+        expect(component.selected()).toBeFalsy();
 
         let angle = 0;
         let percentage = 0;
@@ -71,20 +71,18 @@ describe('DonutChartComponent', () => {
 
     it('should show and hide the tooltip on hover', () =>
     {
-        const slices = dom.querySelectorAll('.chart path');
-
-        (slices[1] as HTMLElement).dispatchEvent(new Event('mouseenter'));
+        (dom.querySelectorAll('.chart path')[1] as HTMLElement).dispatchEvent(new Event('mouseenter'));
         fixture.detectChanges();
         expect(component.selected()?.label).toBe('Banana');
         expect(dom.querySelector('.tooltip .label')?.textContent).toBe('Banana');
         expect(dom.querySelector('.tooltip .value')?.textContent).toBe('8 (53.3%)');
 
-        (slices[1] as HTMLElement).dispatchEvent(new Event('mouseleave'));
+        (dom.querySelectorAll('.chart path')[1] as HTMLElement).dispatchEvent(new Event('mouseleave'));
         fixture.detectChanges();
-        expect(component.selected()).toBeUndefined();
+        expect(component.selected()).toBeFalsy();
         expect(dom.querySelector('.tooltip')).toBeFalsy();
 
-        (slices[2] as HTMLElement).dispatchEvent(new Event('mouseenter'));
+        (dom.querySelectorAll('.chart path')[2] as HTMLElement).dispatchEvent(new Event('mouseenter'));
         fixture.detectChanges();
         expect(component.selected()?.label).toBe('Grape');
         expect(dom.querySelector('.tooltip .label')?.textContent).toBe('Grape');

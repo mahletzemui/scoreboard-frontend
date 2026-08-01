@@ -25,12 +25,6 @@ export function createSessionMessage(): Message
     };
 };
 
-
-/**
- * Holds custom messages.
- */
-export const CUSTOM_MESSAGE = { value: '' };
-
 /**
  * Creates the confirmation message model.
  */
@@ -38,7 +32,7 @@ export function createConfirmationMessage(): Message
 {
     return {
         title: 'Are You Sure?',
-        notice: CUSTOM_MESSAGE.value,
+        notice: '',
         actions: [
             { label: 'Yes', value: true },
             { label: 'No', value: false }
@@ -120,7 +114,7 @@ export function createRegisterForm(): Form
  */
 export const IDENTITY_FIELDS: Field[] =
 [
-    { name: 'identity', label: 'Username', type: 'text', maxLength: 20, placeholder: 'Enter your username', default: '', autocomplete: 'username' }
+    { name: 'username', label: 'Username', type: 'text', maxLength: 20, placeholder: 'Enter your username', default: '', autocomplete: 'username' }
 ];
 
 /**
@@ -131,7 +125,7 @@ export function createForgotPasswordForm(): Form
     return {
         title: 'Request Password Reset',
         intake: builder.group({
-            identity: [ '', FormValidator.username() ]
+            username: [ '', FormValidator.username() ]
         }),
         fields: IDENTITY_FIELDS.map(item => ({...item}))
     };
@@ -249,20 +243,10 @@ export function createVerifyPlayerForm(): Form
 
 
 /**
- * Holds supported messages.
- */
-export const MESSAGE_STORE: Record<string, () => Message> =
-{
-    session: createSessionMessage,
-    confirm: createConfirmationMessage
-};
-
-/**
- * Holds supported forms.
+ * Holds supported modal forms.
  */
 export const FORM_STORE: Record<string, () => Form> =
 {
-    forgotPassword: createForgotPasswordForm,
     updateProfile: createUpdateProfileForm,
     updatePassword: createUpdatePasswordForm,
     updatePin: createUpdatePinForm,

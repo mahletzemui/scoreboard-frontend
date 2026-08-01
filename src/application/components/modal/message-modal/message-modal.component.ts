@@ -21,7 +21,7 @@ import { ModalComponent } from '../modal.component';
 export class MessageModalComponent {
     // Fields ---------------------------------------------------------------------
     data = input<Message>();
-    updates = input<string>();
+    updates = input<string>('');
 
     model = computed<Message>(() => structuredClone(this.data() ?? createSessionMessage()));
 

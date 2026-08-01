@@ -1,5 +1,5 @@
 <div class="wrapper" (mouseleave)="close()">
-    <button class="header" [class.open]="opened()" (click)="toggle()">
+    <button class="header" [class.open]="opened()" (click)="togglePanel()">
         <div class="label">
             <span class="caption" [class.float]="floated()">{{ caption() }}</span>
             @if (value()) {
@@ -14,7 +14,7 @@
     <div class="panel" [class.visible]="opened()">
         @for (item of options(); track item; let i = $index) {
         @if (item.additional) {
-        <button class="option" [class.expand]="expanded() === i" (click)="toggleNested(i)">
+        <button class="option" [class.expand]="expanded() === i" (click)="toggleOption(i)">
             @if (item.icon) {
             <svg class="badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                 @for (element of item.icon; track element) {

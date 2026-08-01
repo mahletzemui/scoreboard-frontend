@@ -9,12 +9,14 @@ describe('General Constants', () => {
 
     it('should handle the mapping of profile fields', () =>
     {
+        // for existing profiles
         expect(mapProfileFields({ pname: 'John', username: 'johndoe', email: 'johndoe@email.com'})).toEqual([
             { label: 'Preferred Name', value: 'John' },
             { label: 'Username', value: 'johndoe' },
             { label: 'Email', value: 'johndoe@email.com' }
         ]);
 
+        // for null profiles
         expect(mapProfileFields(null)).toEqual([
             { label: 'Preferred Name', value: '...' },
             { label: 'Username', value: '...' },

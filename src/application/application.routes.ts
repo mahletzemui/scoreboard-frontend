@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 
-import { authenticationGuard } from './services/guards/authentication.guard';
+import { authenticatedGuard } from './services/guards/authenticated.guard';
 
 
 /**

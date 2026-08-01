@@ -28,6 +28,7 @@ export function createGameSelector(): Selector
     };
 }
 
+
 /**
  * Creates the account selector model.
  */
@@ -54,11 +55,11 @@ export function createAccountSelector(): Selector
 
 
 /**
- * Creates the game label selector model.
+ * Creates a game label selector model.
  * 
- * @param gameId - Id of game.
+ * @param gameId - Id of game to create for.
  */
-export function createLabelSelector(gameId: string): Selector
+export function createGameLabelSelector(gameId: string): Selector
 {
     const legend: Entry[] = GAME_LABELS[gameId] ?? [];
     return {
@@ -73,9 +74,9 @@ export function createLabelSelector(gameId: string): Selector
 
 
 /**
- * Creates the game filter model.
+ * Creates a game filter model.
  * 
- * @param gameId - Id of game.
+ * @param gameId - Id of game to create for.
  */
 export function createGameFilter(gameId: string): Filter[]
 {
@@ -107,23 +108,4 @@ export function createGameFilter(gameId: string): Filter[]
                         to: ''
                     }]
                   : [];
-};
-
-
-/**
- * Holds supported selectors.
- */
-export const DROPDOWN_STORE: Record<string, () => Selector> =
-{
-    gameMenu: createGameSelector,
-    accountMenu: createAccountSelector,
-    ...Object.fromEntries(Object.values(GAME_STORE).map(item => [ item.id, () => createLabelSelector(item.id) ]))
-};
-
-/**
- * Holds supported filters.
- */
-export const FILTER_STORE: Record<string, () => Filter[]> =
-{
-    ...Object.fromEntries(Object.values(GAME_STORE).map(item => [ item.id, () => createGameFilter(item.id) ]))
 };

@@ -32,7 +32,7 @@ span {
     transition: background-color var(--default-animation-delay) ease;
 }
 .icon:hover {
-    background-color: var(--accent-30);
+    background-color: var(--accent-300);
 }
 
 .icon svg {
