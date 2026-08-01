@@ -3,12 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 
+import { BannerComponent } from './components';
+
+
 /**
  * Defines the root component of the application.
  */
 @Component({
     selector: 'app-root',
-    imports: [ CommonModule, RouterOutlet ],
+    imports: [ CommonModule, RouterOutlet, BannerComponent ],
     templateUrl: './application.component.html',
     styleUrl: './application.component.css'
 })
@@ -20,7 +23,7 @@ export class ApplicationComponent implements OnInit {
 
     /**
      * Creates a new ApplicationComponent object.
-     * 
+     *
      * @param loader - Loading status handler.
      * @param router - Routing handler.
      */

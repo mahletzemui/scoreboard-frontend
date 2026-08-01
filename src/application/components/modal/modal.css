@@ -64,6 +64,31 @@ h4 {
 }
 
 
+.field {
+    margin: 10px 0;
+}
+
+.field label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-500);
+    margin-bottom: 8px;
+}
+
+.field input {
+    font-size: 0.9rem;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1.5px solid var(--primary-200);
+    transition: border-color var(--default-animation-delay) ease;
+}
+.field input:focus {
+    border-color: var(--accent-400);
+}
+
+
 .controls {
     gap: 20px;
     display: flex;

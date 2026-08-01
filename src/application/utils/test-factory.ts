@@ -53,6 +53,24 @@ export class TestFactory {
         fixture.detectChanges();
     }
 
+    /**
+     * Fills a form's fields with the given values.
+     *
+     * @param dom     - Root element with form.
+     * @param fixture - Fixture to detect changes with.
+     * @param values  - Values to fill, keyed by field name.
+     * @param prefix  - Prefix applied to each field's id.
+     */
+    static fillForm(dom: HTMLElement, fixture: ComponentFixture<unknown>, values: Record<string, string>, prefix = ''): void
+    {
+        Object.entries(values).forEach(([name, value]) => {
+            const input = dom.querySelector(`#${prefix}${name}`) as HTMLInputElement;
+            input.value = value;
+            input.dispatchEvent(new Event('input'));
+        });
+        fixture.detectChanges();
+    }
+
     // Helpers --------------------------------------------------------------------
 
     /**

@@ -1,0 +1,46 @@
+<div class="frame">
+    <div class="track" [class.transitioning]="transitioning()" [class.newbie]="view() === 'register'">
+        <div class="scene login">
+            <div class="panel">
+                <div>
+                    <h2>Hello There!</h2>
+                    <p>New here? Create an account to get started.</p>
+                    <button (click)="switchTo('register')">Join Now</button>
+                </div>
+            </div>
+
+            <div class="scrollable">
+                <div class="form">
+                    <h3>{{ loginModel().title }}</h3>
+                    <span class="error-text general">{{ loginModel().error }}</span>
+                    @for (item of loginModel().fields; track item) {
+                    <app-form-field [field]="item" [intake]="loginModel().intake" [validate]="false" prefix="existing-" />
+                    }
+                    <a (click)="navigateToForgotPassword()">Forgot Password?</a>
+                    <button (click)="onLogin()">Sign In</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="scene register">
+            <div class="scrollable">
+                <div class="form">
+                    <h3>{{ registerModel().title }}</h3>
+                    <span class="error-text general">{{ registerModel().error }}</span>
+                    @for (item of registerModel().fields; track item) {
+                    <app-form-field [field]="item" [intake]="registerModel().intake" [validate]="true" prefix="new-" />
+                    }
+                    <button (click)="onRegister()">Sign Up</button>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div>
+                    <h2>Welcome Back!</h2>
+                    <p>Already have an account? Log in to continue.</p>
+                    <button (click)="switchTo('login')">Enter Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

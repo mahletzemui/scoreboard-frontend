@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, output } from '@angular/core';
 
 
-import { Field, Form } from '../../../models/prompts';
+import { Form } from '../../../models/prompts';
 import { FORM_STORE } from '../../../constants/prompts';
 
 import { FormValidator } from '../../../utils';
 import { ModalComponent } from '../modal.component';
+import { FormFieldComponent } from '../../form-field/form-field.component';
 
 
 /**
@@ -13,7 +14,7 @@ import { ModalComponent } from '../modal.component';
  */
 @Component({
     selector: 'app-form-modal',
-    imports: [ ModalComponent ],
+    imports: [ ModalComponent, FormFieldComponent ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './form-modal.component.html',
     styleUrl: '../modal.css'
@@ -51,28 +52,6 @@ export class FormModalComponent {
     // Methods --------------------------------------------------------------------
 
     /**
-     * Updates the field's input.
-     *
-     * @param field - Field to update.
-     * @param event - Input to update to.
-     */
-    updateField(field: Field, event: Event): void
-    {
-        const value = (event.target as HTMLInputElement).value;
-        this.model()!.intake.get(field.name)?.setValue(value);
-    }
-
-    /**
-     * Validates the field's input.
-     *
-     * @param field - Field to validate.
-     */
-    validateField(field: Field): void
-    {
-        field.error = FormValidator.retrieveErrorMessage(field.name, this.model()!.intake);
-    }
-
-    /**
      * Submits valid forms.
      */
     submit(): void
@@ -83,7 +62,7 @@ export class FormModalComponent {
             this.submitted.emit(model);
         } else {
             model.error = 'Please verify all field inputs.';
-            model.fields.forEach(item => this.validateField(item));
+            model.fields = model.fields.map(item => ({ ...item, error: FormValidator.retrieveErrorMessage(item.name, model.intake) }));
         }
     }
 

@@ -293,9 +293,9 @@ button:disabled {
 
 /* ------------------------------- Components ---------------------------------- */
 
-/* router-outlet + * {
+router-outlet + * {
     width: 100%;
-} */
+}
 
 app-dropdown {
     min-width: 110px;
@@ -316,48 +316,56 @@ app-finder, app-paginator {
     min-width: 350px;
 }
 
+/* ----------------------------- Authentication -------------------------------- */
+
+.frame {
+    width: 100%;
+    margin: 4rem auto;
+    border-radius: 24px;
+    border: 1px solid var(--text-950);
+    background-color: var(--background-50);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.frame .badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid var(--text-950);
+    background: var(--accent-400);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+.frame .badge svg {
+    fill: var(--text-950);
+}
+
+.frame h4 {
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.frame p {
+    font-size: 0.9rem;
+    color: var(--text-500);
+}
+
+.frame .form {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+.frame .field {
+    text-align: left;
+}
+
 /* ---------------------------------- Forms ------------------------------------ */
 
-.form .field {
-    position: relative;
-    margin: 5px 0;
-}
-
-.form .field label {
-    display: block;
-    font-weight: 500;
-    font-size: 0.95rem;
-    color: var(--text-500);
-    margin-bottom: 8px;
-}
-
-.form .field input {
-    font-size: 0.9rem;
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1.5px solid var(--primary-200);
-    transition: border-color var(--default-animation-delay) ease;
-}
-.form .field input:focus {
-    border-color: var(--accent-400);
-}
-
-.form .field .icon {
-    position: absolute;
-    right: 6px;
-    padding: 6px;
-    border-radius: 50%;
-    background-color: var(--primary-30);
-    transition: background-color var(--default-animation-delay) ease;
-}
-.form .field .icon:hover {
-    background-color: var(--primary-400);
-}
-
-.form .field .icon svg {
-    width: 18px;
-}
 
 .form button {
     color: var(--background-50);
@@ -370,6 +378,17 @@ app-finder, app-paginator {
 }
 .form button:hover {
     background-color: var(--accent-400);
+}
+
+.form a {
+    cursor: pointer;
+    font-size: 0.8rem;
+    align-self: flex-end;
+    color: var(--text-500);
+    transition: color var(--default-animation-delay) ease;
+}
+.form a:hover {
+    color: var(--accent-500);
 }
 
 

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormModalComponent } from './form-modal.component';
 
-import { createUpdatePinForm, createVerifyPlayerForm } from '../../../constants/prompts';
+import { createVerifyPlayerForm } from '../../../constants/prompts';
 
 
 /**
@@ -15,6 +15,8 @@ describe('FormModalComponent', () => {
 
     let component: FormModalComponent;
     let fixture: ComponentFixture<FormModalComponent>;
+
+    const form = createVerifyPlayerForm();
 
     // Setup ----------------------------------------------------------------------
 
@@ -32,12 +34,12 @@ describe('FormModalComponent', () => {
 
     // Tests ----------------------------------------------------------------------
 
-    describe('With Icons', () => {
-        const form = createUpdatePinForm();
+    describe('Existing Form', () => {
+        const form = createVerifyPlayerForm();
 
         beforeEach(() =>
         {
-            fixture.componentRef.setInput('type', 'updatePin');
+            fixture.componentRef.setInput('type', 'verifyPlayer');
             fixture.detectChanges();
             expect(console.error).not.toHaveBeenCalled();
         });
@@ -54,10 +56,9 @@ describe('FormModalComponent', () => {
             expect(dom.querySelector('h4')?.textContent).toBe(form.title);
             expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
             expect(dom.querySelectorAll('.field').length).toBe(2);
-            expect(dom.querySelectorAll('.field button.icon').length).toBe(2);
-            expect((dom.querySelector('#pin') as HTMLInputElement).type).toBe('password');
+            expect((dom.querySelector('#username') as HTMLInputElement).type).toBe('text');
             expect(dom.querySelectorAll('.error-text.input')[0]?.textContent).toBeFalsy();
-            expect((dom.querySelector('#confirmPin') as HTMLInputElement).type).toBe('password');
+            expect((dom.querySelector('#pin') as HTMLInputElement).type).toBe('password');
             expect(dom.querySelectorAll('.error-text.input')[1]?.textContent).toBeFalsy();
             expect(dom.querySelector('.panel.form > button')?.textContent).toBe(form.title.split(' ')[0]);
         });
@@ -72,49 +73,13 @@ describe('FormModalComponent', () => {
         });
 
 
-        it('should toggle the password field visibility', () =>
-        {
-            const toggleButtons = dom.querySelectorAll('.field button.icon');
-            (toggleButtons[0] as HTMLElement).click();
-            fixture.detectChanges();
-            expect(component.model()?.fields[0].visible).toBe(true);
-            expect((dom.querySelector('#pin') as HTMLInputElement).type).toBe('text');
-
-            (toggleButtons[0] as HTMLElement).click();
-            fixture.detectChanges();
-            expect(component.model()!.fields[0].visible).toBe(false);
-            expect((dom.querySelector('#pin') as HTMLInputElement).type).toBe('password');
-        });
-
-
-        it('should update the field values on input', () =>
-        {
-            const input = dom.querySelector('#pin') as HTMLInputElement;
-            input.value = '1234';
-            input.dispatchEvent(new Event('input'));
-            fixture.detectChanges();
-            expect(component.model()?.intake.get('pin')?.value).toBe('1234');
-        });
-
-
-        it('should validate the field values on blur', () =>
-        {
-            const input = dom.querySelector('#pin') as HTMLInputElement;
-            input.value = 'invalid username';
-            input.dispatchEvent(new Event('blur'));
-            fixture.detectChanges();
-            expect(component.model()?.fields[0].error).toBe('Must be 4 to 6 digits.');
-            expect(dom.querySelectorAll('.error-text.input')[0]?.textContent).toContain('Must be 4 to 6 digits.');
-        });
-
-
         it('should submit when all fields are valid', () =>
         {
-            const pinInput = dom.querySelector('#pin') as HTMLInputElement;
-            pinInput.value = '1234';
+            const pinInput = dom.querySelector('#username') as HTMLInputElement;
+            pinInput.value = 'johndoe';
             pinInput.dispatchEvent(new Event('input'));
 
-            const confirmInput = dom.querySelector('#confirmPin') as HTMLInputElement;
+            const confirmInput = dom.querySelector('#pin') as HTMLInputElement;
             confirmInput.value = '1234';
             confirmInput.dispatchEvent(new Event('input'));
             fixture.detectChanges();
@@ -130,8 +95,8 @@ describe('FormModalComponent', () => {
 
         it('should not submit when fields are invalid', () =>
         {
-            const pinInput = dom.querySelector('#pin') as HTMLInputElement;
-            pinInput.value = '12';
+            const pinInput = dom.querySelector('#username') as HTMLInputElement;
+            pinInput.value = '$';
             pinInput.dispatchEvent(new Event('input'));
             fixture.detectChanges();
 
@@ -142,7 +107,6 @@ describe('FormModalComponent', () => {
             expect(component.model()?.error).toBe('Please verify all field inputs.');
             expect(component.model()?.fields[0].error).toBeTruthy();
             expect(component.model()?.fields[1].error).toBeTruthy();
-
             expect(dom.querySelector('.error-text.general')?.textContent).toBe('Please verify all field inputs.');
             expect(dom.querySelectorAll('.error-text.input')[0]?.textContent).toBeTruthy();
             expect(dom.querySelectorAll('.error-text.input')[1]?.textContent).toBeTruthy();
@@ -154,30 +118,6 @@ describe('FormModalComponent', () => {
             (dom.querySelector('#modal-trigger') as HTMLElement).click();
             expect(component.closed.emit).toHaveBeenCalledTimes(1);
         });
-    });
-
-
-    it('should create component without icons', () =>
-    {
-        const form = createVerifyPlayerForm();
-        fixture.componentRef.setInput('type', 'verifyPlayer');
-        fixture.detectChanges();
-
-        expect(console.error).not.toHaveBeenCalled();
-        expect(component).toBeTruthy();
-        expect(component.model()?.title).toBe(form.title);
-        expect(component.model()?.fields).toEqual(form.fields);
-        expect(component.model()).not.toBe(form);
-
-        expect(dom.querySelector('h4')?.textContent).toBe(form.title);
-        expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
-        expect(dom.querySelectorAll('.field').length).toBe(2);
-        expect(dom.querySelector('.field button.icon')).toBeFalsy();
-        expect((dom.querySelector('#username') as HTMLInputElement).type).toBe('text');
-        expect(dom.querySelectorAll('.error-text.input')[0]?.textContent).toBeFalsy();
-        expect((dom.querySelector('#pin') as HTMLInputElement).type).toBe('password');
-        expect(dom.querySelectorAll('.error-text.input')[1]?.textContent).toBeFalsy();
-        expect(dom.querySelector('.panel.form > button')?.textContent).toBe(form.title.split(' ')[0]);
     });
 
     

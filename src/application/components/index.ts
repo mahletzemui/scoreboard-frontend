@@ -3,6 +3,7 @@ export { DonutChartComponent } from './donut-chart/donut-chart.component';
 
 export { BannerComponent } from './banner/banner.component';
 export { DropdownComponent } from './dropdown/dropdown.component';
+export { FormFieldComponent } from './form-field/form-field.component';
 export { FinderComponent } from './finder/finder.component';
 export { PaginatorComponent } from './paginator/paginator.component';
 
