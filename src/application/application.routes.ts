@@ -16,24 +16,24 @@ export const routes: Routes = [
     {
         path: 'login',
         data: { view: 'login' },
-        loadComponent: () => import('./layouts/access/access.component').then(m => m.AccessComponent)
+        loadComponent: () => import('./layouts/access/access.component').then(item => item.AccessComponent)
     },
     {
         path: 'register',
         data: { view: 'register' },
-        loadComponent: () => import('./layouts/access/access.component').then(m => m.AccessComponent)
+        loadComponent: () => import('./layouts/access/access.component').then(item => item.AccessComponent)
     },
     {
         path: 'forgot-password',
-        loadComponent: () => import('./layouts/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
+        loadComponent: () => import('./layouts/forgot-password/forgot-password.component').then(item => item.ForgotPasswordComponent)
     },
     {
         path: 'reset-password',
-        loadComponent: () => import('./layouts/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
+        loadComponent: () => import('./layouts/reset-password/reset-password.component').then(item => item.ResetPasswordComponent)
     },
     // {
     //     path: 'dashboard',
-    //     loadComponent: () => import('./layouts/dashboard/dashboard.component').then(m => m.DashboardComponent),
+    //     loadComponent: () => import('./layouts/dashboard/dashboard.component').then(item => item.DashboardComponent),
     //     canActivate: [authenticationGuard]
     // },
     // {
@@ -45,11 +45,11 @@ export const routes: Routes = [
     //             children: [
     //                 {
     //                     path:'recap',
-    //                     loadComponent: () => import('./layouts/game-recaps').then(m => m.Connect4RecapComponent)
+    //                     loadComponent: () => import('./layouts/game-recaps').then(item => item.Connect4RecapComponent)
     //                 },
     //                 {
     //                     path:'play',
-    //                     loadComponent: () => import('./layouts/game-play').then(m => m.Connect4PlayComponent)
+    //                     loadComponent: () => import('./layouts/game-play').then(item => item.Connect4PlayComponent)
     //                 }
     //             ]
     //         },
@@ -58,11 +58,11 @@ export const routes: Routes = [
     //             children: [
     //                 {
     //                     path:'recap',
-    //                     loadComponent: () => import('./layouts/game-recaps').then(m => m.ConquerRecapComponent)
+    //                     loadComponent: () => import('./layouts/game-recaps').then(item => item.ConquerRecapComponent)
     //                 },
     //                 {
     //                     path:'play',
-    //                     loadComponent: () => import('./layouts/game-play').then(m => m.ConquerPlayComponent)
+    //                     loadComponent: () => import('./layouts/game-play').then(item => item.ConquerPlayComponent)
     //                 }
     //             ]
     //         },
@@ -71,11 +71,11 @@ export const routes: Routes = [
     //             children: [
     //                 {
     //                     path:'recap',
-    //                     loadComponent: () => import('./layouts/game-recaps').then(m => m.DominoRecapComponent)
+    //                     loadComponent: () => import('./layouts/game-recaps').then(item => item.DominoRecapComponent)
     //                 },
     //                 {
     //                     path:'play',
-    //                     loadComponent: () => import('./layouts/game-play').then(m => m.DominoPlayComponent)
+    //                     loadComponent: () => import('./layouts/game-play').then(item => item.DominoPlayComponent)
     //                 }
     //             ]
     //         }
@@ -83,16 +83,16 @@ export const routes: Routes = [
     // },
     // {
     //     path: 'notifications',
-    //     loadComponent: () => import('./layouts/notifications/notifications.component').then(m => m.NotificationsComponent),
+    //     loadComponent: () => import('./layouts/notifications/notifications.component').then(item => item.NotificationsComponent),
     //     canActivate: [authenticationGuard]
     // },
     // {
     //     path: 'account',
-    //     loadComponent: () => import('./layouts/account/account.component').then(m => m.AccountComponent),
+    //     loadComponent: () => import('./layouts/account/account.component').then(item => item.AccountComponent),
     //     canActivate: [authenticationGuard]
     // },
     // {
     //     path: '**',
-    //     loadComponent: () => import('./layouts/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent)
+    //     loadComponent: () => import('./layouts/page-not-found/page-not-found.component').then(item => item.PageNotFoundComponent)
     // }
 ];

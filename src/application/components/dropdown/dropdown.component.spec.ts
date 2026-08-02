@@ -133,7 +133,7 @@ describe('DropdownComponent', () => {
         });
 
 
-        it('should select an option and update the value', () =>
+        it('should select an option', () =>
         {
             component.opened.set(true);
             fixture.detectChanges();
@@ -144,10 +144,10 @@ describe('DropdownComponent', () => {
             fixture.detectChanges();
             expect(component.selected.emit).toHaveBeenCalledTimes(1);
             expect(component.selected.emit).toHaveBeenCalledWith(['pear']);
-            expect(component.value()).toBe('Pear');
+            expect(component.value()).toBeFalsy();
             expect(dom.querySelector('.header.open')).toBeFalsy();
-            expect(dom.querySelector('.caption.float')).toBeTruthy();
-            expect(dom.querySelector('.value')?.textContent).toBe('Pear');
+            expect(dom.querySelector('.caption.float')).toBeFalsy();
+            expect(dom.querySelector('.value')).toBeFalsy();
             expect(dom.querySelector('.option.active')?.textContent).toBe('Pear');
 
             // when it's a nested selection
@@ -161,16 +161,16 @@ describe('DropdownComponent', () => {
             fixture.detectChanges();
             expect(component.selected.emit).toHaveBeenCalledTimes(2);
             expect(component.selected.emit).toHaveBeenCalledWith(['citrus', 'orange']);
-            expect(component.value()).toBe('Citrus');
+            expect(component.value()).toBeFalsy();
             expect(dom.querySelector('.header.open')).toBeFalsy();
             expect(dom.querySelector('.option.expand')).toBeFalsy();
-            expect(dom.querySelector('.value')?.textContent).toBe('Citrus');
+            expect(dom.querySelector('.value')).toBeFalsy();
             expect(dom.querySelector('.option span.active')?.textContent).toBe('Citrus');
             expect(dom.querySelector('li.active span')?.textContent).toBe('Orange');
         });
 
 
-        it('should update the value when the selector changes', () =>
+        it('should update when the selector changes', () =>
         {
             fixture.componentRef.setInput('data', {
                 heading: 'Vegetables',
@@ -180,11 +180,11 @@ describe('DropdownComponent', () => {
 
             expect(component.options()).toEqual([{ name: 'carrot', label: 'Carrot', active: true }]);
             expect(component.caption()).toBe('Vegetables');
-            expect(component.value()).toBe('Carrot');
-            expect(component.floated()).toBe(true);
+            expect(component.value()).toBeFalsy();
+            expect(component.floated()).toBe(false);
             expect(dom.querySelector('.caption')?.textContent).toBe('Vegetables');
-            expect(dom.querySelector('.caption.float')).toBeTruthy();
-            expect(dom.querySelector('.value')?.textContent).toBe('Carrot');
+            expect(dom.querySelector('.caption.float')).toBeFalsy();
+            expect(dom.querySelector('.value')).toBeFalsy();
             expect(dom.querySelectorAll('.option').length).toBe(1);
         });
     });
@@ -299,7 +299,7 @@ describe('DropdownComponent', () => {
         });
 
 
-        it('should select an option and update the value', () =>
+        it('should select an option', () =>
         {
             component.opened.set(true);
             fixture.detectChanges();
@@ -336,7 +336,7 @@ describe('DropdownComponent', () => {
         });
 
 
-        it('should update the value when the selector changes', () =>
+        it('should update when the selector changes', () =>
         {
             fixture.componentRef.setInput('data', {
                 heading: '',

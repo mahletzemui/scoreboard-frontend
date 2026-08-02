@@ -19,7 +19,7 @@ import { AuthenticationService, LoaderService } from '../../services';
     imports: [ FormFieldComponent ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './forgot-password.component.html',
-    styleUrl: './forgot-password.component.css'
+    styleUrls: [ '../../../assets/styles/authentication.css', './forgot-password.component.css' ]
 })
 export class ForgotPasswordComponent extends BaseLayout {
     // Fields ---------------------------------------------------------------------
@@ -68,11 +68,11 @@ export class ForgotPasswordComponent extends BaseLayout {
                 },
                 error: (error) => {
                     console.error(`Forgot Password (cont.): Denied because of an unexpected error - '${error.status}': '${error.message}'.`);
-                    this.model.update(item => ({ ...item, error: 'An unexpected error occurred, try again later.' }));
+                    this.model.update(current => ({ ...current, error: 'An unexpected error occurred, try again later.' }));
                 }
             });
         } else {
-            this.model.update(item => ({ ...item, error: 'Please enter a valid username.' }));
+            this.model.update(current => ({ ...current, error: 'Please enter a valid username.' }));
         }
     }
 }

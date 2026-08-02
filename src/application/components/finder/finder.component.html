@@ -1,4 +1,4 @@
-<div class="wrapper" (mouseleave)="openned.set(false)">
+<div class="wrapper" (mouseleave)="opened.set(false)">
     <div class="bar">
         <svg class="badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
             <path d="M781.69-136.92 530.46-388.16q-30 24.77-69 38.77-39 14-80.69 14-102.55 0-173.58-71.01-71.03-71.01-71.03-173.54 0-102.52 71.01-173.6 71.01-71.07 173.54-71.07 102.52 0 173.6 71.03 71.07 71.07 71.07 173.58 0 42.85-14.38 81.85-14.39 39-38.39 67.84l251.23 251.23-42.15 42.16Z
@@ -19,7 +19,7 @@
 
         @if (filters()) {
         <div class="divider"></div>
-        <button class="icon" [class.active]="openned()" (click)="openned.update(value => !value)">
+        <button class="icon" [class.active]="opened()" (click)="opened.update(current => !current)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                 <path d="M206.92-170v-282.31h-80v-60h220v60h-80V-170h-60Z
                     m0-437.69V-790h60v182.31h-60Z
@@ -36,7 +36,7 @@
         }
     </div>
 
-    @if (openned()) {
+    @if (opened()) {
     <div class="popover">
         @for (item of filters(); track item) {
         <div class="group">

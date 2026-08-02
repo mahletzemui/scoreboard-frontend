@@ -66,7 +66,7 @@ export class DominoRoundModalComponent {
             scores.forEach((item, i) => {
                 if (item.gain !== 0) {
                     this.earnedSignal.set(item.gain);
-                    this.winnersSignal.update(winners => winners.map((value, j) => j === i ? true : value));
+                    this.winnersSignal.update(current => current.map((item, j) => j === i ? true : item));
                     this.doubleZeroSignal.set(item.special);
                 }
             });
@@ -108,7 +108,7 @@ export class DominoRoundModalComponent {
         if (this.doubleZeroSignal()) {
             this.winnersSignal.set(this.winnersSignal().map((item, i) => i === index ? !item : false));
         } else {
-            this.winnersSignal.update(winners => winners.map((item, i) => i === index ? !item : item));
+            this.winnersSignal.update(current => current.map((item, i) => i === index ? !item : item));
         }
     }
 

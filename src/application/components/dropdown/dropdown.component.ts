@@ -17,6 +17,7 @@ import { Option, Selector } from '../../models/queries';
 export class DropdownComponent {
     // Fields ---------------------------------------------------------------------
     data = input.required<Selector>();
+    dense = input(false);
 
     caption = computed(() => this.data().heading || 'Select an Option');
     options = signal<Option[]>([]);
@@ -44,24 +45,6 @@ export class DropdownComponent {
     // Methods --------------------------------------------------------------------
 
     /**
-     * Toggles the panel.
-     */
-    togglePanel(): void
-    {
-        this.opened.update(item => !item);
-    }
-
-    /**
-     * Toggles the main option.
-     *
-     * @param index - Index of option.
-     */
-    toggleOption(index: number): void
-    {
-        this.expanded.update(item => item === index ? undefined : index);
-    }
-
-    /**
      * Selects the option.
      *
      * @param mainIndex   - Index of main option.
@@ -77,8 +60,8 @@ export class DropdownComponent {
 
         options.forEach((item, i) => {
             item.active = i === mainIndex;
-            item.additional?.forEach((nested, j) => {
-                nested.active = item.active && j === nestedIndex;
+            item.additional?.forEach((element, j) => {
+                element.active = item.active && j === nestedIndex;
             });
         });
 
@@ -107,6 +90,10 @@ export class DropdownComponent {
      */
     private findLabel(options: Option[]): string|undefined
     {
+        if (this.data().heading) {
+            return undefined
+        }
+        
         for (const item of options) {
             if (item.active) {
                 return item.label;

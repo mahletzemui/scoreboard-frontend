@@ -112,7 +112,7 @@
 
 .popover {
     position: absolute;
-    z-index: 3;
+    z-index: 30;
     top: calc(100% + 4px);
     right: 0;
 

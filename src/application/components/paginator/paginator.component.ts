@@ -96,7 +96,7 @@ export class PaginatorComponent implements OnInit {
      */
     movePage(forward: boolean): void
     {
-        this.indexSignal.update(value => value + (forward ? 1 : -1));
+        this.indexSignal.update(current => current + (forward ? 1 : -1));
         this.paged.emit({ size: this.size(), index: this.index() });
     }
 }

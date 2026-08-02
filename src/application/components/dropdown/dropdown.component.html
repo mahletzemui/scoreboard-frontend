@@ -1,12 +1,13 @@
 <div class="wrapper" (mouseleave)="close()">
-    <button class="header" [class.open]="opened()" (click)="togglePanel()">
+    <button class="header" [class.dense]="dense()" [class.open]="opened()" (click)="opened.update(current => !current)">
+        <ng-content select="[icon]"></ng-content>
         <div class="label">
             <span class="caption" [class.float]="floated()">{{ caption() }}</span>
             @if (value()) {
             <span class="value">{{ value() }}</span>
             }
         </div>
-        <svg [class.rotate]="opened()" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+        <svg class="chevron" [class.rotate]="opened()" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
             <path d="M480-357.85 253.85-584 296-626.15l184 184 184-184L706.15-584 480-357.85Z" />
         </svg>
     </button>
@@ -14,7 +15,7 @@
     <div class="panel" [class.visible]="opened()">
         @for (item of options(); track item; let i = $index) {
         @if (item.additional) {
-        <button class="option" [class.expand]="expanded() === i" (click)="toggleOption(i)">
+        <button class="option" [class.expand]="expanded() === i" (click)="expanded.update(current => current === i ? undefined : i)">
             @if (item.icon) {
             <svg class="badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                 @for (element of item.icon; track element) {

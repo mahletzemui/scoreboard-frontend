@@ -24,7 +24,7 @@ export class FinderComponent {
     private filtersSignal = signal<Filter[]|undefined>(undefined);
     readonly filters = this.filtersSignal.asReadonly();
 
-    openned = signal(false);
+    opened = signal(false);
     filterCount = computed(() => (this.filters() ?? []).reduce((sum, item) => item.type === 'check' ? sum + item.options.filter(element => element.active).length
                                                                                                     : sum + (item.from || item.to ? 1 : 0), 0));
 
@@ -129,7 +129,7 @@ export class FinderComponent {
     {
         this.filtersSignal.set(structuredClone(this.data()));
         this.filtered.emit([]);
-        this.openned.set(false);
+        this.opened.set(false);
     }
 
     // Helpers --------------------------------------------------------------------

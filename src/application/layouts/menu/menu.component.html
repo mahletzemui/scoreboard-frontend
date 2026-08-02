@@ -1,0 +1,99 @@
+<div class="frame">
+    <div class="row">
+        <div class="logo">
+            <img [src]="lightMode() ? 'assets/logos/light_logo.svg' : 'assets/logos/dark_logo.svg'" alt="Logo">
+        </div>
+
+        @if (preferredName()) {
+        <div class="links" [class.opened]="opened()">
+            <button class="item" [class.active]="path().includes('dashboard')" (click)="onNavigate(['dashboard'])">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M520-600v-240h320v240H520Z
+                        M120-440v-400h320v400H120Z
+                        m400 320v-400h320v400H520Z
+                        m-400 0v-240h320v240H120Z
+                        m80-400h160v-240H200v240Z
+                        m400 320h160v-240H600v240Z
+                        m0-480h160v-80H600v80Z
+                        M200-200h160v-80H200v80Z
+                        m160-320Z
+                        m240-160Z
+                        m0 240Z
+                        M360-280Z"/>
+                </svg>
+                Dashboard
+            </button>
+
+            <div class="item dropdown" [class.active]="path().includes('games')">
+                <app-dropdown [data]="gameSelector()" [dense]="true" (selected)="onNavigate($event)">
+                    <svg icon xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M120-272q0-16 10.5-27t25.5-11q8 0 15.5 2.5T186-300q13 8 26 14t28 6q33 0 56.5-23.5T320-360q0-33-23.5-56.5T240-440q-15 0-29 5t-25 15q-6 5-14 7.5t-16 2.5q-15 0-25.5-11T120-448v-152q0-17 11.5-28.5T160-640h150q-5-15-7.5-30t-2.5-30q0-75 52.5-127.5T480-880q75 0 127.5 52.5T660-700q0 15-2.5 30t-7.5 30h150q17 0 28.5 11.5T840-600v152q0 17-11.5 28.5T800-408q-8 0-14-3.5t-12-8.5q-11-10-25-15t-29-5q-33 0-56.5 23.5T640-360q0 33 23.5 56.5T720-280q15 0 29-5t25-15q5-5 11.5-8.5T800-312q17 0 28.5 11.5T840-272v152q0 17-11.5 28.5T800-80H160q-17 0-28.5-11.5T120-120v-152Z
+                            m80 112h560v-46q-10 3-19.5 4.5T720-200q-66 0-113-47t-47-113q0-66 47-113t113-47q11 0 20.5 1.5T760-514v-46H578q-17 0-28.5-11T538-598q0-8 2.5-16.5T550-628q17-12 23.5-31.5T580-700q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 21 6.5 40.5T410-628q7 5 9.5 12.5T422-600q0 17-11.5 28.5T382-560H200v46q10-3 19.5-4.5T240-520q66 0 113 47t47 113q0 66-47 113t-113 47q-11 0-20.5-1.5T200-206v46Z
+                            m280-320Z"/></svg>
+                </app-dropdown>
+            </div>
+
+            <button class="item" [class.active]="path().includes('family')" (click)="onNavigate(['family'])">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M240-320q-33 0-56.5-23.5T160-400q0-33 23.5-56.5T240-480q33 0 56.5 23.5T320-400q0 33-23.5 56.5T240-320Z
+                        m480 0q-33 0-56.5-23.5T640-400q0-33 23.5-56.5T720-480q33 0 56.5 23.5T800-400q0 33-23.5 56.5T720-320Z
+                        m-240-40q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Z
+                        M284-120q14-69 68.5-114.5T480-280q73 0 127.5 45.5T676-120H284Z
+                        m-204 0q0-66 47-113t113-47q17 0 32 3t29 9q-30 29-50 66.5T224-120H80Z
+                        m656 0q-7-44-27-81.5T659-268q14-6 29-9t32-3q66 0 113 47t47 113H736Z
+                        M88-480l-48-64 440-336 160 122v-82h120v174l160 122-48 64-392-299L88-480Z"/>
+                </svg>
+                Family
+            </button>
+
+            <div class="item dropdown" [class.active]="path().includes('account') || path().includes('notifications')">
+                <app-dropdown [data]="accountSelector()" [dense]="true" (selected)="onNavigate($event)">
+                    <span icon class="avatar">{{ initial() }}</span>
+                </app-dropdown>
+            </div>
+        </div>
+        }
+
+        <div class="controls">
+            <button class="icon theme" (click)="toggleTheme()">
+                @if (lightMode()) {
+                <svg id="light-theme" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M480-300q-74.92 0-127.46-52.54Q300-405.08 300-480q0-74.92 52.54-127.46Q405.08-660 480-660q74.92 0 127.46 52.54Q660-554.92 660-480q0 74.92-52.54 127.46Q554.92-300 480-300Z
+                        M200-450H50v-60h150v60Z
+                        m710 0H760v-60h150v60Z
+                        M450-760v-150h60v150h-60Z
+                        m0 710v-150h60v150h-60Z
+                        M262.92-656.92l-93.69-90.46 42.39-44.39 90.23 92.69-38.93 42.16Z
+                        m485.46 488.69-90.84-93.31 39.54-41.54 93.69 90.46-42.39 44.39Z
+                        m-91.46-528.85 90.46-93.69 44.39 42.39-92.69 90.23-42.16-38.93Z
+                        M168.23-211.62l93.31-90.84 40.77 39.54-90.08 94.07-44-42.77Z" />
+                </svg>
+                } @else {
+                <svg id="dark-theme" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M481.15-140q-141.66 0-240.83-99.17-99.16-99.16-99.16-240.83 0-135.77 92.11-232.88 92.11-97.12 225.57-105.2 8.62 0 16.93.62 8.3.62 16.3 1.85-30.61 28.61-48.76 69.15-18.16 40.54-18.16 86.46 0 98.33 68.84 167.17Q562.82-424 661.15-424q46.54 0 86.77-18.15 40.23-18.16 68.46-48.77 1.23 8 1.85 16.31.61 8.3.61 16.92-7.69 133.46-104.8 225.57Q616.92-140 481.15-140Z" />
+                </svg>
+                }
+            </button>
+
+            @if (preferredName()) {
+            <button class="icon hamburger" [class.active]="opened()" (click)="opened.update(current => !current)">
+                @if (opened()) {
+                <svg id="opened-menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                </svg>
+                } @else {
+                <svg id="closed-menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M120-240v-80h720v80H120Z
+                        m0-200v-80h720v80H120Z
+                        m0-200v-80h720v80H120Z" />
+                </svg>
+                }
+            </button>
+            }
+        </div>
+    </div>
+</div>
+
+@if (showLogoutMessage()) {
+<app-message-modal [data]="logoutMessage" [updates]="logoutUpdate()" (submitted)="onLogout()" (closed)="showLogoutMessage.set(false)" />
+}

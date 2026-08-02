@@ -15,10 +15,16 @@
     padding: 15px;
     border-radius: 10px;
 }
+.header.dense {
+    padding: 9px 14px;
+}
 
 .header span {
     font-weight: 500;
     font-size: 0.95rem;
+}
+.header.dense span {
+    font-size: 0.92rem;
 }
 
 .header .label {
@@ -51,22 +57,26 @@
     bottom: -5px;
 }
 
-.header svg {
+.header .chevron {
     width: 25px;
+    flex-shrink: 0;
     transition: transform var(--default-animation-delay) cubic-bezier(0.16, 1, 0.3, 1);
 }
-.header svg.rotate {
+.header .chevron.rotate {
     transform: rotate(180deg);
+}
+.header.dense .chevron {
+    width: 16px;
 }
 
 
 .panel {
     position: absolute;
-    z-index: 3;
+    z-index: 20;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-6px) scale(0.98);
-    
+
     gap: 2px;
     display: flex;
     flex-direction: column;
@@ -76,7 +86,7 @@
     overflow-y: auto;
     margin-top: 2px;
     padding: 6px;
-    
+
     border-radius: 14px;
     border: 1px solid var(--primary-100);
     background-color: var(--background-50);
@@ -114,7 +124,7 @@
 }
 
 .badge {
-    width: 25px;
+    width: 22px;
 }
 
 .option span {

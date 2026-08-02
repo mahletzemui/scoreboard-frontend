@@ -21,7 +21,7 @@ import { AuthenticationService, LoaderService } from '../../services';
     imports: [ FormFieldComponent ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './access.component.html',
-    styleUrl: './access.component.css'
+    styleUrls: [ '../../../assets/styles/authentication.css', './access.component.css' ]
 })
 export class AccessComponent extends BaseLayout {
     // Fields ---------------------------------------------------------------------
@@ -89,15 +89,15 @@ export class AccessComponent extends BaseLayout {
                 error: (error) => {
                     const code = error.status;
                     if (code === 401) {
-                        this.loginModel.update(item => ({ ...item, error: 'The username and/or password are incorrect.' }));
+                        this.loginModel.update(current => ({ ...current, error: 'The username and/or password are incorrect.' }));
                     } else {
                         console.error(`Login (cont.): Denied because of an unexpected error - '${code}': '${error.message}'.`);
-                        this.loginModel.update(item => ({ ...item, error: 'An unexpected error occurred, try again later.' }));
+                        this.loginModel.update(current => ({ ...current, error: 'An unexpected error occurred, try again later.' }));
                     }
                 }
             });
         } else {
-            this.loginModel.update(item => ({ ...item, error: 'The username and/or password are incorrect.' }));
+            this.loginModel.update(current => ({ ...current, error: 'The username and/or password are incorrect.' }));
         }
     }
 
@@ -119,10 +119,10 @@ export class AccessComponent extends BaseLayout {
                 error: (error) => {
                     const code = error.status;
                     if (code === 409) {
-                        this.registerModel.update(item => ({ ...item, error: 'The username already exists.' }));
+                        this.registerModel.update(current => ({ ...current, error: 'The username already exists.' }));
                     } else {
                         console.error(`Registration (cont.): Denied because of an unexpected error - '${code}': '${error.message}'.`);
-                        this.registerModel.update(item => ({ ...item, error: 'An unexpected error occurred, try again later.' }));
+                        this.registerModel.update(current => ({ ...current, error: 'An unexpected error occurred, try again later.' }));
                     }
                 }
             });

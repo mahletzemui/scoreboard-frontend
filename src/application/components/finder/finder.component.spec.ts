@@ -46,7 +46,7 @@ describe('FinderComponent', () => {
         {
             expect(component).toBeTruthy();
             expect(component.terms()).toEqual([]);
-            expect(component.openned()).toBe(false);
+            expect(component.opened()).toBe(false);
             expect(component.filterCount()).toBe(0);
             expect(component.filters()).toBeFalsy();
 
@@ -141,7 +141,7 @@ describe('FinderComponent', () => {
         {
             expect(component).toBeTruthy();
             expect(component.filters()).toEqual(createGameFilter('connect4'));
-            expect(component.openned()).toBe(false);
+            expect(component.opened()).toBe(false);
             expect(component.filterCount()).toBe(0);
 
             const trigger = dom.querySelector('.icon');
@@ -156,7 +156,7 @@ describe('FinderComponent', () => {
         {
             (dom.querySelector('.icon') as HTMLElement).click();
             fixture.detectChanges();
-            expect(component.openned()).toBe(true);
+            expect(component.opened()).toBe(true);
             expect(dom.querySelector('.icon.active')).toBeTruthy();
             expect(dom.querySelector('.popover')).toBeTruthy();
             expect(dom.querySelectorAll('.pills').length).toBe(2);
@@ -164,7 +164,7 @@ describe('FinderComponent', () => {
 
             (dom.querySelector('.wrapper') as HTMLElement).dispatchEvent(new Event('mouseleave'));
             fixture.detectChanges();
-            expect(component.openned()).toBe(false);
+            expect(component.opened()).toBe(false);
             expect(dom.querySelector('.icon.active')).toBeFalsy();
             expect(dom.querySelector('.popover')).toBeFalsy();
         });
@@ -315,7 +315,7 @@ describe('FinderComponent', () => {
             fixture.detectChanges();
 
             expect(component.filterCount()).toBe(0);
-            expect(component.openned()).toBe(false);
+            expect(component.opened()).toBe(false);
             expect(component.filtered.emit).toHaveBeenCalledWith([]);
             expect(component.filters()).toEqual(createGameFilter('connect4'));
             expect(dom.querySelector('.popover')).toBeFalsy();

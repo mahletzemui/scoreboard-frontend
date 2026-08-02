@@ -1,3 +1,11 @@
+<app-menu [class.visible]="loader.loadedHeader()"></app-menu>
+
+<div class="backdrop">
+    @for (_ of bubbles; track $index) {
+    <span></span>
+    }
+</div>
+
 <div class="content visible">
     <app-banner />
 
@@ -5,3 +13,20 @@
         <router-outlet></router-outlet>
     </div>
 </div>
+
+<!-- @if (!(loader.loaded$ | async)) {
+<div class="content visible" style="justify-content: center;">
+    <div class="loader"><span></span></div>
+</div>
+} @else {
+    @if (!(loader.loadedRequest$ | async)) {
+    <div class="blocker">
+        <div class="loader"><span></span></div>
+    </div>
+    }
+}
+<div class="content" [class.visible]="loader.loaded$ | async">
+    <div class="layout">
+        <router-outlet></router-outlet>
+    </div>
+</div> -->

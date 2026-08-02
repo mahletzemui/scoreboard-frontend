@@ -41,11 +41,11 @@
     background: var(--accent-400);
 }
 .scene.login .panel::before {
-    border-radius: 30px 150px 150px 30px;
+    border-radius: 0 150px 150px 0;
 }
 .scene.register .panel::before {
     left: 100%;
-    border-radius: 150px 30px 30px 150px;
+    border-radius: 150px 0 0 150px;
 }
 
 .panel div {
@@ -135,7 +135,7 @@
     .panel::before {
         left: 0 !important;
         right: 0 !important;
-        border-radius: 30px 30px 150px 150px !important;
+        border-radius: 0 0 150px 150px !important;
     }
 
     .panel div {

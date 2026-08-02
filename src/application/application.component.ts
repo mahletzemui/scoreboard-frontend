@@ -1,9 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 
 import { BannerComponent } from './components';
+import { MenuComponent } from './layouts/menu/menu.component';
+
+import { LoaderService } from './services';
 
 
 /**
@@ -11,23 +13,17 @@ import { BannerComponent } from './components';
  */
 @Component({
     selector: 'app-root',
-    imports: [ CommonModule, RouterOutlet, BannerComponent ],
+    imports: [ RouterOutlet, BannerComponent, MenuComponent ],
     templateUrl: './application.component.html',
     styleUrl: './application.component.css'
 })
 export class ApplicationComponent implements OnInit {
     // Fields ---------------------------------------------------------------------
+    loader = inject(LoaderService);
+    
     bubbles = Array.from({ length: 10 });
 
     // Constructors ---------------------------------------------------------------
-
-    /**
-     * Creates a new ApplicationComponent object.
-     *
-     * @param loader - Loading status handler.
-     * @param router - Routing handler.
-     */
-    // constructor(public loader: LoaderService, private router: Router) { }
 
     /**
      * Initializes all the necessary elements of the component.
