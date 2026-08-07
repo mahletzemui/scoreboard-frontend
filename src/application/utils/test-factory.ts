@@ -1,6 +1,10 @@
 import { ComponentFixture } from '@angular/core/testing';
 
 
+import { LoaderService } from '../services';
+import { BaseLayout } from '../layouts/base-layout.directive';
+
+
 /**
  * Manages the test suite's common helpers.
  */
@@ -45,6 +49,31 @@ export class TestFactory {
     }
 
     /**
+     * Updates search terms for a finder.
+     *
+     * @param dom     - Root element with finder.
+     * @param fixture - Fixture to detect changes with.
+     * @param terms   - Terms to search with.
+     */
+    static searchTerms(dom: HTMLElement, fixture: ComponentFixture<unknown>, terms?: string[]|number): void
+    {
+        const input = dom.querySelector('#keywords') as HTMLInputElement;
+        if (Array.isArray(terms)) {
+            terms.forEach(item => {
+                input.value = item;
+                input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+                fixture.detectChanges();
+            });
+        } else if (typeof terms === 'number') {
+            (dom.querySelectorAll('app-finder .chips button')[terms] as HTMLElement).click();
+            fixture.detectChanges();
+        } else {
+            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace' }));
+            fixture.detectChanges();
+        }
+    }
+
+    /**
      * Fills a form's field inputs.
      *
      * @param dom     - Root element with form.
@@ -59,5 +88,23 @@ export class TestFactory {
             input.dispatchEvent(new Event('input'));
         });
         fixture.detectChanges();
+    }
+
+    /**
+     * Validates a base layout's resolution behavior.
+     *
+     * @param component - Component to validate.
+     */
+    static async validateBaseLayout(component: BaseLayout): Promise<void>
+    {
+        const spy = vi.spyOn(LoaderService.prototype, 'setLoadedContent');
+        vi.useFakeTimers();
+
+        component.ngAfterViewInit();
+        expect(spy).not.toHaveBeenCalled();
+        await vi.advanceTimersByTimeAsync(1000);
+        expect(spy).toHaveBeenCalledWith(true);
+
+        vi.useRealTimers();
     }
 }

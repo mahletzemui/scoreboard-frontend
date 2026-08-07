@@ -13,7 +13,7 @@
     </button>
 
     <div class="panel" [class.visible]="opened()">
-        @for (item of options(); track item; let i = $index) {
+        @for (item of options(); track item.name; let i = $index) {
         @if (item.additional) {
         <button class="option" [class.expand]="expanded() === i" (click)="expanded.update(current => current === i ? undefined : i)">
             @if (item.icon) {
@@ -26,7 +26,7 @@
             <span [class.active]="item.active">{{ item.label }}</span>
         </button>
         <ul [class.visible]="expanded() === i">
-            @for (nested of item.additional; track nested; let j = $index) {
+            @for (nested of item.additional; track nested.name; let j = $index) {
             <li [class.active]="nested.active" (click)="selectOption(i, j)">
                 @if (nested.icon) {
                 <svg class="badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">

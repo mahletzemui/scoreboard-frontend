@@ -1,14 +1,14 @@
 <app-modal (closed)="closed.emit()">
     <div class="panel form">
         @if (model(); as data) {
-        <h4>{{ data.title }}</h4>
+        <h3>{{ data.title }}</h3>
         <span class="error-text general">{{ data.error }}</span>
         @for (item of data.fields; track item) {
         <app-form-field [field]="item" [intake]="data.intake" [validate]="true" />
         }
         <button style="margin-top: 10px;" (click)="submit()">{{ data.title.split(' ')[0] }}</button>
         } @else {
-        <h4>Well... This Is Awkward</h4>
+        <h3>Well... This Is Awkward</h3>
         <p style="text-align: center; margin-top: 10px;">I don't know what to do with this, so I'm going to assume there's nothing to show.</p>
         }
     </div>

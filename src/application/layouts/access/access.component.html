@@ -11,7 +11,7 @@
 
             <div class="scrollable">
                 <div class="form">
-                    <h3>{{ loginModel().title }}</h3>
+                    <h2>{{ loginModel().title }}</h2>
                     <span class="error-text general">{{ loginModel().error }}</span>
                     @for (item of loginModel().fields; track item) {
                     <app-form-field [field]="item" [intake]="loginModel().intake" [validate]="false" prefix="existing-" />
@@ -25,7 +25,7 @@
         <div class="scene register">
             <div class="scrollable">
                 <div class="form">
-                    <h3>{{ registerModel().title }}</h3>
+                    <h2>{{ registerModel().title }}</h2>
                     <span class="error-text general">{{ registerModel().error }}</span>
                     @for (item of registerModel().fields; track item) {
                     <app-form-field [field]="item" [intake]="registerModel().intake" [validate]="true" prefix="new-" />

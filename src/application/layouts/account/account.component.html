@@ -1,0 +1,49 @@
+<div class="page">
+    <div class="section intro">
+        <h1>Account</h1>
+        <p>View and manage your profile, security, and account settings.</p>
+    </div>
+
+    <div class="section row">
+        <div class="panel">
+            <h3>Profile</h3>
+            @if (generalError()) {
+            <span class="error-text general">{{ generalError() }}</span>
+            }
+            <div class="layout" [class.muted]="generalError()">
+                <div class="initial">{{ initial() }}</div>
+                <dl>
+                    @for (item of profile(); track item.label) {
+                    <div class="row">
+                        <dt>{{ item.label }}</dt>
+                        <dd>{{ item.value }}</dd>
+                    </div>
+                    }
+                </dl>
+            </div>
+            <button [disabled]="generalError()" (click)="openModal('updateProfile')">Update</button>
+        </div>
+
+        <div class="panel">
+            <h3>Security</h3>
+            <p>Keep your password and pin up to date to help protect your account.</p>
+            <div class="controls">
+                <button [disabled]="generalError()" (click)="openModal('updatePassword')">Update Password</button>
+                <button [disabled]="generalError()" (click)="openModal('updatePin')">Update Pin</button>
+            </div>
+        </div>
+        <div class="panel danger">
+            <h3>Disable Account</h3>
+            <p>Disable your account to prevent future access. Contact support if you wish to reactivate it.</p>
+            <button class="danger" [disabled]="generalError()" (click)="openModal('disableAccount')">Disable Account</button>
+        </div>
+    </div>
+</div>
+
+@if (activeModal(); as type) {
+<app-form-modal [type]="type" [updates]="requestError()" (submitted)="onFormSubmit($event)" (closed)="activeModal.set(undefined)" />
+}
+
+@if (showMessage()) {
+<app-message-modal [data]="message()" [updates]="requestError()" (submitted)="onDisableAccount()" (closed)="showMessage.set(false)" />
+}

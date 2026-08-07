@@ -21,7 +21,7 @@ describe('MessageModalComponent', () => {
 
     beforeEach(async () =>
     {
-        await TestBed.configureTestingModule({ imports: [ MessageModalComponent ] }).compileComponents();
+        await TestBed.configureTestingModule({ imports: [MessageModalComponent] }).compileComponents();
         fixture = TestBed.createComponent(MessageModalComponent);
         component = fixture.componentInstance;
 
@@ -54,7 +54,7 @@ describe('MessageModalComponent', () => {
             expect(component.model()).toEqual({ ...message, error: '' });
             expect(component.model()).not.toBe(message);
 
-            expect(dom.querySelector('h4')?.textContent).toBe('Are You Sure?');
+            expect(dom.querySelector('h3')?.textContent).toBe('Are You Sure?');
             expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
             expect(dom.querySelector('p')?.textContent).toBe('This action is permanent.');
             expect(dom.querySelectorAll('.controls button').length).toBe(2);
@@ -111,7 +111,7 @@ describe('MessageModalComponent', () => {
             expect(component.model()).toEqual({ ...message, error: '' });
             expect(component.model()).not.toBe(message);
 
-            expect(dom.querySelector('h4')?.textContent).toBe(message.title);
+            expect(dom.querySelector('h3')?.textContent).toBe(message.title);
             expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
             expect(dom.querySelector('p')?.textContent).toBe(message.notice);
             expect(dom.querySelectorAll('.controls button').length).toBe(1);

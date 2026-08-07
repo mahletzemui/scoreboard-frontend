@@ -48,7 +48,7 @@ describe('ForgotPasswordComponent', () => {
         expect(component).toBeTruthy();
         expect(component.model().title).toBe('Request Password Reset');
         expect(component.submitted()).toBe(false);
-        expect(dom.querySelector('h4')?.textContent).toBe('Forgot your password?');
+        expect(dom.querySelector('h3')?.textContent).toBe('Forgot your password?');
         expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
         expect(dom.querySelectorAll('.form .wrapper').length).toBe(1);
         expect(dom.querySelector('.error-text.input')?.textContent).toBeFalsy();
@@ -56,18 +56,9 @@ describe('ForgotPasswordComponent', () => {
     });
 
 
-    it('should mark content as loaded after view initialization', async () =>
+    it('should mark content as loaded after view initialization', async() =>
     {
-        const loaderSpy = TestBed.inject(LoaderService);
-        vi.spyOn(loaderSpy, 'setLoadedContent');
-        vi.useFakeTimers();
-
-        fixture.detectChanges();
-        expect(loaderSpy.setLoadedContent).not.toHaveBeenCalled();
-        await vi.advanceTimersByTimeAsync(1000);
-        expect(loaderSpy.setLoadedContent).toHaveBeenCalledWith(true);
-
-        vi.useRealTimers();
+        await TestFactory.validateBaseLayout(component);
     });
 
 
@@ -102,7 +93,7 @@ describe('ForgotPasswordComponent', () => {
         expect(serverSpy.forgotPassword).toHaveBeenCalledWith({ username: 'johndoe' });
         expect(component.submitted()).toBe(true);
         expect(dom.querySelector('.form')).toBeFalsy();
-        expect(dom.querySelector('.message h4')?.textContent).toBe('Check your email');
+        expect(dom.querySelector('.message h3')?.textContent).toBe('Check your email');
     });
 
 

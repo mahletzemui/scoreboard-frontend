@@ -22,11 +22,6 @@
     fill: var(--text-950);
 }
 
-.frame h4 {
-    font-weight: 600;
-    font-size: 1.6rem;
-}
-
 .frame p {
     font-size: 0.9rem;
     color: var(--text-500);

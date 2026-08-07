@@ -1,0 +1,100 @@
+.grid {
+    gap: 50px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding-top: 20px;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid var(--text-950);
+    background-color: var(--background-50);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transition: transform var(--default-animation-delay) ease,
+                box-shadow var(--default-animation-delay) ease;
+}
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.14);
+}
+
+
+.card .cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    padding: 8px;
+    align-self: center;
+    border-radius: 50%;
+    background-color: var(--background-100);
+}
+
+.card .cover svg {
+    width: 68px;
+    height: 68px;
+}
+
+.card .cover path:nth-of-type(odd) {
+    fill: var(--text);
+}
+.card .cover path:nth-of-type(even) {
+    fill: var(--accent-400);
+}
+
+
+.card .body {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 22px 22px;
+}
+
+.card .body h4 {
+    font-size: 1.1rem;
+}
+
+.card .body p {
+    line-height: 1.6;
+    font-size: 0.88rem;
+    color: var(--text-500);
+    margin-top: 8px;
+}
+
+
+.card .controls {
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 18px;
+}
+
+.card .controls button {
+    flex: 1;
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--background-50);
+    padding: 10px 14px;
+    border-radius: 100px;
+    background-color: var(--accent-300);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.card .controls button:hover {
+    background-color: var(--accent-400);
+}
+
+.card .controls button.secondary {
+    color: var(--text);
+    background-color: transparent;
+    border: 1px solid var(--primary-200);
+}
+.card .controls button.secondary:hover {
+    background-color: var(--primary-300);
+}

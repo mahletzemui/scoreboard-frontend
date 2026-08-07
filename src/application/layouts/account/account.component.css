@@ -1,0 +1,116 @@
+.section.row {
+    gap: 25px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.panel {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    height: 275px;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid var(--text-950);
+    background-color: var(--background-50);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+.panel.danger {
+    border-color: var(--danger-200);
+}
+
+.panel p {
+    line-height: 1.6;
+    font-size: 0.92rem;
+    color: var(--text-500);
+}
+
+
+.layout {
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.layout .initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--background-50);
+    border-radius: 50%;
+    background-color: var(--accent-400);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.layout.muted .initial {
+    background-color: var(--text-500);
+}
+
+.layout.muted dd {
+    color: var(--text-500);
+}
+
+.panel dl {
+    gap: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.panel .row {
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.panel dt {
+    font-size: 0.88rem;
+    color: var(--text-500);
+}
+
+.panel dd {
+    font-weight: 500;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+
+.panel .controls {
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 18px;
+}
+
+button {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--background-50);
+    padding: 10px 14px;
+    border-radius: 100px;
+    background-color: var(--accent-300);
+    transition: background-color var(--default-animation-delay) ease;
+}
+button:hover {
+    background-color: var(--accent-400);
+}
+
+button.danger {
+    background-color: var(--danger-400);
+}
+button.danger:hover {
+    background-color: var(--danger-500);
+}

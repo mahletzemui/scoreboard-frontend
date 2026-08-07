@@ -226,7 +226,7 @@ describe('MenuComponent', () => {
             expect(routerSpy.navigate).not.toHaveBeenCalled();
             expect(component.showLogoutMessage()).toBe(true);
             expect(component.logoutUpdate()).toBe('');
-            expect(dom.querySelector('app-message-modal h4')?.textContent).toBe('Are You Sure?');
+            expect(dom.querySelector('app-message-modal h3')?.textContent).toBe('Are You Sure?');
             expect(dom.querySelector('app-message-modal p')?.textContent).toBe("You're about to log out — you'll need your credentials to sign back in.");
         });
 

@@ -54,7 +54,7 @@ describe('FormModalComponent', () => {
             expect(component.model()?.fields).toEqual(form.fields);
             expect(component.model()).not.toBe(form);
 
-            expect(dom.querySelector('h4')?.textContent).toBe(form.title);
+            expect(dom.querySelector('h3')?.textContent).toBe(form.title);
             expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
             expect(dom.querySelectorAll('.form .wrapper').length).toBe(2);
             expect((dom.querySelector('#username') as HTMLInputElement).type).toBe('text');
@@ -118,7 +118,7 @@ describe('FormModalComponent', () => {
 
         expect(console.error).toHaveBeenCalledTimes(1);
         expect(component.model()).toBeFalsy();
-        expect(dom.querySelector('h4')?.textContent).toBe('Well... This Is Awkward');
+        expect(dom.querySelector('h3')?.textContent).toBe('Well... This Is Awkward');
         expect(dom.querySelector('p')?.textContent).toBe("I don't know what to do with this, so I'm going to assume there's nothing to show.");
 
         (dom.querySelector('#modal-trigger') as HTMLElement).click();

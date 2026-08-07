@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     padding: 15px 12px 15px 18px;
+    border-bottom: 1px solid var(--primary-30);
     background-color: var(--background-50);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
@@ -97,7 +98,6 @@ app-dropdown {
 
 .icon.theme svg, .icon.hamburger svg {
     width: 22px;
-    fill: var(--text);
 }
 
 .hamburger {
@@ -140,7 +140,7 @@ app-dropdown {
         justify-content: flex-start;
         padding: 14px;
 
-        border: 1px solid var(--text-950);
+        border-bottom: 1px solid var(--primary-30);
         background-color: var(--background-50);
         box-shadow: 0 20px 60px -40px rgba(0, 0, 0, 0.15);
     }

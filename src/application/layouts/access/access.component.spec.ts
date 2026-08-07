@@ -70,18 +70,9 @@ describe('AccessComponent', () => {
         });
 
 
-        it('should mark content as loaded after view initialization', async () =>
+        it('should mark content as loaded after view initialization', async() =>
         {
-            const loaderSpy = TestBed.inject(LoaderService);
-            vi.spyOn(loaderSpy, 'setLoadedContent');
-            vi.useFakeTimers();
-
-            fixture.detectChanges();
-            expect(loaderSpy.setLoadedContent).not.toHaveBeenCalled();
-            await vi.advanceTimersByTimeAsync(1000);
-            expect(loaderSpy.setLoadedContent).toHaveBeenCalledWith(true);
-
-            vi.useRealTimers();
+            await TestFactory.validateBaseLayout(component);
         });
 
 

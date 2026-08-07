@@ -56,7 +56,7 @@ describe('DominoRoundModalComponent', () => {
             expect(component.doubleZero()).toBe(false);
             expect(component.roundError()).toBeFalsy();
 
-            expect(dom.querySelector('h4')?.textContent).toBe('Round 2');
+            expect(dom.querySelector('h3')?.textContent).toBe('Round 2');
             expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
             expect((dom.querySelector('.toggle input') as HTMLInputElement).checked).toBe(false);
             expect((dom.querySelector('#points') as HTMLInputElement).value).toBe('45');
@@ -238,7 +238,7 @@ describe('DominoRoundModalComponent', () => {
         expect(component.doubleZero()).toBe(false);
         expect(component.roundError()).toBe('Please enter valid points for this round.');
 
-        expect(dom.querySelector('h4')?.textContent).toBe('Round 1');
+        expect(dom.querySelector('h3')?.textContent).toBe('Round 1');
         expect(dom.querySelector('.error-text.general')?.textContent).toBe('Please enter valid points for this round.');
         expect((dom.querySelector('.toggle input') as HTMLInputElement).checked).toBe(false);
         expect((dom.querySelector('#points') as HTMLInputElement).value).toBe('0');

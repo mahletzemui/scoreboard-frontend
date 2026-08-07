@@ -56,7 +56,7 @@ describe('ResetPasswordComponent', () => {
             expect(component).toBeTruthy();
             expect(component.token).toBe('123-456-789');
             expect(component.model().title).toBe('Update Password');
-            expect(dom.querySelector('h4')?.textContent).toBe('Choose a new password');
+            expect(dom.querySelector('h3')?.textContent).toBe('Choose a new password');
             expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
             expect(dom.querySelectorAll('.form .wrapper').length).toBe(2);
             expect(dom.querySelectorAll('.error-text.input')[0].textContent).toBeFalsy();
@@ -64,18 +64,9 @@ describe('ResetPasswordComponent', () => {
         });
 
 
-        it('should mark content as loaded after view initialization', async () =>
+        it('should mark content as loaded after view initialization', async() =>
         {
-            const loaderSpy = TestBed.inject(LoaderService);
-            vi.spyOn(loaderSpy, 'setLoadedContent');
-            vi.useFakeTimers();
-
-            fixture.detectChanges();
-            expect(loaderSpy.setLoadedContent).not.toHaveBeenCalled();
-            await vi.advanceTimersByTimeAsync(1000);
-            expect(loaderSpy.setLoadedContent).toHaveBeenCalledWith(true);
-
-            vi.useRealTimers();
+            await TestFactory.validateBaseLayout(component);
         });
 
 
@@ -191,7 +182,7 @@ describe('ResetPasswordComponent', () => {
             expect(component).toBeTruthy();
             expect(component.token).toBe('');
             expect(component.model().title).toBe('Update Password');
-            expect(dom.querySelector('h4')?.textContent).toBe('Choose a new password');
+            expect(dom.querySelector('h3')?.textContent).toBe('Choose a new password');
             expect(dom.querySelector('.error-text.general')?.textContent).toBeFalsy();
             expect(dom.querySelectorAll('.form .wrapper').length).toBe(2);
             expect(dom.querySelectorAll('.error-text.input')[0].textContent).toBeFalsy();

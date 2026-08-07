@@ -28,7 +28,6 @@ export function createGameSelector(): Selector
     };
 }
 
-
 /**
  * Creates the account selector model.
  */

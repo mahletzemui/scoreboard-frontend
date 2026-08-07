@@ -40,7 +40,7 @@ describe('PlaybookModalComponent', () => {
         fixture.detectChanges();
 
         expect(component).toBeTruthy();
-        expect(dom.querySelector('h4')?.textContent).toBe('Test');
+        expect(dom.querySelector('h3')?.textContent).toBe('Test');
         expect(dom.querySelector('p')?.textContent).toBe(playbook.intro);
         expect(dom.querySelectorAll('hr').length).toBe(2);
         expect(dom.querySelectorAll('.details').length).toBe(2);
@@ -64,7 +64,7 @@ describe('PlaybookModalComponent', () => {
         fixture.detectChanges();
 
         expect(component).toBeTruthy();
-        expect(dom.querySelector('h4')?.textContent).toBe('Test');
+        expect(dom.querySelector('h3')?.textContent).toBe('Test');
         expect(dom.querySelector('p')?.textContent).toBe(playbook.intro);
         expect(dom.querySelectorAll('hr').length).toBe(3);
         expect(dom.querySelectorAll('.details').length).toBe(3);

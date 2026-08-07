@@ -12,7 +12,7 @@
     padding: 10px 16px;
 
     border-radius: 10px;
-    border: 1px solid var(--primary-100);
+    border: 1px solid var(--primary-30);
     background-color: var(--background-50);
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
     transition: box-shadow var(--default-animation-delay) ease;

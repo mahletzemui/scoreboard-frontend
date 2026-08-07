@@ -173,6 +173,7 @@
     --danger-950: rgb(252, 233, 233);
 }
 
+
 /* ----------------------------------------------------------------------------- */
 
 * {
@@ -200,15 +201,15 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 4.210rem;
-}
-
-h2 {
     font-size: 3.158rem;
 }
 
-h3 {
+h2 {
     font-size: 2.369rem;
+}
+
+h3 {
+    font-size: 1.777rem;
 }
 
 p {
@@ -248,6 +249,7 @@ svg {
     display: block;
     width: 100%;
     height: auto;
+    fill: var(--text);
     fill-opacity: 0.8;
 }
 .icon svg:hover, .badge svg {
@@ -284,6 +286,7 @@ button:disabled {
     cursor: default;
 }
 
+
 /* ------------------------------- Components ---------------------------------- */
 
 router-outlet + * {
@@ -306,12 +309,90 @@ app-dropdown.small .value {
 }
 
 app-finder, app-paginator {
+    width: 100%;
     min-width: 350px;
+    max-width: 600px;
 }
+
+
+/* --------------------------------- Layouts ------------------------------------ */
+
+.page {
+    gap: 35px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.section {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+.section.center {
+    align-items: center;
+}
+.section.scrollable {
+    max-height: 750px;
+    overflow-y: auto;
+}
+
+.section:has(app-paginator) {
+    width: 80%;
+    min-width: 350px;
+    padding-top: 24px;
+    align-self: center;
+    border-top: 1px solid var(--primary-30);
+}
+
+
+.section.intro h1 {
+    position: relative;
+    padding-bottom: 15px;
+}
+.section.intro h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 4px;
+    border-radius: 100px;
+    background-color: var(--accent-400);
+}
+
+.section.intro p {
+    color: var(--text-500);
+}
+
+
+.section .empty-grid {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 300px;
+}
+
+.section .empty-grid svg {
+    width: 45px;
+    fill: var(--text-700);
+}
+
+.section .empty-grid p {
+    max-width: 320px;
+    text-align: center;
+    color: var(--text-500);
+}
+
 
 /* ------------------------------- Miscellaneous -------------------------------- */
 
-.form h3 {
+.form h2 {
     color: var(--accent-500);
 }
 

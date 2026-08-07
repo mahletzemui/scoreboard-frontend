@@ -1,0 +1,52 @@
+<div class="page">
+    <div class="section intro">
+        <h1>Welcome Back, {{ preferredName }}</h1>
+        <p>Back for another game? Your games dashboard keeps every match, score, and milestone together, so your progress is always close at hand.</p>
+    </div>
+
+    <div class="section center">
+        <app-finder (searched)="onSearch($event)"></app-finder>
+    </div>
+
+    <div class="section scrollable">
+        @if (paged().length !== 0) {
+        <div class="grid">
+            @for (item of paged(); track item.baseUrl) {
+            <article class="card" (click)="selected = item.title">
+                <div class="cover">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        @for (element of item.icon; track element) {
+                        <path [attr.d]="element"></path>
+                        }
+                    </svg>
+                </div>
+                <div class="body">
+                    <h4>{{ item.title }}</h4>
+                    <p>{{ item.summary }}</p>
+                    <div class="controls">
+                        <button (click)="$event.stopPropagation(); navigateTo(item.baseUrl + '/play')">Play</button>
+                        <button class="secondary" (click)="$event.stopPropagation(); navigateTo(item.baseUrl + '/recap')">Recap</button>
+                    </div>
+                </div>
+            </article>
+            }
+        </div>
+        } @else {
+        <div class="empty-grid">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                <path d="M784.62-149.85 620.15-314.31Q589-289 550.42-274T467.69-259q-86.61 0-147.42-60.79-60.81-60.79-60.81-147.37 0-86.57 60.79-147.51 60.79-60.95 147.37-60.95 86.57 0 147.51 60.83Q676.31-554.96 676.31-468q0 41.65-15.5 80.15-15.5 38.5-40.5 67.5l164.61 164.5-.15.15Z
+                    M467.69-314.31q60.62 0 103.31-42.85t42.69-103.03q0-60.19-42.65-103.35-42.66-43.15-103.5-43.15-60.85 0-103.31 43.16-42.46 43.15-42.46 103.34 0 60.19 42.5 103.04 42.5 42.84 103.42 42.84Z"/>
+            </svg>
+            <p>Nothing here matches your search. Try different keywords.</p>
+        </div>
+        }
+    </div>
+
+    <div class="section center">
+        <app-paginator [total]="searched().length" [options]="pageOptions" (paged)="onPage($event)"></app-paginator>
+    </div>
+</div>
+
+@if (selected) {
+<app-playbook-modal [title]="selected" [data]="playbooks[selected]" (closed)="selected = undefined"></app-playbook-modal>
+}

@@ -28,6 +28,19 @@ export interface Profile
 
 
 /**
+ * Represents group models.
+ */
+export interface Group
+{
+    id: number,
+    organiser: string,
+    name: string,
+    description: string,
+    member: number|null
+}
+
+
+/**
  * Represents vault models.
  */
 export interface Vault
@@ -38,4 +51,29 @@ export interface Vault
     scores: Match[]|Heat[],
     played: string,
     updated?: string
+}
+
+
+/**
+ * Represents task models.
+ */
+export interface Task
+{
+    id: number,
+    seeker: string,
+    action: string,
+    previous: string,
+    current: string,
+    verdict: string,
+    reviewers: Vote[]
+}
+
+/**
+ * Represents vote models.
+ */
+export interface Vote
+{
+    id: number,
+    reporter: string,
+    verdict: string
 }

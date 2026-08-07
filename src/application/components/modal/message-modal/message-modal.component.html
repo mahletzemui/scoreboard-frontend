@@ -1,6 +1,6 @@
 <app-modal (closed)="close()">
     <div class="panel">
-        <h4>{{ model().title }}</h4>
+        <h3>{{ model().title }}</h3>
         <span class="error-text general">{{ model().error }}</span>
         <p [innerHTML]="model().notice"></p>
         <div class="controls">

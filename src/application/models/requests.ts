@@ -52,6 +52,16 @@ export interface Pin
 
 
 /**
+ * Represents family models.
+ */
+export interface Family
+{
+    name: string,
+    description: string
+}
+
+
+/**
  * Represents verification models.
  */
 export interface Verification

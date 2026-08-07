@@ -31,11 +31,11 @@ export const routes: Routes = [
         path: 'reset-password',
         loadComponent: () => import('./layouts/reset-password/reset-password.component').then(item => item.ResetPasswordComponent)
     },
-    // {
-    //     path: 'dashboard',
-    //     loadComponent: () => import('./layouts/dashboard/dashboard.component').then(item => item.DashboardComponent),
-    //     canActivate: [authenticationGuard]
-    // },
+    {
+        path: 'dashboard',
+        loadComponent: () => import('./layouts/dashboard/dashboard.component').then(item => item.DashboardComponent),
+        canActivate: [authenticatedGuard]
+    },
     // {
     //     path: 'games',
     //     canActivate: [authenticationGuard],
@@ -82,13 +82,18 @@ export const routes: Routes = [
     //     ]
     // },
     // {
+    //     path: 'family',
+    //     loadComponent: () => import('./layouts/family/family.component').then(item => item.FamilyComponent),
+    //     canActivate: [authenticatedGuard]
+    // },
+    {
+        path: 'account',
+        loadComponent: () => import('./layouts/account/account.component').then(item => item.AccountComponent),
+        canActivate: [authenticatedGuard]
+    },
+    // {
     //     path: 'notifications',
     //     loadComponent: () => import('./layouts/notifications/notifications.component').then(item => item.NotificationsComponent),
-    //     canActivate: [authenticationGuard]
-    // },
-    // {
-    //     path: 'account',
-    //     loadComponent: () => import('./layouts/account/account.component').then(item => item.AccountComponent),
     //     canActivate: [authenticationGuard]
     // },
     // {
