@@ -25,7 +25,7 @@ import { FinderComponent, PaginatorComponent, PlaybookModalComponent } from '../
 })
 export class DashboardComponent extends BaseLayout {
     // Fields ---------------------------------------------------------------------
-    preferredName: string;
+    preferredName = localStorage.getItem('name')!;
     private router = inject(Router);
 
     private searchedSignal = signal<Teaser[]>(Object.values(GAME_PREVIEWS));
@@ -53,7 +53,6 @@ export class DashboardComponent extends BaseLayout {
     constructor(loader: LoaderService)
     {
         super(loader);
-        this.preferredName = localStorage.getItem('name')!;
     }
 
     // Methods --------------------------------------------------------------------
@@ -61,7 +60,7 @@ export class DashboardComponent extends BaseLayout {
     /**
      * Updates the list of displayed games.
      *
-     * @param event - Terms to update with.
+     * @param event - Event with terms to update with.
      */
     onSearch(event: string[]): void
     {
@@ -82,7 +81,7 @@ export class DashboardComponent extends BaseLayout {
     /**
      * Updates the current page.
      *
-     * @param event - Page to update to.
+     * @param event - Event with page to update to.
      */
     onPage(event: Page): void
     {

@@ -25,7 +25,7 @@ export class FinderComponent {
     readonly filters = this.filtersSignal.asReadonly();
 
     opened = signal(false);
-    filterCount = computed(() => (this.filters() ?? []).reduce((sum, item) => item.type === 'check' ? sum + item.options.filter(element => element.active).length
+    filterCount = computed(() => (this.filters() ?? []).reduce((sum, item) => item.type === 'check' ? sum + item.options.filter(entry => entry.active).length
                                                                                                     : sum + (item.from || item.to ? 1 : 0), 0));
 
     searched = output<string[]>();

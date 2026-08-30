@@ -1,0 +1,58 @@
+<app-game-recap [id]="gameId" [trigger]="trigger()" [currentVault]="currentVault()"
+    (loaded)="onLoaded($event)" (delivered)="onDelivered()">
+
+    @if (paged().length === 0) {
+    <div class="empty-grid">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+            <path d="M784.62-149.85 620.15-314.31Q589-289 550.42-274T467.69-259q-86.61 0-147.42-60.79-60.81-60.79-60.81-147.37 0-86.57 60.79-147.51 60.79-60.95 147.37-60.95 86.57 0 147.51 60.83Q676.31-554.96 676.31-468q0 41.65-15.5 80.15-15.5 38.5-40.5 67.5l164.61 164.5-.15.15Z
+                M467.69-314.31q60.62 0 103.31-42.85t42.69-103.03q0-60.19-42.65-103.35-42.66-43.15-103.5-43.15-60.85 0-103.31 43.16-42.46 43.15-42.46 103.34 0 60.19 42.5 103.04 42.5 42.84 103.42 42.84Z"/>
+        </svg>
+        <p>Nothing here matches your search terms or filters. Try different criteria.</p>
+    </div>
+    } @else {
+    @for (item of highlights(); track item.vault.id) {
+    <article class="card">
+        <header>
+            <div>
+                <span>#{{ item.vault.id }}</span>
+            </div>
+            <span class="standing" [class]="item.vault.standing.toLowerCase().replaceAll(' ', '-')">{{ item.vault.standing }}</span>
+            <time>{{ item.vault.played | date:'medium' }}</time>
+        </header>
+
+        <ul class="players">
+            @for (entry of item.players; track entry.username) {
+            <li>
+                <span class="name">{{ entry.username }}</span>
+                <span class="points">{{ entry.points }} pt(s)</span>
+                <span class="summary">{{ entry.summaries[0] }}</span>
+            </li>
+            }
+        </ul>
+
+        <footer>
+            <div class="controls">
+                <button class="icon" (click)="takeAction('editGame', item.vault)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M200-200h57l391-391-57-57-391 391v57Z
+                            m-40 80q-17 0-28.5-11.5T120-160v-97q0-16 6-30.5t17-25.5l568-568q9-9 20-13.5t21.5-4.5q11.5 0 22.5 4.5t20 13.5l55 56q9 9 13 20t4 22.5q0 11.5-4.5 21.5T849-741L281-173q-11 11-25.5 17t-30.5 6h-97Z" />
+                    </svg>
+                </button>
+                <button class="icon danger" (click)="takeAction('deleteGame', item.vault)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Z
+                            m400-600H280v520h400v-520Z
+                            M360-280h80v-360h-80v360Z
+                            m160 0h80v-360h-80v360Z" />
+                    </svg>
+                </button>
+            </div>
+            <div>
+                <span><strong>Organized By:</strong> {{ item.vault.organiser }}</span>
+                <span><strong>Last Updated:</strong> {{ item.vault.updated ? (item.vault.updated | date:'medium') : 'N/A' }}</span>
+            </div>
+        </footer>
+    </article>
+    }
+    }
+</app-game-recap>

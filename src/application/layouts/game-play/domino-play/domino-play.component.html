@@ -1,0 +1,93 @@
+<app-game-play [id]="gameId" [trigger]="action()" [players]="usernames()" [currentPlayer]="index()" [scores]="submission()"
+    (delivered)="onDelivered($event)">
+
+    <div class="series">
+        <div class="header">
+            <button class="icon" [disabled]="gameEnded() || usernames().length < 3" (click)="takeAction('updateRound')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M440-440H240v-80h200v-200h80v200h200v80H520v200h-80v-200Z" />
+                </svg>
+                Add Round
+            </button>
+        </div>
+
+        <div class="tally">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="player"></th>
+                        @for (item of rounds(); track $index; let i = $index) {
+                        <th class="round">R{{ i + 1 }}</th>
+                        }
+                        <th class="total">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of usernames(); track $index; let i = $index) {
+                    @if (i > 0) {
+                    <tr class="versus">
+                        <td><span>VS</span></td>
+                    </tr>
+                    }
+                    <tr>
+                        <td class="player">
+                            <div class="slot">
+                                <div class="avatar">{{ item.charAt(0).toUpperCase() }}</div>
+                                <p class="name">{{ item }}</p>
+
+                                <div class="controls">
+                                    <button class="icon" (click)="takeAction('verifyPlayer', i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                            <path d="M200-200h57l391-391-57-57-391 391v57Z
+                                                m-40 80q-17 0-28.5-11.5T120-160v-97q0-16 6-30.5t17-25.5l568-568q9-9 20-13.5t21.5-4.5q11.5 0 22.5 4.5t20 13.5l55 56q9 9 13 20t4 22.5q0 11.5-4.5 21.5T849-741L281-173q-11 11-25.5 17t-30.5 6h-97Z" />
+                                        </svg>
+                                    </button>
+                                    <button class="icon danger" (click)="takeAction('removePlayer', i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Z
+                                                m400-600H280v520h400v-520Z
+                                                M360-280h80v-360h-80v360Z
+                                                m160 0h80v-360h-80v360Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        @for (entry of rounds(); track $index; let j = $index) {
+                        <td class="editable" (click)="takeAction('updateRound', j)">
+                            {{ roundShare(entry, i) || '—' }}
+                        </td>
+                        }
+                        <td class="total" [class.won]="totals()[i] >= 100">{{ totals()[i] }}</td>
+                    </tr>
+                    }
+
+                    @if (rounds().length === 0) {
+                    <tr class="add">
+                        <td>
+                            <button class="slot" (click)="takeAction('verifyPlayer')">
+                                <div class="avatar empty">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                        <path d="M440-440H240v-80h200v-200h80v200h200v80H520v200h-80v-200Z" />
+                                    </svg>
+                                </div>
+                                <p class="name">Add Player</p>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (submissionError()) {
+    <span class="error-text general">{{ submissionError() }}</span>
+    }
+    <button class="submit" [disabled]="submissionError()" (click)="takeAction('submitGame')">Submit</button>
+
+    @if (showActiveRound()) {
+    <app-domino-round-modal [index]="activeRoundIndex() ?? rounds().length" [players]="usernames()" [data]="activeRoundData()"
+        (submitted)="onUpdateRound($event)" (closed)="closeActiveRound()" />
+    }
+</app-game-play>

@@ -19,7 +19,7 @@ import { AuthenticationService, LoaderService } from '../../services';
     imports: [ FormFieldComponent ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './forgot-password.component.html',
-    styleUrls: [ '../../../assets/styles/authentication.css', './forgot-password.component.css' ]
+    styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent extends BaseLayout {
     // Fields ---------------------------------------------------------------------

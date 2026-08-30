@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
 
 import { BASE_API } from '../../../constants/general';
@@ -50,17 +50,33 @@ export class GameService {
      * @return an http response observable with the server's response.
      */
     submitGame(gameId: string, detail: Scorecard): Observable<HttpResponse<string>> {
-        return this.http.post(`${this.base}/${gameId}`, detail, { observe: 'response', responseType: 'text', withCredentials: true });
+        const params = new HttpParams().set('category', gameId);
+        return this.http.post(`${this.base}`, detail, { params, observe: 'response', responseType: 'text', withCredentials: true });
     }
 
     /**
      * Initiates a fetch game scores request with the server.
-     * 
+     *
      * @param gameId - Id of game to fetch.
-     * 
+     *
      * @return an http response observable with the user's scores.
      */
     fetchGames(gameId: string): Observable<HttpResponse<Vault[]>> {
-        return this.http.get<Vault[]>(`${this.base}/${gameId}`, { observe: 'response', responseType: 'json', withCredentials: true });
+        const params = new HttpParams().set('category', gameId);
+        return this.http.get<Vault[]>(`${this.base}`, { params, observe: 'response', responseType: 'json', withCredentials: true });
+    }
+
+    /**
+     * Initiates a delete game request with the server.
+     *
+     * @param gameId  - Id of game to delete.
+     * @param vaultId - Id of vault to delete.
+     *
+     * @return an http response observable with the server's response.
+     */
+    requestGameDeletion(gameId: string, vaultId: number): Observable<HttpResponse<string>> {
+        const params = new HttpParams().set('category', gameId)
+                                       .set('vaultId', vaultId.toString());
+        return this.http.delete(`${this.base}`, { params, observe: 'response', responseType: 'text', withCredentials: true });
     }
 }

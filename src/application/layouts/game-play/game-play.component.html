@@ -1,0 +1,42 @@
+<div class="page">
+    <div class="section intro">
+        <h1>{{ game().title }}</h1>
+        <p>{{ game().summary }}</p>
+        <div class="controls">
+            <button (click)="showPlaybook.set(true)">Learn More</button>
+            <button class="secondary" (click)="navigateToRecap()">View Recap</button>
+        </div>
+    </div>
+
+    <div class="section grid">
+        <div class="steps" [class.expand]="showSteps()">
+            <button class="icon" (click)="showSteps.update(value => !value)">
+                How to Play
+                <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M480-357.85 253.85-584 296-626.15l184 184 184-184L706.15-584 480-357.85Z" />
+                </svg>
+            </button>
+            <ol>
+                @for (item of steps(); track item.label) {
+                <li><b>{{ item.label }}:</b> {{ item.value }}</li>
+                }
+            </ol>
+        </div>
+
+        <div class="board">
+            <ng-content />
+        </div>
+    </div>
+</div>
+
+@if (showPlaybook()) {
+<app-playbook-modal [title]="game().title" [data]="guide()" (closed)="showPlaybook.set(false)" />
+}
+
+@if (activeModal() === 'verify') {
+<app-form-modal type="verifyPlayer" [updates]="requestError()" (submitted)="onVerify($event)" (closed)="onCloseModal()" />
+}
+
+@if (activeModal() === 'add' || activeModal() === 'remove' || activeModal() === 'submit') {
+<app-message-modal [data]="message()" [updates]="requestError()" (submitted)="onConfirm()" (closed)="onCloseModal()" />
+}

@@ -1,0 +1,191 @@
+.section:has(app-paginator) {
+    padding: 0;
+    border: none;
+}
+
+
+.visuals {
+    flex: 1;
+    max-width: 400px;
+}
+
+.results {
+    flex: 1;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.board {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 750px;
+    overflow-y: auto;
+    padding: 10px 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+}
+
+.results app-paginator {
+    padding-top: 24px;
+    border-top: 1px solid var(--primary-30);
+}
+
+.card {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 16px;
+    background-color: var(--background-50);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+
+.card header {
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--primary-30);
+}
+
+.card header span, .card header time {
+    font-size: 0.95rem;
+    color: var(--text-500);
+}
+
+.card header .standing {
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--background-50);
+    padding: 3px 10px;
+    border-radius: 100px;
+}
+.card .standing.loss {
+    background-color: var(--label-loss);
+}
+.card .standing.draw {
+    background-color: var(--label-draw);
+}
+.card .standing.win, .card .standing.regular-win {
+    background-color: var(--label-win);
+}
+.card .standing.joker-drop-win {
+    background-color: var(--label-joker-drop-win);
+}
+.card .standing.bottom-draw-win {
+    background-color: var(--label-bottom-draw-win);
+}
+.card .standing.combo-win {
+    background-color: var(--label-combo-win);
+}
+.card .standing.double-zero-win {
+    background-color: var(--label-double-zero-win);
+}
+
+
+.card .players {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card .players li {
+    gap: 20px;
+    display: flex;
+    font-size: 0.9rem;
+}
+
+.card .players span {
+    word-break: break-all;
+}
+
+.card .players .name {
+    font-weight: 600;
+    width: 160px;
+}
+
+.card .players .points {
+    min-width: 50px;
+    color: var(--text-500);
+}
+
+.card .players .summary {
+    min-width: 100px;
+    color: var(--text-500);
+}
+
+
+.card footer {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-top: 10px;
+    /* border-top: 1px solid var(--primary-30); */
+}
+
+.card footer .controls {
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+}
+
+.card footer .controls .icon {
+    width: 30px;
+    height: 30px;
+    padding: 7.5px;
+    background-color: var(--primary-100);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.card footer .controls .icon:hover {
+    background-color: var(--primary-200);
+}
+
+.card footer .controls .icon svg {
+    width: 15px;
+}
+.card footer .controls .icon.danger svg {
+    fill: var(--danger-400);
+}
+
+.card footer div {
+    gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 175px;
+}
+
+.card footer div span {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--text-500);
+}
+
+.card footer div strong {
+    font-weight: 600;
+    font-style: normal;
+    color: var(--text-500);
+}
+
+/* ----------------------------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+    .section.split {
+        gap: 30px;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 850px) {
+    .section.split {
+        width: 100%;
+    }
+}

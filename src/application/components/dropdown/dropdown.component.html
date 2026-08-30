@@ -18,8 +18,8 @@
         <button class="option" [class.expand]="expanded() === i" (click)="expanded.update(current => current === i ? undefined : i)">
             @if (item.icon) {
             <svg class="badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                @for (element of item.icon; track element) {
-                <path [attr.d]="element"></path>
+                @for (entry of item.icon; track entry) {
+                <path [attr.d]="entry"></path>
                 }
             </svg>
             }
@@ -30,8 +30,8 @@
             <li [class.active]="nested.active" (click)="selectOption(i, j)">
                 @if (nested.icon) {
                 <svg class="badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                    @for (element of nested.icon; track element) {
-                    <path [attr.d]="element"></path>
+                    @for (entry of nested.icon; track entry) {
+                    <path [attr.d]="entry"></path>
                     }
                 </svg>
                 }
@@ -43,8 +43,8 @@
         <button class="option" [class.active]="item.active" (click)="selectOption(i)">
             @if (item.icon) {
             <svg class="badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                @for (element of item.icon; track element) {
-                <path [attr.d]="element"></path>
+                @for (entry of item.icon; track entry) {
+                <path [attr.d]="entry"></path>
                 }
             </svg>
             }

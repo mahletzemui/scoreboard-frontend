@@ -61,6 +61,10 @@ h3 {
     text-align: center;
 }
 
+::ng-deep .panel b {
+    font-weight: 600;
+}
+
 
 .field {
     margin: 10px 0;

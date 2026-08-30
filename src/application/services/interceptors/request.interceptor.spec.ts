@@ -1,9 +1,11 @@
 import { of } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
-import { HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 
 
 import { requestInterceptor } from './request.interceptor';
+
+import { environment } from '../../../environments/environment';
 
 import { LoaderService } from '../loader/loader.service';
 
@@ -26,7 +28,7 @@ describe('requestInterceptor', () => {
 
     // Tests ----------------------------------------------------------------------
 
-    it('should intercept the http request', () =>
+    it('should intercept actual http requests', () =>
     {
         const next = vi.fn(() => of({} as HttpEvent<any>));
         const request = new HttpRequest('GET', '/test');
@@ -36,5 +38,28 @@ describe('requestInterceptor', () => {
 
         expect(spy.mock.calls).toEqual([ [false], [true] ]);
         expect(document.body.style.overflow).toBe('visible');
+    });
+
+
+    it('should intercept local http requests with default data', () =>
+    {
+        const next = vi.fn(() => of({} as HttpEvent<any>));
+        const request = new HttpRequest('GET', '/test');
+
+        environment.useMockData = true;
+        const spy = vi.spyOn(loaderSpy, 'setLoadedRequest');
+
+        let result;
+        try {
+            TestBed.runInInjectionContext(() => {
+                requestInterceptor(request, next).subscribe(item => { result = item; });
+            });
+        } finally {
+            environment.useMockData = false;
+        }
+
+        expect(spy).not.toHaveBeenCalled();
+        expect(next).not.toHaveBeenCalled();
+        expect(result).toBeInstanceOf(HttpResponse);
     });
 });

@@ -20,7 +20,7 @@ import { AuthenticationService, LoaderService, NoticeService } from '../../servi
     imports: [ FormFieldComponent ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './reset-password.component.html',
-    styleUrls: [ '../../../assets/styles/authentication.css', './reset-password.component.css' ]
+    styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent extends BaseLayout implements OnInit {
     // Fields ---------------------------------------------------------------------

@@ -70,31 +70,10 @@
 
 
 .card .controls {
-    gap: 10px;
-    display: flex;
-    flex-direction: row;
     margin-top: 18px;
 }
 
 .card .controls button {
     flex: 1;
-    font-weight: 500;
     font-size: 0.88rem;
-    color: var(--background-50);
-    padding: 10px 14px;
-    border-radius: 100px;
-    background-color: var(--accent-300);
-    transition: background-color var(--default-animation-delay) ease;
-}
-.card .controls button:hover {
-    background-color: var(--accent-400);
-}
-
-.card .controls button.secondary {
-    color: var(--text);
-    background-color: transparent;
-    border: 1px solid var(--primary-200);
-}
-.card .controls button.secondary:hover {
-    background-color: var(--primary-300);
 }

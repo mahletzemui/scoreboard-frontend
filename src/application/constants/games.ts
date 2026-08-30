@@ -22,17 +22,6 @@ export const GAME_STORE: Record<string, { id: string, name: string }> =
 };
 
 /**
- * Holds chart colors.
- */
-const CHART_COLORS: string[] = 
-[
-    '#C03939', '#F2C230', '#2ECC71', '#FF6B3D', '#536DFE', '#8E44AD'
-    // '#8E2A2A', '#D4A017', '#2E7D32', '#D95D39', '#3F51B5', '#5D3A66'
-    // '#55606E', '#6B5B3E', '#C65D3B'
-];
-
-
-/**
  * Holds the preview of connect4 games.
  */
 export const CONNECT4_PREVIEW: Teaser =
@@ -104,9 +93,9 @@ export const CONNECT4_GUIDE: Playbook =
  */
 export const CONNECT4_LABELS: Entry[] =
 [
-    { label: 'Loss', value: CHART_COLORS[0] },
-    { label: 'Win', value: CHART_COLORS[1] },
-    { label: 'Draw', value: CHART_COLORS[2] }
+    { label: 'Loss', value: 'var(--label-loss)' },
+    { label: 'Win', value: 'var(--label-win)' },
+    { label: 'Draw', value: 'var(--label-draw)' }
 ];
 
 /**
@@ -278,11 +267,11 @@ export const CONQUER_GUIDE: Playbook =
  */
 export const CONQUER_LABELS: Entry[] =
 [
-    { label: 'Loss', value: CHART_COLORS[0] },
-    { label: 'Regular Win', value: CHART_COLORS[1] },
-    { label: 'Joker Drop Win', value: CHART_COLORS[2] },
-    { label: 'Bottom Draw Win', value: CHART_COLORS[3] },
-    { label: 'Combo Win', value: CHART_COLORS[4] }
+    { label: 'Loss', value: 'var(--label-loss)' },
+    { label: 'Regular Win', value: 'var(--label-win)' },
+    { label: 'Joker Drop Win', value: 'var(--label-joker-drop-win)' },
+    { label: 'Bottom Draw Win', value: 'var(--label-bottom-draw-win)' },
+    { label: 'Combo Win', value: 'var(--label-combo-win)' }
 ];
 
 /**
@@ -397,9 +386,9 @@ export const DOMINO_GUIDE: Playbook =
  */
 export const DOMINO_LABELS: Entry[] =
 [
-    { label: 'Loss', value: CHART_COLORS[0] },
-    { label: 'Regular Win', value: CHART_COLORS[1] },
-    { label: 'Double Zero Win', value: CHART_COLORS[2] }
+    { label: 'Loss', value: 'var(--label-loss)' },
+    { label: 'Regular Win', value: 'var(--label-win)' },
+    { label: 'Double Zero Win', value: 'var(--label-double-zero-win)' }
 ];
 
 /**
@@ -470,6 +459,35 @@ export function createPlayers(gameId: string, scores: Scorecard): Player[]
         return createDominoPlayers(scores[scores.length - 1] as Heat);
     }
     return [];
+};
+
+/**
+ * Creates a game's score confirmation message.
+ *
+ * @param gameId - Id of game to create for.
+ * @param scores - Scores to create with.
+ */
+export function createOutcomeMessage(gameId: string, scores: Scorecard): string
+{
+    const winners = createPlayers(gameId, scores).filter(item => item.points > 0);
+    if (winners.length === 0) {
+        return '';
+    }
+    
+    const points = winners[0].points;
+    const usernames = ToolBox.formatList(winners.map(item => item.username));
+    const verb = winners.length > 1 ? 'will each be awarded' : 'will be awarded';
+
+    let label = '';
+    if (gameId === 'domino') {
+        const lastHeat = scores[scores.length - 1] as Heat;
+        label = lastHeat.special ? 'double zero win' : 'regular win';
+    } else {
+        const winner = (scores as Match[]).find(item => item.score !== 'Loss');
+        label = String(winner!.score).toLowerCase();
+    }
+
+    return `As a result of their ${label}, ${usernames} ${verb} ${points} pt(s).`;
 };
 
 /**

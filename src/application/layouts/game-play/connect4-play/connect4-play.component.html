@@ -1,0 +1,45 @@
+<app-game-play [id]="gameId" [trigger]="action()" [players]="usernames()" [currentPlayer]="index()" [scores]="submission()"
+    (delivered)="onDelivered($event)">
+
+    <div class="matchup">
+        @for (item of usernames(); track $index; let i = $index) {
+        <div class="slot">
+            <div class="avatar" [class.empty]="item === ''">{{ item ? item.charAt(0).toUpperCase() : '?' }}</div>
+            <p class="name">{{ item || 'Player ' + (i + 1) }}</p>
+
+            <div class="controls">
+                <button class="icon" (click)="takeAction('verifyPlayer', i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M200-200h57l391-391-57-57-391 391v57Z
+                            m-40 80q-17 0-28.5-11.5T120-160v-97q0-16 6-30.5t17-25.5l568-568q9-9 20-13.5t21.5-4.5q11.5 0 22.5 4.5t20 13.5l55 56q9 9 13 20t4 22.5q0 11.5-4.5 21.5T849-741L281-173q-11 11-25.5 17t-30.5 6h-97Z" />
+                    </svg>
+                </button>
+                @if (item !== '') {
+                <button class="icon danger" (click)="takeAction('removePlayer', i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Z
+                            m400-600H280v520h400v-520Z
+                            M360-280h80v-360h-80v360Z
+                            m160 0h80v-360h-80v360Z" />
+                    </svg>
+                </button>
+                }
+            </div>
+
+            <div class="outcome">
+                <app-dropdown [data]="statusSelectors()[i]" [dense]="true" (selected)="onStatusChange($event, i)" />
+            </div>
+        </div>
+        @if (i === 0) {
+        <div class="versus">
+            <span>VS</span>
+        </div>
+        }
+        }
+    </div>
+
+    @if (submissionError()) {
+    <span class="error-text general">{{ submissionError() }}</span>
+    }
+    <button class="submit" [disabled]="submissionError()" (click)="takeAction('submitGame')">Submit</button>
+</app-game-play>

@@ -1,4 +1,4 @@
-import { createPlayers } from "./games";
+import { createPlayers, createOutcomeMessage } from "./games";
 
 
 /**
@@ -7,7 +7,7 @@ import { createPlayers } from "./games";
 describe('Games Constants', () => {
     // Tests ----------------------------------------------------------------------
 
-    describe('Connect4 Players', () => {
+    describe('Connect4', () => {
         it('should create win scores', () =>
         {
             const participants = [
@@ -18,6 +18,7 @@ describe('Games Constants', () => {
                 { username: 'johndoe', points: 1, summaries: ['Won against janesmith.'] },
                 { username: 'janesmith', points: 0, summaries: ['Lost against johndoe.'] }
             ]);
+            expect(createOutcomeMessage('connect4', participants)).toBe('As a result of their win, johndoe will be awarded 1 pt(s).');
         });
 
 
@@ -31,10 +32,11 @@ describe('Games Constants', () => {
                 { username: 'johndoe', points: 1, summaries: ['Drew against janesmith.'] },
                 { username: 'janesmith', points: 1, summaries: ['Drew against johndoe.'] }
             ]);
+            expect(createOutcomeMessage('connect4', participants)).toBe('As a result of their draw, johndoe & janesmith will each be awarded 1 pt(s).');
         });
     });
 
-    describe('Conquer Players', () => {
+    describe('Conquer', () => {
         it('should create regular win scores', () =>
         {
             const participants = [
@@ -47,6 +49,7 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 0, summaries: ['Lost against johndoe.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against johndoe.'] }
             ]);
+            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their regular win, johndoe will be awarded 1 pt(s).');
         });
 
 
@@ -62,6 +65,7 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 2, summaries: ['Won with a joker drop against johndoe & maggiewells.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against janesmith.'] }
             ]);
+            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their joker drop win, janesmith will be awarded 2 pt(s).');
         });
 
 
@@ -77,6 +81,7 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 2, summaries: ['Won with a bottom draw against johndoe & maggiewells.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against janesmith.'] }
             ]);
+            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their bottom draw win, janesmith will be awarded 2 pt(s).');
         });
 
 
@@ -92,11 +97,12 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 0, summaries: ['Lost against maggiewells.'] },
                 { username: 'maggiewells', points: 3, summaries: ['Won with a joker drop & bottom draw against johndoe & janesmith.'] }
             ]);
+            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their combo win, maggiewells will be awarded 3 pt(s).');
         });
     });
 
 
-    describe('Domino Players', () => {
+    describe('Domino', () => {
         it('should create regular win scores', () =>
         {
             const rounds = [
@@ -108,9 +114,10 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 1, summaries: ['Won regularly against johndoe & maggiewells.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against janesmith.'] }
             ]);
+            expect(createOutcomeMessage('domino', rounds)).toBe('As a result of their regular win, janesmith will be awarded 1 pt(s).');
         });
 
-        
+
         it('should create double zero win scores', () =>
         {
             const rounds = [ { special: true, matches: [{ username: 'johndoe', score: 0 }, { username: 'janesmith', score: 100 }, { username: 'maggiewells', score: 0 }] } ];
@@ -119,12 +126,14 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 2, summaries: ['Won with a double zero against johndoe & maggiewells.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against janesmith.'] }
             ]);
+            expect(createOutcomeMessage('domino', rounds)).toBe('As a result of their double zero win, janesmith will be awarded 2 pt(s).');
         });
     });
 
 
     it('should return a default value for unrecognized games', () =>
     {
-        expect(createPlayers('test', [{ username: 'johndoe', score: 0 }])).toEqual([])
+        expect(createPlayers('test', [{ username: 'johndoe', score: 0 }])).toEqual([]);
+        expect(createOutcomeMessage('test', [])).toBe('');
     });
 });

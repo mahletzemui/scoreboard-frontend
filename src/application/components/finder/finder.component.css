@@ -58,6 +58,7 @@
 }
 
 .chips input {
+    width: 100%;
     font-size: 0.95rem;
 }
 

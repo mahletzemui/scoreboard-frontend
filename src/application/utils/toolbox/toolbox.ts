@@ -83,7 +83,7 @@ export class ToolBox {
      */
     static mapScoreLabels(key: string, index: number, labels: Entry[]): Entry[]
     {
-        if (key === '') {
+        if (key === '' || key === 'loss') {
             return labels.map(() => ({ label: '', value: [] }));
         } else if (key === 'draw') {
             return labels.map(() => ({ label: 'Draw', value: [key] }));

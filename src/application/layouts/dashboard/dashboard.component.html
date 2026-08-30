@@ -15,8 +15,8 @@
             <article class="card" (click)="selected = item.title">
                 <div class="cover">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        @for (element of item.icon; track element) {
-                        <path [attr.d]="element"></path>
+                        @for (entry of item.icon; track entry) {
+                        <path [attr.d]="entry"></path>
                         }
                     </svg>
                 </div>

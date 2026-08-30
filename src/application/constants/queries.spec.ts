@@ -40,7 +40,7 @@ describe('Queries Constants', () => {
             expect(createGameLabelSelector('connect4')).toEqual({
                 heading: '',
                 options: [
-                    { name: '', label: 'None', active: false },
+                    { name: 'loss', label: 'Loss', active: false },
                     { name: 'win', label: 'Win', active: false },
                     { name: 'draw', label: 'Draw', active: false }
                 ]
@@ -50,7 +50,7 @@ describe('Queries Constants', () => {
             expect(createGameLabelSelector('conquer')).toEqual({
                 heading: '',
                 options: [
-                    { name: '', label: 'None', active: false },
+                    { name: 'loss', label: 'Loss', active: false },
                     { name: 'regular-win', label: 'Regular Win', active: false },
                     { name: 'joker-drop-win', label: 'Joker Drop Win', active: false },
                     { name: 'bottom-draw-win', label: 'Bottom Draw Win', active: false },
@@ -62,7 +62,7 @@ describe('Queries Constants', () => {
             expect(createGameLabelSelector('domino')).toEqual({
                 heading: '',
                 options: [
-                    { name: '', label: 'None', active: false },
+                    { name: 'loss', label: 'Loss', active: false },
                     { name: 'regular-win', label: 'Regular Win', active: false },
                     { name: 'double-zero-win', label: 'Double Zero Win', active: false }
                 ]

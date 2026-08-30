@@ -36,51 +36,51 @@ export const routes: Routes = [
         loadComponent: () => import('./layouts/dashboard/dashboard.component').then(item => item.DashboardComponent),
         canActivate: [authenticatedGuard]
     },
-    // {
-    //     path: 'games',
-    //     canActivate: [authenticationGuard],
-    //     children: [
-    //         {
-    //             path:'connect4',
-    //             children: [
-    //                 {
-    //                     path:'recap',
-    //                     loadComponent: () => import('./layouts/game-recaps').then(item => item.Connect4RecapComponent)
-    //                 },
-    //                 {
-    //                     path:'play',
-    //                     loadComponent: () => import('./layouts/game-play').then(item => item.Connect4PlayComponent)
-    //                 }
-    //             ]
-    //         },
-    //         {
-    //             path:'conquer',
-    //             children: [
-    //                 {
-    //                     path:'recap',
-    //                     loadComponent: () => import('./layouts/game-recaps').then(item => item.ConquerRecapComponent)
-    //                 },
-    //                 {
-    //                     path:'play',
-    //                     loadComponent: () => import('./layouts/game-play').then(item => item.ConquerPlayComponent)
-    //                 }
-    //             ]
-    //         },
-    //         {
-    //             path:'domino',
-    //             children: [
-    //                 {
-    //                     path:'recap',
-    //                     loadComponent: () => import('./layouts/game-recaps').then(item => item.DominoRecapComponent)
-    //                 },
-    //                 {
-    //                     path:'play',
-    //                     loadComponent: () => import('./layouts/game-play').then(item => item.DominoPlayComponent)
-    //                 }
-    //             ]
-    //         }
-    //     ]
-    // },
+    {
+        path: 'games',
+        canActivate: [authenticatedGuard],
+        children: [
+            {
+                path:'connect4',
+                children: [
+                    {
+                        path:'recap',
+                        loadComponent: () => import('./layouts/game-recaps').then(item => item.Connect4RecapComponent)
+                    },
+                    {
+                        path:'play',
+                        loadComponent: () => import('./layouts/game-play').then(item => item.Connect4PlayComponent)
+                    }
+                ]
+            },
+            {
+                path:'conquer',
+                children: [
+                    {
+                        path:'recap',
+                        loadComponent: () => import('./layouts/game-recaps').then(item => item.ConquerRecapComponent)
+                    },
+                    {
+                        path:'play',
+                        loadComponent: () => import('./layouts/game-play').then(item => item.ConquerPlayComponent)
+                    }
+                ]
+            },
+            {
+                path:'domino',
+                children: [
+                    {
+                        path:'recap',
+                        loadComponent: () => import('./layouts/game-recaps').then(item => item.DominoRecapComponent)
+                    },
+                    {
+                        path:'play',
+                        loadComponent: () => import('./layouts/game-play').then(item => item.DominoPlayComponent)
+                    }
+                ]
+            }
+        ]
+    },
     // {
     //     path: 'family',
     //     loadComponent: () => import('./layouts/family/family.component').then(item => item.FamilyComponent),

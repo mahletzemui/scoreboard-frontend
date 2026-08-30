@@ -89,9 +89,6 @@
 
 
 .panel .controls {
-    gap: 10px;
-    display: flex;
-    flex-direction: row;
     margin-top: 18px;
 }
 

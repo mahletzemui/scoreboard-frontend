@@ -21,7 +21,7 @@ import { AuthenticationService, LoaderService } from '../../services';
     imports: [ FormFieldComponent ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './access.component.html',
-    styleUrls: [ '../../../assets/styles/authentication.css', './access.component.css' ]
+    styleUrl: './access.component.css'
 })
 export class AccessComponent extends BaseLayout {
     // Fields ---------------------------------------------------------------------

@@ -86,6 +86,14 @@
     --danger-800: rgb(89, 13, 13);
     --danger-900: rgb(45, 6, 6);
     --danger-950: rgb(22, 3, 3);
+
+    --label-loss: var(--danger-500);
+    --label-draw: rgb(199, 148, 22);
+    --label-win: rgb(46, 160, 96);
+    --label-joker-drop-win: rgb(59, 108, 209);
+    --label-bottom-draw-win: rgb(142, 68, 173);
+    --label-combo-win: var(--label-draw);
+    --label-double-zero-win: var(--label-draw);
 }
 
 :root[data-theme="dark"] {
@@ -171,6 +179,14 @@
     --danger-800: rgb(242, 166, 166);
     --danger-900: rgb(249, 210, 210);
     --danger-950: rgb(252, 233, 233);
+
+    --label-loss: var(--danger-500);
+    --label-draw: rgb(230, 175, 60);
+    --label-win: rgb(76, 195, 130);
+    --label-joker-drop-win: rgb(99, 143, 235);
+    --label-bottom-draw-win: rgb(176, 110, 205);
+    --label-combo-win: var(--label-draw);
+    --label-double-zero-win: var(--label-draw);
 }
 
 
@@ -315,7 +331,47 @@ app-finder, app-paginator {
 }
 
 
-/* --------------------------------- Layouts ------------------------------------ */
+/* ---------------------------------- Frames ------------------------------------ */
+
+.frame {
+    width: 100%;
+    margin: 4rem auto;
+    border-radius: 24px;
+    border: 1px solid var(--text-950);
+    background-color: var(--background-50);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.frame .badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid var(--text-950);
+    background: var(--accent-400);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+.frame .badge svg {
+    fill: var(--text-950);
+}
+
+.frame p {
+    font-size: 0.9rem;
+    color: var(--text-500);
+}
+
+.frame .form {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+
+/* ----------------------------------- Pages ------------------------------------ */
 
 .page {
     gap: 35px;
@@ -338,6 +394,24 @@ app-finder, app-paginator {
     max-height: 750px;
     overflow-y: auto;
 }
+.section.grid {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    width: fit-content;
+    min-width: 350px;
+    margin: auto;
+    padding: 25px 20px;
+    border-radius: 20px;
+    background-color: var(--background-50);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+}
+.section.split {
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+    min-width: 350px;
+}
 
 .section:has(app-paginator) {
     width: 80%;
@@ -345,6 +419,9 @@ app-finder, app-paginator {
     padding-top: 24px;
     align-self: center;
     border-top: 1px solid var(--primary-30);
+}
+.section:has(.empty-grid) {
+    width: 100%;
 }
 
 
@@ -368,6 +445,42 @@ app-finder, app-paginator {
 }
 
 
+.section .controls {
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.section .controls button {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--background-50);
+    padding: 10px 14px;
+    border-radius: 100px;
+    background-color: var(--accent-300);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.section .controls button:hover {
+    background-color: var(--accent-400);
+}
+
+.section .controls button.secondary {
+    color: var(--text);
+    background-color: transparent;
+    border: 1px solid var(--primary-200);
+}
+.section .controls button.secondary:hover {
+    background-color: var(--primary-300);
+}
+
+.section .controls button.danger {
+    background-color: var(--danger-400);
+}
+.section .controls button.danger:hover {
+    background-color: var(--danger-500);
+}
+
+
 .section .empty-grid {
     gap: 15px;
     display: flex;
@@ -376,6 +489,9 @@ app-finder, app-paginator {
     justify-content: center;
     width: 100%;
     min-height: 300px;
+}
+.section.split > .empty-grid {
+    min-height: 150px;
 }
 
 .section .empty-grid svg {

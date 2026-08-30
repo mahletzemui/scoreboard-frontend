@@ -1,0 +1,409 @@
+.steps {
+    flex: 0.5;
+    height: stretch;
+    border-right: 1px solid var(--primary-30);
+}
+
+.steps .icon {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: var(--text-500);
+    transition: color var(--default-animation-delay) ease;
+}
+.steps .icon:hover {
+    color: var(--accent-500);
+}
+
+.steps .chevron {
+    width: 20px;
+    transition: color var(--default-animation-delay) ease;
+}
+.steps .chevron:hover {
+    fill: var(--accent-500);
+}
+
+.steps ol {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 32px 28px;
+}
+
+.steps li {
+    line-height: 1.6;
+    font-size: 0.86rem;
+    color: var(--text-500);
+}
+
+.steps b {
+    font-weight: 600;
+    color: var(--text-500);
+}
+
+
+.board {
+    flex: 1;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.matchup {
+    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.matchup .slot {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+.matchup .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--background-50);
+    border-radius: 50%;
+    background-color: var(--accent-400);
+    border: 3px solid var(--accent-100);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.matchup .avatar.empty {
+    box-shadow: none;
+    color: var(--text-500);
+    background-color: var(--primary-100);
+}
+
+.matchup .name {
+    font-weight: 600;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.matchup .controls {
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+}
+
+.matchup .controls .icon {
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-100);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.matchup .controls .icon:hover {
+    background-color: var(--primary-200);
+}
+
+.matchup .controls .icon svg {
+    width: 20px;
+}
+.matchup .controls .icon.danger svg {
+    fill: var(--danger-400);
+}
+
+.matchup .outcome {
+    width: 100%;
+    border-radius: 5px;
+    border: 1.5px solid var(--primary-30);
+}
+.matchup .outcome:hover {
+    border-color: var(--accent-300);
+}
+
+.matchup .versus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    color: var(--accent-600);
+    border-radius: 50%;
+    background-color: var(--accent-30);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.matchup + .icon.add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    margin-top: 25px;
+    border-radius: 50%;
+    background-color: var(--primary-100);
+}
+
+.matchup + .icon.add svg {
+    width: 35px;
+    fill: var(--text-500);
+    transition: fill var(--default-animation-delay) ease;
+}
+.matchup + .icon.add:hover svg {
+    fill: var(--accent-400);
+}
+
+
+.series {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.series .header button {
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--primary-200);
+    transition: var(--default-animation-delay) ease;
+}
+.series .header button:hover {
+    color: var(--accent-400);
+    border: 1px solid var(--accent-400);
+}
+.series .header button:disabled {
+    color: var(--primary-300);
+    border-color: var(--primary-200);
+}
+
+.series .header svg {
+    width: 20px;
+    transition: fill var(--default-animation-delay) ease;
+}
+.series .header button:hover svg {
+    fill: var(--accent-400);
+}
+.series .header button:disabled svg {
+    fill: var(--primary-700);
+}
+
+.series .tally {
+    width: 100%;
+    overflow-x: auto;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.series table {
+    width: 100%;
+}
+
+.series thead tr {
+    background-color: var(--primary-50);
+}
+
+.series th, .series td {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 10px 16px;
+    /* white-space: nowrap; */
+}
+
+.series th.player, .series td.player {
+    min-width: 300px;
+}
+
+.series .versus td {
+    padding: 4px 16px;
+}
+
+.series .versus span {
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    color: var(--accent-600);
+    padding: 10px;
+    border-radius: 100px;
+    background-color: var(--accent-30);
+}
+
+.series .slot {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.series .slot .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-weight: 700;
+    color: var(--background-50);
+    border-radius: 50%;
+    background-color: var(--accent-400);
+}
+.series .slot .avatar.empty {
+    color: var(--text-500);
+    background-color: var(--primary-100);
+}
+
+.series .slot .avatar.empty svg {
+    width: 15px;
+    fill: var(--text-500);
+}
+
+.series .slot .name {
+    font-weight: 600;
+}
+
+.series .slot .controls .icon {
+    width: 30px;
+    height: 30px;
+    padding: 5px 8px;
+    background-color: var(--primary-100);
+    transition: background-color var(--default-animation-delay) ease;
+}
+.series .slot .controls .icon:hover {
+    background-color: var(--primary-200);
+}
+
+.series .slot .controls .icon svg {
+    width: 15px;
+}
+.series .slot .controls .icon.danger svg {
+    fill: var(--danger-400);
+}
+
+.series .editable {
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.9rem;
+    transition: background-color var(--default-animation-delay) ease;
+}
+.series .editable:hover {
+    background-color: var(--secondary-30);
+}
+
+.series .total.won {
+    color: var(--accent-500);
+}
+
+.series tr.add button {
+    gap: 10px;
+}
+
+.series tr.add .name {
+    font-weight: 500;
+    color: var(--text-500);
+    transition: color var(--default-animation-delay) ease;
+}
+.series tr.add button:hover .name {
+    color: var(--accent-400);
+}
+
+.series tr.add svg {
+    width: 20px !important;
+    transition: color var(--default-animation-delay) ease;
+}
+.series tr.add button:hover svg {
+    fill: var(--accent-400) !important;
+}
+
+
+.error-text.general {
+    margin: 10px 0 0;
+}
+
+.submit {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--background-50);
+    width: fit-content;
+    margin: auto;
+    margin-top: 10px;
+    padding: 14px 40px;
+    border-radius: 100px;
+    background-color: var(--accent-400);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transition: transform var(--default-animation-delay) ease,
+                background-color var(--default-animation-delay) ease;
+}
+.submit:hover {
+    transform: translateY(-2px);
+    background-color: var(--accent-500);
+}
+.submit:disabled {
+    transform: none;
+    box-shadow: none;
+    background-color: var(--primary-200);
+}
+
+/* ----------------------------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+    .section.grid {
+        width: 95%;
+        flex-direction: column;
+    }
+
+    .steps {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--primary-100);
+    }
+
+    .steps ol {
+        display: none;
+    }
+    .steps.expand ol {
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 0 32px 28px;
+    }
+
+    .steps .chevron {
+        transition: transform var(--default-animation-delay) ease;
+    }
+    .steps.expand .chevron {
+        transform: rotate(180deg);
+    }
+
+    .board {
+        width: 100%;
+        padding: 20px 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .matchup {
+        gap: 30px;
+        flex-direction: column;
+    }
+}

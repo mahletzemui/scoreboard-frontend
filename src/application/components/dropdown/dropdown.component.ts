@@ -60,8 +60,8 @@ export class DropdownComponent {
 
         options.forEach((item, i) => {
             item.active = i === mainIndex;
-            item.additional?.forEach((element, j) => {
-                element.active = item.active && j === nestedIndex;
+            item.additional?.forEach((entry, j) => {
+                entry.active = item.active && j === nestedIndex;
             });
         });
 

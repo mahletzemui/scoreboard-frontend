@@ -56,7 +56,7 @@ describe('GameService', () => {
     });
 
 
-    it("should send '/games/{gameId}' POST requests", () =>
+    it("should send '/games?category={gameId}' POST requests", () =>
     {
         const mockResponse = 'Submitted successfully';
         const payload = [ { username: 'johndoe', score: 'Win' }, { username: 'janesmith', score: 'Loss' } ];
@@ -65,7 +65,7 @@ describe('GameService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(`${baseUrl}/test`);
+        const request = mockHttpClient.expectOne(item => item.url === baseUrl && item.params.get('category') === 'test');
         expect(request.request.method).toBe('POST');
         expect(request.request.body).toEqual(payload);
         expect(request.request.withCredentials).toBe(true);
@@ -73,7 +73,7 @@ describe('GameService', () => {
     });
 
 
-    it("should send '/games/{gameId}' GET requests", () =>
+    it("should send '/games?category={gameId}' GET requests", () =>
     {
         const mockResponse = [ { id: 1, organiser: 'johndoe', standing: 'Loss', scores: [ { username: 'johndoe', score: 'Loss' }, { username: 'janesmith', score: 'Win' } ], played: '2026-01-01T00:00:00Z', updated: null } ];
         service.fetchGames('test').subscribe(item => {
@@ -81,8 +81,26 @@ describe('GameService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(`${baseUrl}/test`);
+        const request = mockHttpClient.expectOne(item => item.url === baseUrl && item.params.get('category') === 'test');
         expect(request.request.method).toBe('GET');
+        expect(request.request.body).toBeFalsy();
+        expect(request.request.withCredentials).toBe(true);
+        request.flush(mockResponse, { status: 200, statusText: 'Ok' });
+    });
+
+
+    it("should send '/games?category={gameId}&vaultId={vaultId}' DELETE requests", () =>
+    {
+        const mockResponse = 'Deleted successfully';
+        service.requestGameDeletion('test', 1).subscribe(item => {
+            expect(item.status).toBe(200);
+            expect(item.body).toBe(mockResponse);
+        });
+
+        const request = mockHttpClient.expectOne(item => item.url === baseUrl
+            && item.params.get('category') === 'test'
+            && item.params.get('vaultId') === '1');
+        expect(request.request.method).toBe('DELETE');
         expect(request.request.body).toBeFalsy();
         expect(request.request.withCredentials).toBe(true);
         request.flush(mockResponse, { status: 200, statusText: 'Ok' });
