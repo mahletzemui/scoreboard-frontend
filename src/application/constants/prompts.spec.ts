@@ -1,4 +1,4 @@
-import { createConfirmationMessage, createForgotPasswordForm, createLoginForm, createRegisterForm, createSessionMessage, createUpdatePasswordForm, createUpdatePinForm, createUpdateProfileForm, createVerifyPlayerForm, FORM_STORE, IDENTITY_FIELDS, LOGIN_FIELDS, PASSWORD_FIELDS, PIN_FIELDS, PROFILE_FIELDS, REGISTER_FIELDS, VERIFY_FIELDS } from './prompts';
+import { addFamilyForm, createConfirmationMessage, createForgotPasswordForm, createLoginForm, createRegisterForm, createSessionMessage, createUpdatePasswordForm, createUpdatePinForm, createUpdateProfileForm, createVerifyPlayerForm, FAMILY_FIELDS, FORM_STORE, IDENTITY_FIELDS, LOGIN_FIELDS, PASSWORD_FIELDS, PIN_FIELDS, PROFILE_FIELDS, REGISTER_FIELDS, updateFamilyForm, VERIFY_FIELDS } from './prompts';
 
 
 /**
@@ -161,11 +161,43 @@ describe('Prompt Constants', () => {
     });
 
 
+    it('should create the add family form', () =>
+    {
+        const form = addFamilyForm();
+        expect(form.title).toBe('Create Family');
+        expect(form.fields).toEqual(FAMILY_FIELDS);
+        expect(form.fields).not.toBe(FAMILY_FIELDS);
+
+        form.intake.get('name')?.setValue('Family #1!');
+        expect(form.intake.get('name')?.invalid).toBe(true);
+
+        form.intake.get('description')?.setValue('Invalid\nDescription');
+        expect(form.intake.get('description')?.invalid).toBe(true);
+    });
+
+
+    it('should create the update family form', () =>
+    {
+        const form = updateFamilyForm();
+        expect(form.title).toBe('Update Family');
+        expect(form.fields).toEqual(FAMILY_FIELDS);
+        expect(form.fields).not.toBe(FAMILY_FIELDS);
+
+        form.intake.get('name')?.setValue('Family #1!');
+        expect(form.intake.get('name')?.invalid).toBe(true);
+
+        form.intake.get('description')?.setValue('Invalid\nDescription');
+        expect(form.intake.get('description')?.invalid).toBe(true);
+    });
+
+
     it('should map modal forms by name', () =>
     {
         expect(FORM_STORE['updateProfile']().title).toEqual('Update Profile');
         expect(FORM_STORE['updatePassword']().title).toEqual('Update Password');
         expect(FORM_STORE['updatePin']().title).toEqual('Update Pin');
         expect(FORM_STORE['verifyPlayer']().title).toEqual('Verify Player');
+        expect(FORM_STORE['createFamily']().title).toEqual('Create Family');
+        expect(FORM_STORE['updateFamily']().title).toEqual('Update Family');
     });
 });

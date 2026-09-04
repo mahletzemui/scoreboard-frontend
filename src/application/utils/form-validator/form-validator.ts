@@ -90,6 +90,35 @@ export class FormValidator {
     }
 
     /**
+     * Validates heading formats (i.e., composed of 1 to 30 letters, numbers, spaces
+     * & special character).
+     *
+     * @return a 'heading' error tag if invalid, else null.
+     */
+    static heading(): ValidatorFn
+    {
+        return (field: AbstractControl): ValidationErrors|null => {
+            const value = field.value ?? '';
+            const valid = /^[A-Za-z0-9 .,'&()-]{1,30}$/.test(value);
+            return valid ? null : { 'heading': true };
+        }
+    }
+
+    /**
+     * Validates description formats (i.e., composed of 1 to 255 characters).
+     *
+     * @return a 'description' error tag if invalid, else null.
+     */
+    static description(): ValidatorFn
+    {
+        return (field: AbstractControl): ValidationErrors|null => {
+            const value = field.value ?? '';
+            const valid = /^[\x20-\x7E]{1,255}$/.test(value);
+            return valid ? null : { 'description': true };
+        }
+    }
+
+    /**
      * Validates matching fields.
      * 
      * @param actual   - Name of actual field to validate.
@@ -144,6 +173,12 @@ export class FormValidator {
             }
             else if (field.hasError('pin')) {
                 return 'Must be 4 to 6 digits.';
+            }
+            else if (field.hasError('heading')) {
+                return "Must be 1 to 30 characters, including letters, numbers, spaces and/or special characters (i.e., .|,|'|&|(|)|-).";
+            }
+            else if (field.hasError('description')) {
+                return 'Must be 1 to 255 characters.';
             }
             else if (field.hasError('match')) {
                 return 'Must match.';

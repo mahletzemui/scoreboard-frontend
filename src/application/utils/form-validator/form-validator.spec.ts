@@ -298,6 +298,98 @@ describe('FormValidator', () => {
     });
 
 
+    describe('Headings', () => {
+        beforeEach(() =>
+        {
+            form = builder.group({ heading: [ null, FormValidator.heading() ] });
+        });
+
+        // ------------------------------------------------------------------------
+
+        it('should accept valid headings', () =>
+        {
+            form.get('heading')?.setValue('Family 1');
+            expect(form.get('heading')?.valid).toBe(true);
+            expect(FormValidator.retrieveErrorMessage('heading', form)).toBeFalsy();
+            expect(console.error).not.toHaveBeenCalled();
+        });
+
+        it('should reject null headings', () =>
+        {
+            expect(form.get('heading')?.hasError('heading')).toBe(true);
+            expect(FormValidator.retrieveErrorMessage('heading', form)).toBe("Must be 1 to 30 characters, including letters, numbers, spaces and/or special characters (i.e., .|,|'|&|(|)|-).");
+            expect(console.error).not.toHaveBeenCalled();
+        });
+
+        it('should reject empty headings', () =>
+        {
+            form.get('heading')?.setValue('');
+            expect(form.get('heading')?.hasError('heading')).toBe(true);
+            expect(console.error).not.toHaveBeenCalled();
+        });
+
+        it('should reject headings with invalid characters', () =>
+        {
+            form.get('heading')?.setValue('Family #1!');
+            expect(form.get('heading')?.hasError('heading')).toBe(true);
+            expect(console.error).not.toHaveBeenCalled();
+        });
+
+        it('should reject headings longer than 30 characters', () =>
+        {
+            form.get('heading')?.setValue('A'.repeat(31));
+            expect(form.get('heading')?.hasError('heading')).toBe(true);
+            expect(console.error).not.toHaveBeenCalled();
+        });
+    });
+
+
+    describe('Descriptions', () => {
+        beforeEach(() =>
+        {
+            form = builder.group({ description: [ null, FormValidator.description() ] });
+        });
+
+        // ------------------------------------------------------------------------
+
+        it('should accept valid descriptions', () =>
+        {
+            form.get('description')?.setValue('A valid description.');
+            expect(form.get('description')?.valid).toBe(true);
+            expect(FormValidator.retrieveErrorMessage('description', form)).toBeFalsy();
+            expect(console.error).not.toHaveBeenCalled();
+        });
+
+        it('should reject null descriptions', () =>
+        {
+            expect(form.get('description')?.hasError('description')).toBe(true);
+            expect(FormValidator.retrieveErrorMessage('description', form)).toBe('Must be 1 to 255 characters.');
+            expect(console.error).not.toHaveBeenCalled();
+        });
+
+        it('should reject empty descriptions', () =>
+        {
+            form.get('description')?.setValue('');
+            expect(form.get('description')?.hasError('description')).toBe(true);
+            expect(console.error).not.toHaveBeenCalled();
+        });
+
+        it('should reject descriptions with non-printable characters', () =>
+        {
+            form.get('description')?.setValue('Invalid\nDescription');
+            expect(form.get('description')?.hasError('description')).toBe(true);
+            expect(console.error).not.toHaveBeenCalled();
+        });
+
+        it('should reject descriptions longer than 255 characters', () =>
+        {
+            form.get('description')?.setValue('A'.repeat(256));
+            expect(form.get('description')?.hasError('description')).toBe(true);
+            expect(console.error).not.toHaveBeenCalled();
+        });
+    });
+
+
     describe('Matches', () => {
         it('should accept matching fields', () =>
         {

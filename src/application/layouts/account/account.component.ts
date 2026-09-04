@@ -111,19 +111,19 @@ export class AccountComponent extends BaseLayout {
     /**
      * Submits the form.
      *
-     * @param model - Form to submit.
+     * @param event - Event with form to submit.
      */
-    onFormSubmit(model: Form): void
+    onFormSubmit(event: Form): void
     {
         switch (this.activeModal()) {
             case 'updateProfile': 
-                this.onUpdateProfile(model);
+                this.onUpdateProfile(event);
                 break;
             case 'updatePassword':
-                this.onUpdatePassword(model);
+                this.onUpdatePassword(event);
                 break;
             case 'updatePin': 
-                this.onUpdatePin(model);
+                this.onUpdatePin(event);
                 break;
         }
     }

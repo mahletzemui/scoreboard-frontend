@@ -89,6 +89,22 @@ describe('GameService', () => {
     });
 
 
+    it("should send '/games?vaultId={gameId}' GET requests", () =>
+    {
+        const mockResponse = { id: 1, organiser: 'johndoe', standing: 'Win', scores: [ { username: 'johndoe', score: 'Win' }, { username: 'janesmith', score: 'Loss' } ], played: '2026-01-05T18:30:00Z', updated: '2026-01-12T20:15:00Z' };
+        service.fetchGame(1).subscribe(item => {
+            expect(item.status).toBe(200);
+            expect(item.body).toBe(mockResponse);
+        });
+
+        const request = mockHttpClient.expectOne(item => item.url === baseUrl && item.params.get('vaultId') === '1');
+        expect(request.request.method).toBe('GET');
+        expect(request.request.body).toBeFalsy();
+        expect(request.request.withCredentials).toBe(true);
+        request.flush(mockResponse, { status: 200, statusText: 'Ok' });
+    });
+
+
     it("should send '/games?category={gameId}&vaultId={vaultId}' DELETE requests", () =>
     {
         const mockResponse = 'Deleted successfully';

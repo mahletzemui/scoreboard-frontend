@@ -81,11 +81,16 @@ export const routes: Routes = [
             }
         ]
     },
-    // {
-    //     path: 'family',
-    //     loadComponent: () => import('./layouts/family/family.component').then(item => item.FamilyComponent),
-    //     canActivate: [authenticatedGuard]
-    // },
+    {
+        path: 'family',
+        loadComponent: () => import('./layouts/family/family.component').then(item => item.FamilyComponent),
+        canActivate: [authenticatedGuard]
+    },
+    {
+        path: 'family/:id',
+        loadComponent: () => import('./layouts/family/family-detail/family-detail.component').then(item => item.FamilyDetailComponent),
+        canActivate: [authenticatedGuard]
+    },
     {
         path: 'account',
         loadComponent: () => import('./layouts/account/account.component').then(item => item.AccountComponent),

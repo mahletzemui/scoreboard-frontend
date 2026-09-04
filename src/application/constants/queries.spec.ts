@@ -1,4 +1,4 @@
-import { createAccountSelector, createGameFilter, createGameSelector, createGameLabelSelector, createTaskFilter } from './queries';
+import { createAccountSelector, createFamilyFilter, createGameFilter, createGamePicker, createGameSelector, createGameLabelSelector, createTaskFilter } from './queries';
 
 
 /**
@@ -28,6 +28,19 @@ describe('Queries Constants', () => {
                 { name: 'account', label: 'Account', active: false, icon: expect.any(Array) },
                 { name: 'notifications', label: 'Notifications', active: false, icon: expect.any(Array) },
                 { name: 'logout', label: 'Logout', active: false, icon: expect.any(Array) }
+            ]
+        });
+    });
+
+
+    it('should create the game picker', () =>
+    {
+        expect(createGamePicker()).toEqual({
+            heading: '',
+            options: [
+                { name: 'connect4', label: 'Connect4', active: false },
+                { name: 'conquer', label: 'Conquer', active: false },
+                { name: 'domino', label: 'Domino', active: false }
             ]
         });
     });
@@ -214,6 +227,31 @@ describe('Queries Constants', () => {
             },
             {
                 heading: 'Requested By Me',
+                unique: true,
+                type: 'check',
+                options: [
+                    { name: 'yes', label: 'Yes', active: false },
+                    { name: 'no', label: 'No', active: false }
+                ]
+            }
+        ]);
+    });
+
+
+    it('should create the family filter', () =>
+    {
+        expect(createFamilyFilter()).toEqual([
+            {
+                heading: 'Created By Me',
+                unique: true,
+                type: 'check',
+                options: [
+                    { name: 'yes', label: 'Yes', active: false },
+                    { name: 'no', label: 'No', active: false }
+                ]
+            },
+            {
+                heading: 'Part Of',
                 unique: true,
                 type: 'check',
                 options: [

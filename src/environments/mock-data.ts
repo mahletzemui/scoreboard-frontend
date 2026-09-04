@@ -6,7 +6,7 @@ import { HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 
 
 import { BASE_API } from '../application/constants/general';
-import { Vault, Profile, Session, Task } from '../application/models/responses';
+import { Group, Profile, Session, Task, Vault } from '../application/models/responses';
 
 // --------------------------------------------------------------------------------
 
@@ -79,36 +79,45 @@ export const MOCK_VAULTS: Record<string, Vault[]> =
 // Holds task details.
 export const MOCK_TASKS: Task[] =
 [
-    { id: 1, seeker: 'johndoe', action: 'Delete Game', reference: 1, previous: 'Game #1 - where johndoe finished with a Win', current: '', verdict: 'Pending', reviewers: [
+    { id: 1, seeker: 'johndoe', action: 'Delete Game', reference: 1, previous: 'Game #1 — johndoe finished with a Win.', current: '', verdict: 'Pending', reviewers: [
         { id: 1, reporter: 'johndoe', verdict: 'Pending' },
         { id: 2, reporter: 'janesmith', verdict: 'Pending' }
     ] },
-    { id: 2, seeker: 'janesmith', action: 'Delete Game', reference: 4, previous: 'Game #4 - where johndoe finished with a Win', current: '', verdict: 'Pending', reviewers: [
+    { id: 2, seeker: 'janesmith', action: 'Delete Game', reference: 4, previous: 'Game #4 — janesmith finished with a Joker Drop Win.', current: '', verdict: 'Pending', reviewers: [
         { id: 3, reporter: 'janesmith', verdict: 'Approved' },
         { id: 4, reporter: 'johndoe', verdict: 'Pending' }
     ] },
-    { id: 3, seeker: 'mikejohnson', action: 'Join Family', reference: 1, previous: 'Family #1 wants to be joined by mikejohnson', current: '', verdict: 'Approved', reviewers: [
+    { id: 3, seeker: 'mikejohnson', action: 'Join Family', reference: 1, previous: 'Family #1 — mikejohnson wants to join the family.', current: '', verdict: 'Approved', reviewers: [
         { id: 5, reporter: 'johndoe', verdict: 'Approved' }
     ] },
-    { id: 4, seeker: 'johndoe', action: 'Join Family', reference: 2, previous: 'Family #2 wants to be joined by johndoe', current: '', verdict: 'Rejected', reviewers: [
+    { id: 4, seeker: 'johndoe', action: 'Join Family', reference: 2, previous: 'Family #2 — johndoe wants to join the family.', current: '', verdict: 'Rejected', reviewers: [
         { id: 6, reporter: 'janesmith', verdict: 'Rejected' }
     ] },
-    { id: 5, seeker: 'johndoe', action: 'Delete Game', reference: 7, previous: 'Game #7 - where maggiewells & mikejohnson finished in a Draw', current: '', verdict: 'Cancelled', reviewers: [
+    { id: 5, seeker: 'johndoe', action: 'Delete Game', reference: 7, previous: 'Game #7 — maggiewells and mikejohnson finished in a Draw.', current: '', verdict: 'Cancelled', reviewers: [
         { id: 7, reporter: 'johndoe', verdict: 'Pending' },
         { id: 8, reporter: 'janesmith', verdict: 'Pending' }
     ] },
-    { id: 6, seeker: 'janesmith', action: 'Delete Game', reference: 16, previous: 'Game #16 - where mikejohnson finished with a Win', current: '', verdict: 'Rejected', reviewers: [
+    { id: 6, seeker: 'janesmith', action: 'Delete Game', reference: 16, previous: 'Game #16 — mikejohnson finished with a Win.', current: '', verdict: 'Rejected', reviewers: [
         { id: 9, reporter: 'janesmith', verdict: 'Approved' },
         { id: 10, reporter: 'johndoe', verdict: 'Rejected' }
     ] },
-    { id: 7, seeker: 'mikejohnson', action: 'Delete Game', reference: 17, previous: 'Game #17 - where mikejohnson finished with a Regular Win', current: '', verdict: 'Pending', reviewers: [
+    { id: 7, seeker: 'mikejohnson', action: 'Delete Game', reference: 17, previous: 'Game #17 — mikejohnson finished with a Regular Win.', current: '', verdict: 'Pending', reviewers: [
         { id: 11, reporter: 'mikejohnson', verdict: 'Pending' },
         { id: 12, reporter: 'johndoe', verdict: 'Approved' },
         { id: 13, reporter: 'maggiewells', verdict: 'Pending' }
     ] },
-    { id: 8, seeker: 'johndoe', action: 'Join Family', reference: 2, previous: 'Family #2 wants to be joined by johndoe', current: '', verdict: 'Pending', reviewers: [
+    { id: 8, seeker: 'johndoe', action: 'Join Family', reference: 2, previous: 'Family #2 — johndoe wants to join the family.', current: '', verdict: 'Pending', reviewers: [
         { id: 14, reporter: 'janesmith', verdict: 'Pending' }
     ] }
+];
+
+// Holds family details.
+export const MOCK_GROUPS: Group[] =
+[
+    { id: 1, organiser: 'johndoe', name: 'Does Group', description: 'A group for members of the Doe family to play and keep track of games together.', member: 1 },
+    { id: 2, organiser: 'janesmith', name: 'Smiths Crew', description: "A crew for friends in Smiths circle to enjoy competitive Friday game nights together.", member: null },
+    { id: 3, organiser: 'maggiewells', name: 'Wells Group', description: 'A group for members of the Wells family to play and keep track of games together.', member: 2 },
+    { id: 4, organiser: 'mikejohnson', name: 'Johnsons Group', description: 'A group for members of the Johnson family to play and keep track of games together.', member: null }
 ];
 
 
@@ -131,7 +140,7 @@ export function resolveMockResponse(request: HttpRequest<unknown>): HttpEvent<un
         return new HttpResponse({ status: 201, body: MOCK_SUCCESS });
     }
     if (url === `${BASE_API}/forgot-password`) {
-        return new HttpResponse({ status: 204, body: MOCK_SUCCESS });
+        return new HttpResponse({ status: 202, body: MOCK_SUCCESS });
     }
     if (url === `${BASE_API}/account/profile` && method === 'GET') {
         return new HttpResponse({ status: 200, body: MOCK_PROFILE });
@@ -156,6 +165,14 @@ export function resolveMockResponse(request: HttpRequest<unknown>): HttpEvent<un
     // }
     if (url === `${BASE_API}/tasks` && method === 'PATCH') {
         return new HttpResponse({ status: 200, body: resolveUpdatedTask(request) });
+    }
+    if (url === `${BASE_API}/groups` && method === 'GET') {
+        const groupId = request.params.get('groupId');
+        if (groupId) {
+            const match = MOCK_GROUPS.find(item => item.id === Number(groupId));
+            return new HttpResponse({ status: 200, body: match });
+        }
+        return new HttpResponse({ status: 200, body: MOCK_GROUPS });
     }
     return new HttpResponse({ status: 200, body: MOCK_SUCCESS });
 }

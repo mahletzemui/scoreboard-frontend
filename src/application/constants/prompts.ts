@@ -243,6 +243,46 @@ export function createVerifyPlayerForm(): Form
 
 
 /**
+ * Holds the family field models.
+ */
+export const FAMILY_FIELDS: Field[] =
+[
+    { name: 'name', label: 'Name', type: 'text', maxLength: 30, placeholder: 'Enter a family name', default: '', autocomplete: 'off' },
+    { name: 'description', label: 'Description', type: 'text', maxLength: 255, placeholder: 'Enter a family description', default: '', autocomplete: 'off' }
+];
+
+/**
+ * Creates the add family form model.
+ */
+export function addFamilyForm(): Form
+{
+    return {
+        title: 'Create Family',
+        intake: builder.group({
+            name: [ '', FormValidator.heading() ],
+            description: [ '', FormValidator.description() ]
+        }),
+        fields: FAMILY_FIELDS.map(item => ({...item}))
+    };
+};
+
+/**
+ * Creates the update family form model.
+ */
+export function updateFamilyForm(): Form
+{
+    return {
+        title: 'Update Family',
+        intake: builder.group({
+            name: [ '', FormValidator.heading() ],
+            description: [ '', FormValidator.description() ]
+        }),
+        fields: FAMILY_FIELDS.map(item => ({...item}))
+    };
+};
+
+
+/**
  * Holds supported modal forms.
  */
 export const FORM_STORE: Record<string, () => Form> =
@@ -250,5 +290,7 @@ export const FORM_STORE: Record<string, () => Form> =
     updateProfile: createUpdateProfileForm,
     updatePassword: createUpdatePasswordForm,
     updatePin: createUpdatePinForm,
-    verifyPlayer: createVerifyPlayerForm
+    verifyPlayer: createVerifyPlayerForm,
+    createFamily: addFamilyForm,
+    updateFamily: updateFamilyForm
 };

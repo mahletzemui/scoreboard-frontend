@@ -55,6 +55,21 @@ export function createAccountSelector(): Selector
 
 
 /**
+ * Creates the game picker model.
+ */
+export function createGamePicker(): Selector
+{
+    return {
+        heading: '',
+        options: Object.values(GAME_STORE).map(item => ({
+            name: item.id,
+            label: item.name,
+            active: false
+        }))
+    };
+}
+
+/**
  * Creates a game label selector model.
  * 
  * @param gameId - Id of game to create for.
@@ -148,6 +163,32 @@ export function createTaskFilter(): Filter[]
             },
             {
                 heading: 'Requested By Me',
+                unique: true,
+                type: 'check',
+                options: [
+                    { name: 'yes', label: 'Yes', active: false },
+                    { name: 'no', label: 'No', active: false }
+                ]
+            }];
+};
+
+
+/**
+ * Creates a family filter model.
+ */
+export function createFamilyFilter(): Filter[]
+{
+    return [{
+                heading: 'Created By Me',
+                unique: true,
+                type: 'check',
+                options: [
+                    { name: 'yes', label: 'Yes', active: false },
+                    { name: 'no', label: 'No', active: false }
+                ]
+            },
+            {
+                heading: 'Part Of',
                 unique: true,
                 type: 'check',
                 options: [

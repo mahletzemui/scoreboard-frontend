@@ -29,30 +29,30 @@
         } @else {
         <div class="results">
             <div class="board">
-                @for (task of paged(); track task.id) {
+                @for (item of paged(); track item.id) {
                 <article class="card">
                     <div class="meta">
-                        <span class="id">#{{ task.id }}</span>
-                        <span class="standing" [class]="task.verdict.toLowerCase()">{{ task.verdict }}</span>
+                        <span class="id">#{{ item.id }}</span>
+                        <span class="standing" [class]="item.verdict.toLowerCase()">{{ item.verdict }}</span>
                     </div>
 
                     <div class="details">
-                        <span>{{ task.action }}</span>
-                        @if (task.previous && task.current) {
-                        <p><strong>Before:</strong> {{ task.previous }}</p>
-                        <p><strong>After:</strong> {{ task.current }}</p>
+                        <span>{{ item.action }}</span>
+                        @if (item.previous && item.current) {
+                        <p><strong>Before:</strong> {{ item.previous }}</p>
+                        <p><strong>After:</strong> {{ item.current }}</p>
                         } @else {
-                        <p>{{ task.previous || task.current }}</p>
+                        <p>{{ item.previous || item.current }}</p>
                         }
                     </div>
 
                     <div class="reviewers">
                         <span class="heading">Reviewers</span>
                         <ul>
-                            @for (vote of task.reviewers; track vote.id) {
+                            @for (entry of item.reviewers; track entry.id) {
                             <li>
-                                <span class="name">{{ vote.reporter }}</span>
-                                <span class="verdict" [class]="vote.verdict.toLowerCase()">{{ vote.verdict }}</span>
+                                <span class="name">{{ entry.reporter }}</span>
+                                <span class="verdict" [class]="entry.verdict.toLowerCase()">{{ entry.verdict }}</span>
                             </li>
                             }
                         </ul>
@@ -60,14 +60,14 @@
 
                     <footer>
                         <div class="controls">
-                            @if (voteable(task)) {
-                            <button class="vote approve" [class.active]="extractReview(task)?.verdict === 'Approved'" (click)="takeAction(task, extractReview(task)?.verdict === 'Approved' ? 'pending' : 'approve')">
+                            @if (voteable(item)) {
+                            <button class="vote approve" [class.active]="extractReview(item)?.verdict === 'Approved'" (click)="takeAction(item, extractReview(item)?.verdict === 'Approved' ? 'pending' : 'approve')">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                     <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
                                 </svg>
                                 Approve
                             </button>
-                            <button class="vote reject" [class.active]="extractReview(task)?.verdict === 'Rejected'" (click)="takeAction(task, extractReview(task)?.verdict === 'Rejected' ? 'pending' : 'reject')">
+                            <button class="vote reject" [class.active]="extractReview(item)?.verdict === 'Rejected'" (click)="takeAction(item, extractReview(item)?.verdict === 'Rejected' ? 'pending' : 'reject')">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                     <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
                                 </svg>
@@ -76,9 +76,9 @@
                             }
                         </div>
                         <div class="owner">
-                            <span><strong>Requested By:</strong> {{ task.seeker }}</span>
-                            @if (cancellable(task)) {
-                            <button class="cancel" (click)="takeAction(task, 'cancel')">
+                            <span><strong>Requested By:</strong> {{ item.seeker }}</span>
+                            @if (cancellable(item)) {
+                            <button class="cancel" (click)="takeAction(item, 'cancel')">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                     <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Z
                                         m400-600H280v520h400v-520Z

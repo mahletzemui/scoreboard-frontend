@@ -55,7 +55,7 @@ export class GameService {
     }
 
     /**
-     * Initiates a fetch game scores request with the server.
+     * Initiates a fetch vaults request with the server.
      *
      * @param gameId - Id of game to fetch.
      *
@@ -67,7 +67,19 @@ export class GameService {
     }
 
     /**
-     * Initiates a delete game request with the server.
+     * Initiates a fetch vault request with the server.
+     *
+     * @param vaultId - Id of vault to fetch.
+     *
+     * @return an http response observable with the vault details.
+     */
+    fetchGame(vaultId: number): Observable<HttpResponse<Vault>> {
+        const params = new HttpParams().set('vaultId', vaultId);
+        return this.http.get<Vault>(`${this.base}`, { params, observe: 'response', responseType: 'json', withCredentials: true });
+    }
+
+    /**
+     * Initiates a delete vault request with the server.
      *
      * @param gameId  - Id of game to delete.
      * @param vaultId - Id of vault to delete.

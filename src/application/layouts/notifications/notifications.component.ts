@@ -235,8 +235,8 @@ export class NotificationsComponent extends BaseLayout {
      */
     private onReviewUpdate(task: Task, status: 'approved'|'pending'|'rejected'): void
     {
-        console.log('Update Review: Initiated...');
         const review = this.extractReview(task)!;
+        console.log('Update Review: Initiated...');
 
         this.server.updateVote(review.id, status).subscribe({
             next: (response) => {
