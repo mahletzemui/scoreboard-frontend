@@ -1,7 +1,7 @@
 <div class="page">
     <div class="section intro">
         <h1>Welcome Back, {{ preferredName }}</h1>
-        <p>Back for another game? Your games dashboard keeps every match, score, and milestone together, so your progress is always close at hand.</p>
+        <p>Browse your games, jump back into a match, or review your recent results.</p>
     </div>
 
     <div class="section center">
@@ -43,7 +43,7 @@
     </div>
 
     <div class="section center">
-        <app-paginator [total]="searched().length" [options]="pageOptions" (paged)="onPage($event)"></app-paginator>
+        <app-paginator [total]="total()" [options]="pageOptions" (paged)="onPage($event)"></app-paginator>
     </div>
 </div>
 

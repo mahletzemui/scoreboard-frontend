@@ -67,7 +67,7 @@ export class Connect4PlayComponent extends BaseLayout {
     // Methods --------------------------------------------------------------------
 
     /**
-     * Takes a particular game action.
+     * Takes the particular game action.
      *
      * @param type - Action to take.
      * @param i    - Index of player, if needed.

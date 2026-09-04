@@ -6,7 +6,7 @@ import { HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 
 
 import { BASE_API } from '../application/constants/general';
-import { Vault, Profile, Session } from '../application/models/responses';
+import { Vault, Profile, Session, Task } from '../application/models/responses';
 
 // --------------------------------------------------------------------------------
 
@@ -76,6 +76,41 @@ export const MOCK_VAULTS: Record<string, Vault[]> =
     ]
 };
 
+// Holds task details.
+export const MOCK_TASKS: Task[] =
+[
+    { id: 1, seeker: 'johndoe', action: 'Delete Game', reference: 1, previous: 'Game #1 - where johndoe finished with a Win', current: '', verdict: 'Pending', reviewers: [
+        { id: 1, reporter: 'johndoe', verdict: 'Pending' },
+        { id: 2, reporter: 'janesmith', verdict: 'Pending' }
+    ] },
+    { id: 2, seeker: 'janesmith', action: 'Delete Game', reference: 4, previous: 'Game #4 - where johndoe finished with a Win', current: '', verdict: 'Pending', reviewers: [
+        { id: 3, reporter: 'janesmith', verdict: 'Approved' },
+        { id: 4, reporter: 'johndoe', verdict: 'Pending' }
+    ] },
+    { id: 3, seeker: 'mikejohnson', action: 'Join Family', reference: 1, previous: 'Family #1 wants to be joined by mikejohnson', current: '', verdict: 'Approved', reviewers: [
+        { id: 5, reporter: 'johndoe', verdict: 'Approved' }
+    ] },
+    { id: 4, seeker: 'johndoe', action: 'Join Family', reference: 2, previous: 'Family #2 wants to be joined by johndoe', current: '', verdict: 'Rejected', reviewers: [
+        { id: 6, reporter: 'janesmith', verdict: 'Rejected' }
+    ] },
+    { id: 5, seeker: 'johndoe', action: 'Delete Game', reference: 7, previous: 'Game #7 - where maggiewells & mikejohnson finished in a Draw', current: '', verdict: 'Cancelled', reviewers: [
+        { id: 7, reporter: 'johndoe', verdict: 'Pending' },
+        { id: 8, reporter: 'janesmith', verdict: 'Pending' }
+    ] },
+    { id: 6, seeker: 'janesmith', action: 'Delete Game', reference: 16, previous: 'Game #16 - where mikejohnson finished with a Win', current: '', verdict: 'Rejected', reviewers: [
+        { id: 9, reporter: 'janesmith', verdict: 'Approved' },
+        { id: 10, reporter: 'johndoe', verdict: 'Rejected' }
+    ] },
+    { id: 7, seeker: 'mikejohnson', action: 'Delete Game', reference: 17, previous: 'Game #17 - where mikejohnson finished with a Regular Win', current: '', verdict: 'Pending', reviewers: [
+        { id: 11, reporter: 'mikejohnson', verdict: 'Pending' },
+        { id: 12, reporter: 'johndoe', verdict: 'Approved' },
+        { id: 13, reporter: 'maggiewells', verdict: 'Pending' }
+    ] },
+    { id: 8, seeker: 'johndoe', action: 'Join Family', reference: 2, previous: 'Family #2 wants to be joined by johndoe', current: '', verdict: 'Pending', reviewers: [
+        { id: 14, reporter: 'janesmith', verdict: 'Pending' }
+    ] }
+];
+
 
 /**
  * Resolves mock responses for HTTP requests.
@@ -111,5 +146,38 @@ export function resolveMockResponse(request: HttpRequest<unknown>): HttpEvent<un
         const category = request.params.get('category') ?? '';
         return new HttpResponse({ status: 200, body: MOCK_VAULTS[category] ?? [] });
     }
+    if (url === `${BASE_API}/tasks` && method === 'GET') {
+        return new HttpResponse({ status: 200, body: MOCK_TASKS });
+    }
+    // if (url === `${BASE_API}/tasks?awaitingMe=Y` && method === 'GET') {
+    //     const setOf = MOCK_TASKS.filter(item => item.verdict !== 'Cancelled' 
+    //         && item.reviewers.some(entry => entry.reporter === MOCK_SESSION.username && entry.verdict === 'Pending'));
+    //     return new HttpResponse({ status: 200, body: setOf });
+    // }
+    if (url === `${BASE_API}/tasks` && method === 'PATCH') {
+        return new HttpResponse({ status: 200, body: resolveUpdatedTask(request) });
+    }
     return new HttpResponse({ status: 200, body: MOCK_SUCCESS });
+}
+
+/**
+ * Resolves the task for a review update request.
+ *
+ * @param request - Request to resolve for.
+ *
+ * @return the corresponding updated task.
+ */
+function resolveUpdatedTask(request: HttpRequest<unknown>): Task|undefined
+{
+    const reviewId = Number(request.params.get('reviewId'));
+    const status = request.params.get('status')!;
+    
+    const label = status.charAt(0).toUpperCase() + status.slice(1);
+    const task = MOCK_TASKS.find(item => item.reviewers.some(entry => entry.id === reviewId))!;
+
+    const reviewers = task.reviewers.map(item => item.id === reviewId ? { ...item, verdict: label } : item);
+    const verdict = reviewers.some(item => item.verdict === 'Rejected') ? 'Rejected'
+                                                                        : reviewers.every(item => item.verdict === 'Approved') ? 'Approved'
+                                                                                                                               : 'Pending';
+    return { ...task, reviewers, verdict };
 }

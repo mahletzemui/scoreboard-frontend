@@ -45,8 +45,8 @@ describe('DashboardComponent', () => {
     {
         expect(component).toBeTruthy();
         expect(component.preferredName).toBe('John');
-        expect(component.searched()).toEqual(games);
-        expect(component.paged()).toEqual(component.searched().slice(0, 2));
+        expect(component.total()).toBe(games.length);
+        expect(component.paged()).toEqual(games.slice(0, 2));
         expect(component.selected).toBeFalsy();
 
         expect(dom.querySelector('.section.intro h1')?.textContent).toBe('Welcome Back, John');
@@ -107,7 +107,7 @@ describe('DashboardComponent', () => {
     {
         // when changing page index
         TestFactory.changePage(dom, fixture, true);
-        expect(component.paged()).toEqual(component.searched().slice(2, 3));
+        expect(component.paged()).toEqual(games.slice(2, 3));
 
         let cards = dom.querySelectorAll('.card');
         expect(cards.length).toBe(1);
@@ -116,8 +116,8 @@ describe('DashboardComponent', () => {
 
         // when searching with an existing term
         TestFactory.searchTerms(dom, fixture, ['o']);
-        expect(component.searched()).toEqual(games);
-        expect(component.paged()).toEqual(component.searched().slice(2, 3));
+        expect(component.total()).toBe(games.length);
+        expect(component.paged()).toEqual(games.slice(2, 3));
 
         cards = dom.querySelectorAll('.card');
         expect(cards.length).toBe(1);
@@ -126,7 +126,7 @@ describe('DashboardComponent', () => {
 
         // when changing page size
         TestFactory.selectOption(dom.querySelector('app-paginator')!, fixture, 1);
-        expect(component.paged()).toEqual(component.searched());
+        expect(component.paged()).toEqual(games);
 
         cards = dom.querySelectorAll('.card');
         expect(cards.length).toBe(3);
@@ -137,8 +137,8 @@ describe('DashboardComponent', () => {
 
         // when removing search terms
         TestFactory.searchTerms(dom, fixture);
-        expect(component.searched()).toEqual(games);
-        expect(component.paged()).toEqual(component.searched());
+        expect(component.total()).toBe(games.length);
+        expect(component.paged()).toEqual(games);
 
         cards = dom.querySelectorAll('.card');
         expect(cards.length).toBe(3);
@@ -149,8 +149,8 @@ describe('DashboardComponent', () => {
 
         // when searching with multiple search terms
         TestFactory.searchTerms(dom, fixture, ['qu', 'test']);
-        expect(component.searched()).toEqual(games.slice(1, 2));
-        expect(component.paged()).toEqual(component.searched());
+        expect(component.total()).toBe(1);
+        expect(component.paged()).toEqual(games.slice(1, 2));
 
         cards = dom.querySelectorAll('.card');
         expect(cards.length).toBe(1);
@@ -159,7 +159,7 @@ describe('DashboardComponent', () => {
 
         // when searching with a missing term
         TestFactory.searchTerms(dom, fixture, 0);
-        expect(component.searched()).toEqual([]);
+        expect(component.total()).toBe(0);
         expect(component.paged()).toEqual([]);
 
         expect(dom.querySelector('.empty-grid')).toBeTruthy();

@@ -14,6 +14,7 @@ import { ToolBox } from '../../utils';
 import { GameService, NoticeService } from '../../services';
 import { DonutChartComponent, FinderComponent, MessageModalComponent, PaginatorComponent, PlaybookModalComponent } from '../../components';
 
+
 /**
  * Represents the application's general game recap shell.
  */
@@ -27,7 +28,6 @@ import { DonutChartComponent, FinderComponent, MessageModalComponent, PaginatorC
 export class GameRecapComponent {
     // Fields ---------------------------------------------------------------------
     id = input.required<string>();
-    username = localStorage.getItem('username')!;
     private server = inject(GameService);
 
     private router = inject(Router);
@@ -35,6 +35,7 @@ export class GameRecapComponent {
     guide = computed(() => GAME_GUIDES[this.game().title]);
 
     showPlaybook = signal(false);
+    private username = localStorage.getItem('username')!;
     filters = computed(() => createGameFilter(this.id()));
 
     generalError = signal('');
@@ -52,10 +53,7 @@ export class GameRecapComponent {
     private terms = signal<string[]>([]);
     private criteria = signal<Filter[]>([]);
 
-    pageOptions = [ '5', '10', '15' ];
-    private pageIndexSignal = signal(0);
-    private pageSizeSignal = signal(ToolBox.parseNumber(this.pageOptions[0]));
-
+    // TODO : Fix this for Heat objects as well...
     private searched = computed(() => {
         const terms = this.terms();
         return terms.length === 0 ? this.overview()
@@ -69,6 +67,10 @@ export class GameRecapComponent {
         return criteria.length === 0 ? this.searched()
                                      : this.searched().filter(item => criteria.every(filter => this.matchesFilter(item, filter)));
     });
+
+    readonly pageOptions = [ '5', '10', '15' ];
+    private pageIndexSignal = signal(0);
+    private pageSizeSignal = signal(ToolBox.parseNumber(this.pageOptions[0]));
 
     private notice = inject(NoticeService);
     trigger = input<'editGame'|'deleteGame'>();
@@ -192,6 +194,7 @@ export class GameRecapComponent {
      */
     onEditGame(event: Scorecard): void
     {
+        // TODO : Finish this...
         console.log('Edit Game: Initiated...');
         this.delivered.emit('edited');
         this.activeModal.set(undefined);
@@ -233,7 +236,7 @@ export class GameRecapComponent {
      * @param vault  - Game to check.
      * @param filter - Filter to check against.
      *
-     * @return true if the game matches, else false.
+     * @return true if it matches, else false.
      */
     private matchesFilter(vault: Vault, filter: Filter): boolean
     {

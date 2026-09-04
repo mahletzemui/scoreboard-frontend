@@ -91,11 +91,11 @@ export const routes: Routes = [
         loadComponent: () => import('./layouts/account/account.component').then(item => item.AccountComponent),
         canActivate: [authenticatedGuard]
     },
-    // {
-    //     path: 'notifications',
-    //     loadComponent: () => import('./layouts/notifications/notifications.component').then(item => item.NotificationsComponent),
-    //     canActivate: [authenticationGuard]
-    // },
+    {
+        path: 'notifications',
+        loadComponent: () => import('./layouts/notifications/notifications.component').then(item => item.NotificationsComponent),
+        canActivate: [authenticatedGuard]
+    },
     // {
     //     path: '**',
     //     loadComponent: () => import('./layouts/page-not-found/page-not-found.component').then(item => item.PageNotFoundComponent)

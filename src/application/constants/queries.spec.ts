@@ -1,4 +1,4 @@
-import { createAccountSelector, createGameFilter, createGameSelector, createGameLabelSelector } from './queries';
+import { createAccountSelector, createGameFilter, createGameSelector, createGameLabelSelector, createTaskFilter } from './queries';
 
 
 /**
@@ -92,7 +92,7 @@ describe('Queries Constants', () => {
                     ]
                 },
                 {
-                    heading: 'Organizer',
+                    heading: 'Organized By Me',
                     unique: true,
                     type: 'check',
                     options: [
@@ -124,7 +124,7 @@ describe('Queries Constants', () => {
                     ]
                 },
                 {
-                    heading: 'Organizer',
+                    heading: 'Organized By Me',
                     unique: true,
                     type: 'check',
                     options: [
@@ -154,7 +154,7 @@ describe('Queries Constants', () => {
                     ]
                 },
                 {
-                    heading: 'Organizer',
+                    heading: 'Organized By Me',
                     unique: true,
                     type: 'check',
                     options: [
@@ -176,5 +176,51 @@ describe('Queries Constants', () => {
         {
             expect(createGameFilter('test')).toEqual([]);
         });
+    });
+
+
+    it('should create the task filter', () =>
+    {
+        expect(createTaskFilter()).toEqual([
+            {
+                heading: 'Awaiting My Response',
+                unique: true,
+                type: 'check',
+                options: [
+                    { name: 'yes', label: 'Yes', active: true },
+                    { name: 'no', label: 'No', active: false }
+                ]
+            },
+            {
+                heading: 'Status',
+                unique: false,
+                type: 'check',
+                options: [
+                    { name: 'pending', label: 'Pending', active: false },
+                    { name: 'approved', label: 'Approved', active: false },
+                    { name: 'rejected', label: 'Rejected', active: false },
+                    { name: 'cancelled', label: 'Cancelled', active: false }
+                ]
+            },
+            {
+                heading: 'Type',
+                unique: false,
+                type: 'check',
+                options: [
+                    { name: 'join-family', label: 'Join Family', active: false },
+                    { name: 'update-game', label: 'Update Game', active: false },
+                    { name: 'delete-game', label: 'Delete Game', active: false }
+                ]
+            },
+            {
+                heading: 'Requested By Me',
+                unique: true,
+                type: 'check',
+                options: [
+                    { name: 'yes', label: 'Yes', active: false },
+                    { name: 'no', label: 'No', active: false }
+                ]
+            }
+        ]);
     });
 });

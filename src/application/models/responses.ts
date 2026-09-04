@@ -62,6 +62,7 @@ export interface Task
     id: number,
     seeker: string,
     action: string,
+    reference: number,
     previous: string,
     current: string,
     verdict: string,

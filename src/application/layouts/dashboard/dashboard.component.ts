@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 
 import { BaseLayout } from '../base-layout.directive';
 
-import { Teaser } from '../../models/games';
 import { Page } from '../../models/queries';
 import { GAME_GUIDES, GAME_PREVIEWS } from '../../constants/games';
 
@@ -28,19 +27,25 @@ export class DashboardComponent extends BaseLayout {
     preferredName = localStorage.getItem('name')!;
     private router = inject(Router);
 
-    private searchedSignal = signal<Teaser[]>(Object.values(GAME_PREVIEWS));
-    readonly searched = this.searchedSignal.asReadonly();
-
     selected?: string;
     playbooks = GAME_GUIDES;
+    private terms = signal<string[]>([]);
 
-    pageOptions = [ '2', '4', '8' ];
+    private searched = computed(() => {
+        const terms = this.terms();
+        return terms.length === 0 ? Object.values(GAME_PREVIEWS)
+                                  : Object.values(GAME_PREVIEWS).filter(item => terms.some(term => item.title.toLowerCase().includes(term)));
+    });
+
+    total = computed(() => this.searched().length);
+
+    readonly pageOptions = [ '2', '4', '8' ];
     private pageIndexSignal = signal(0);
     private pageSizeSignal = signal(ToolBox.parseNumber(this.pageOptions[0]));
 
     paged = computed(() => {
-        const { start, end } = ToolBox.resolvePage(this.pageSizeSignal(), this.pageIndexSignal(), this.searchedSignal().length);
-        return this.searchedSignal().slice(start, end);
+        const { start, end } = ToolBox.resolvePage(this.pageSizeSignal(), this.pageIndexSignal(), this.searched().length);
+        return this.searched().slice(start, end);
     });
 
     // Constructors ---------------------------------------------------------------
@@ -64,8 +69,7 @@ export class DashboardComponent extends BaseLayout {
      */
     onSearch(event: string[]): void
     {
-        this.searchedSignal.set(event.length !== 0 ? Object.values(GAME_PREVIEWS).filter(item => event.some(term => item.title.toLowerCase().includes(term)))
-                                                   : Object.values(GAME_PREVIEWS));
+        this.terms.set(event);
     }
 
     /**

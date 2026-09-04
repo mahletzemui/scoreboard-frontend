@@ -78,7 +78,7 @@ export class DominoPlayComponent extends BaseLayout {
     // Methods --------------------------------------------------------------------
 
     /**
-     * Takes a particular game action.
+     * Takes the particular game action.
      *
      * @param type - Action to take.
      * @param i    - Index of player/round, if needed.

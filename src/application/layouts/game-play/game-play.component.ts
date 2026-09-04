@@ -47,6 +47,7 @@ export class GamePlayComponent {
     private pendingUsername = signal<string|undefined>(undefined);
 
     message = computed<Message>(() => {
+        this.requestError.set('');
         const step = this.activeModal();
         if (step === 'add') {
             return { ...createConfirmationMessage(), notice: `Adding <b>${this.pendingUsername()}</b> to the current game will adjust scores for the remaining players.` };

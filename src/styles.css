@@ -87,6 +87,20 @@
     --danger-900: rgb(45, 6, 6);
     --danger-950: rgb(22, 3, 3);
 
+    --healthy: rgb(46, 160, 96);
+    --healthy-30: rgb(46, 160, 96, 0.3);
+    --healthy-50: rgb(234, 246, 239);
+    --healthy-100: rgb(213, 236, 223);
+    --healthy-200: rgb(171, 217, 191);
+    --healthy-300: rgb(130, 198, 160);
+    --healthy-400: rgb(88, 179, 128);
+    --healthy-500: rgb(46, 160, 96);
+    --healthy-600: rgb(37, 128, 77);
+    --healthy-700: rgb(28, 96, 58);
+    --healthy-800: rgb(18, 64, 38);
+    --healthy-900: rgb(9, 32, 19);
+    --healthy-950: rgb(5, 16, 10);
+
     --label-loss: var(--danger-500);
     --label-draw: rgb(199, 148, 22);
     --label-win: rgb(46, 160, 96);
@@ -180,6 +194,20 @@
     --danger-900: rgb(249, 210, 210);
     --danger-950: rgb(252, 233, 233);
 
+    --healthy: rgb(88, 179, 128);
+    --healthy-30: rgb(88, 179, 128, 0.3);
+    --healthy-50: rgb(5, 16, 10);
+    --healthy-100: rgb(9, 32, 19);
+    --healthy-200: rgb(18, 64, 38);
+    --healthy-300: rgb(28, 96, 58);
+    --healthy-400: rgb(37, 128, 77);
+    --healthy-500: rgb(46, 160, 96);
+    --healthy-600: rgb(88, 179, 128);
+    --healthy-700: rgb(130, 198, 160);
+    --healthy-800: rgb(171, 217, 191);
+    --healthy-900: rgb(213, 236, 223);
+    --healthy-950: rgb(234, 246, 239);
+
     --label-loss: var(--danger-500);
     --label-draw: rgb(230, 175, 60);
     --label-win: rgb(76, 195, 130);
@@ -196,10 +224,30 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-300) transparent;
     font-weight: 400;
     color: var(--text);
     font-family: 'Inter', sans-serif;
 }
+
+*::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    background-color: var(--primary-300);
+}
+*::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-400);
+}
+
 
 body {
     display: flex;
