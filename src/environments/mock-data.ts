@@ -171,42 +171,41 @@ export function resolveMockResponse(request: HttpRequest<unknown>): HttpEvent<un
         return new HttpResponse({ status: 201, body: MOCK_SUCCESS });
     }
     if (url === `${BASE_API}/games` && method === 'GET') {
-        const category = request.params.get('category');
-        if (!category) {
-            const gameId = Number(request.params.get('vaultId'));
-            const match = Object.values(MOCK_VAULTS).flat().find(item => item.id === gameId);
-            return new HttpResponse({ status: 200, body: match });
-        }
+        const category = request.params.get('category')!;
         return new HttpResponse({ status: 200, body: MOCK_VAULTS[category] });
+    }
+    if (url.startsWith(`${BASE_API}/games/`) && method === 'GET') {
+        const vaultId = Number(url.substring(url.lastIndexOf('/') + 1));
+        const match = Object.values(MOCK_VAULTS).flat().find(item => item.id === vaultId);
+        return new HttpResponse({ status: 200, body: match });
+    }
+    if (url === `${BASE_API}/groups` && method === 'GET') {
+        return new HttpResponse({ status: 200, body: MOCK_GROUPS.map(item => ({ ...item, members: [] })) });
+    }
+    if (url.endsWith('/standings') && method === 'GET') {
+        const category = request.params.get('game')!;
+        return new HttpResponse({ status: 200, body: MOCK_STANDINGS[category] ?? [] });
+    }
+    if (url.startsWith(`${BASE_API}/groups/`) && method === 'GET') {
+        const groupId = Number(url.substring(url.lastIndexOf('/') + 1));
+        const match = MOCK_GROUPS.find(item => item.id === groupId);
+        return new HttpResponse({ status: 200, body: match });
     }
     if (url === `${BASE_API}/tasks` && method === 'GET') {
         return new HttpResponse({ status: 200, body: MOCK_TASKS });
     }
-    if (url === `${BASE_API}/tasks` && method === 'PATCH') {
-        return new HttpResponse({ status: 200, body: resolveUpdatedTask(request) });
-    }
-    if (url === `${BASE_API}/groups` && method === 'GET') {
-        const category = request.params.get('category');
-        if (category) {
-            return new HttpResponse({ status: 200, body: MOCK_STANDINGS[category] ?? [] });
-        }
-        const groupId = request.params.get('groupId');
-        if (groupId) {
-            const match = MOCK_GROUPS.find(item => item.id === Number(groupId));
-            return new HttpResponse({ status: 200, body: match });
-        }
-        return new HttpResponse({ status: 200, body: MOCK_GROUPS.map(item => ({ ...item, members: [] })) });
+    if (url.startsWith(`${BASE_API}/tasks/votes/`) && method === 'PATCH') {
+        const reviewId = Number(url.substring(url.lastIndexOf('/') + 1));
+        const status = request.body as string;
+        return new HttpResponse({ status: 200, body: resolveUpdatedTask(reviewId, status) });
     }
     return new HttpResponse({ status: 200, body: MOCK_SUCCESS });
 }
 
 
 // Resolves task details after review updates.
-function resolveUpdatedTask(request: HttpRequest<unknown>): Task|undefined
+function resolveUpdatedTask(reviewId: number, status: string): Task|undefined
 {
-    const reviewId = Number(request.params.get('reviewId'));
-    const status = request.params.get('status')!;
-    
     const label = status.charAt(0).toUpperCase() + status.slice(1);
     const task = MOCK_TASKS.find(item => item.reviewers.some(entry => entry.id === reviewId))!;
 

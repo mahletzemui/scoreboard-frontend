@@ -303,7 +303,7 @@ export class NotificationsComponent extends BaseLayout {
     private enrichAction(task: Task): string
     {
         if (task.previous && task.current) {
-            return 'TODO: Transition from the previous state to the current state';
+            return 'TODO: Game Update - Get back to this to show the transition from previous to current';
         }
         return task.previous || task.current;
     }

@@ -223,7 +223,8 @@ export class FamilyComponent extends BaseLayout {
 
         this.server.createFamily({ name, description }).subscribe({
             next: () => {
-                // TODO : add the group in overview istead of calling the backend again
+                const placeholderId = Math.max(0, ...this.overview().map(item => item.id)) + 1;
+                this.overview.update(current => [ ...current, { id: placeholderId, organiser: this.username, name, description, membershipId: -1, members: [] } ]);
                 this.notice.showBanner('Success! Family has been created.');
                 this.showAdd.set(false);
             },

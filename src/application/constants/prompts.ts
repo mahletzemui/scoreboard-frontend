@@ -291,6 +291,6 @@ export const FORM_STORE: Record<string, () => Form> =
     updatePassword: createUpdatePasswordForm,
     updatePin: createUpdatePinForm,
     verifyPlayer: createVerifyPlayerForm,
-    createFamily: addFamilyForm,
+    addFamily: addFamilyForm,
     updateFamily: updateFamilyForm
 };

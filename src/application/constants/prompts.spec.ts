@@ -197,7 +197,7 @@ describe('Prompt Constants', () => {
         expect(FORM_STORE['updatePassword']().title).toEqual('Update Password');
         expect(FORM_STORE['updatePin']().title).toEqual('Update Pin');
         expect(FORM_STORE['verifyPlayer']().title).toEqual('Verify Player');
-        expect(FORM_STORE['createFamily']().title).toEqual('Create Family');
+        expect(FORM_STORE['addFamily']().title).toEqual('Create Family');
         expect(FORM_STORE['updateFamily']().title).toEqual('Update Family');
     });
 });

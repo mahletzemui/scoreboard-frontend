@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
 
 import { BASE_API } from '../../../constants/general';
@@ -127,7 +127,8 @@ export class AuthenticationService {
      * @return an http response observable with the server's response.
      */
     resetPassword(token: string, detail: Password): Observable<HttpResponse<string>> {
-        return this.http.patch(`${BASE_API}/reset-password?token=${token}`, detail, { observe: 'response', responseType: 'text' });
+        const params = new HttpParams().set('token', token);
+        return this.http.patch(`${BASE_API}/reset-password`, detail, { params, observe: 'response', responseType: 'text' });
     }
 
     /**

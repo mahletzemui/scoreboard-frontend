@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 
 import { BASE_API } from '../../../constants/general';
@@ -41,15 +41,13 @@ export class TaskService {
     /**
      * Initiates an update vote request with the server.
      *
-     * @param voteId - Id of vote to update.
-     * @param status - Status to update to.
+     * @param reviewId - Id of vote to update.
+     * @param status   - Status to update to.
      *
      * @return an http response observable with the user's updated task.
      */
     updateVote(reviewId: number, status: 'approved'|'pending'|'rejected'): Observable<HttpResponse<Task>> {
-        const params = new HttpParams().set('reviewId', reviewId.toString())
-                                       .set('status', status);
-        return this.http.patch<Task>(`${this.base}`, null, { params, observe: 'response', responseType: 'json', withCredentials: true });
+        return this.http.patch<Task>(`${this.base}/votes/${reviewId}`, status, { observe: 'response', responseType: 'json', withCredentials: true });
     }
 
     /**
@@ -60,7 +58,6 @@ export class TaskService {
      * @return an http response observable with the server's response.
      */
     cancelTask(taskId: number): Observable<HttpResponse<string>> {
-        const params = new HttpParams().set('requestId', taskId.toString());
-        return this.http.delete(`${this.base}`, { params, observe: 'response', responseType: 'text', withCredentials: true });
+        return this.http.delete(`${this.base}/${taskId}`, { observe: 'response', responseType: 'text', withCredentials: true });
     }
 }

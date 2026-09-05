@@ -58,8 +58,7 @@ export class GroupService {
      * @return an http response observable with the group details.
      */
     fetchGroup(groupId: number): Observable<HttpResponse<Group>> {
-        const params = new HttpParams().set('groupId', groupId);
-        return this.http.get<Group>(`${this.base}`, { params, observe: 'response', responseType: 'json', withCredentials: true });
+        return this.http.get<Group>(`${this.base}/${groupId}`, { observe: 'response', responseType: 'json', withCredentials: true });
     }
 
     /**
@@ -71,8 +70,7 @@ export class GroupService {
      * @return an http response observable with the server's response.
      */
     updateGroup(groupId: number, detail: Family): Observable<HttpResponse<string>> {
-        const params = new HttpParams().set('groupId', groupId.toString());
-        return this.http.patch(`${this.base}`, detail, { params, observe: 'response', responseType: 'text', withCredentials: true });
+        return this.http.patch(`${this.base}/${groupId}`, detail, { observe: 'response', responseType: 'text', withCredentials: true });
     }
 
     /**
@@ -84,9 +82,8 @@ export class GroupService {
      * @return an http response observable with each player's standings.
      */
     fetchStandings(groupId: number, gameId: string): Observable<HttpResponse<Standing[]>> {
-        const params = new HttpParams().set('groupId', groupId)
-                                       .set('category', gameId);
-        return this.http.get<Standing[]>(`${this.base}`, { params, observe: 'response', responseType: 'json', withCredentials: true });
+        const params = new HttpParams().set('category', gameId);
+        return this.http.get<Standing[]>(`${this.base}/${groupId}/standings`, { params, observe: 'response', responseType: 'json', withCredentials: true });
     }
 
     /**
@@ -97,20 +94,18 @@ export class GroupService {
      * @return an http response observable with the server's response.
      */
     joinGroup(groupId: number): Observable<HttpResponse<string>> {
-        const params = new HttpParams().set('groupId', groupId);
-        return this.http.patch(`${this.base}`, null, { params, observe: 'response', responseType: 'text', withCredentials: true });
+        return this.http.post(`${this.base}/${groupId}/memberships`, null, { observe: 'response', responseType: 'text', withCredentials: true });
     }
 
     /**
      * Initiates a leave group request with the server.
      *
-     * @param memberId - Id of membership to discard.
+     * @param membershipId - Id of membership to discard.
      *
      * @return an http response observable with the server's response.
      */
-    leaveGroup(memberId: number): Observable<HttpResponse<string>> {
-        const params = new HttpParams().set('memberId', memberId);
-        return this.http.delete(`${this.base}`, { params, observe: 'response', responseType: 'text', withCredentials: true });
+    leaveGroup(membershipId: number): Observable<HttpResponse<string>> {
+        return this.http.delete(`${this.base}/members/${membershipId}`, { observe: 'response', responseType: 'text', withCredentials: true });
     }
 
     /**
@@ -121,7 +116,6 @@ export class GroupService {
      * @return an http response observable with the server's response.
      */
     deleteGroup(groupId: number): Observable<HttpResponse<string>> {
-        const params = new HttpParams().set('groupId', groupId.toString());
-        return this.http.delete(`${this.base}`, { params, observe: 'response', responseType: 'text', withCredentials: true });
+        return this.http.delete(`${this.base}/${groupId}`, { observe: 'response', responseType: 'text', withCredentials: true });
     }
 }

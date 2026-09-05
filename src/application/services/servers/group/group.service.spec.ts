@@ -72,7 +72,7 @@ describe('GroupService', () => {
     });
 
 
-    it("should send '/groups?groupId={groupId}' GET requests", () =>
+    it("should send '/groups/{groupId}' GET requests", () =>
     {
         const mockResponse = { id: 1, organiser: 'johndoe', name: 'Does Group', description: 'A group for members of the Doe family to play and keep track of games together.', membershipId: 1, members: [ 'johndoe', 'mikejohnson' ] };
         service.fetchGroup(1).subscribe(item => {
@@ -80,7 +80,7 @@ describe('GroupService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}` && item.params.get('groupId') === '1');
+        const request = mockHttpClient.expectOne(`${baseUrl}/1`);
         expect(request.request.method).toBe('GET');
         expect(request.request.body).toBeFalsy();
         expect(request.request.withCredentials).toBe(true);
@@ -88,7 +88,7 @@ describe('GroupService', () => {
     });
 
 
-    it("should send '/groups?groupId={groupId}' PATCH requests with body", () =>
+    it("should send '/groups/{groupId}' PATCH requests", () =>
     {
         const mockResponse = 'Updated successfully!';
         const payload = { name: 'Smiths Crew', description: "A crew for friends in Smiths circle to enjoy competitive Friday game nights together." };
@@ -97,7 +97,7 @@ describe('GroupService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}` && item.params.get('groupId') === '1');
+        const request = mockHttpClient.expectOne(`${baseUrl}/1`);
         expect(request.request.method).toBe('PATCH');
         expect(request.request.body).toBe(payload);
         expect(request.request.withCredentials).toBe(true);
@@ -105,7 +105,7 @@ describe('GroupService', () => {
     });
 
 
-    it("should send '/groups?groupId={groupId}&category={gameId}' GET requests", () =>
+    it("should send '/groups/{groupId}/standings?category={gameId}' GET requests", () =>
     {
         const mockResponse = [ { player: 'johndoe', standings: [ 'Win', 'Loss' ] } ];
         service.fetchStandings(1, 'test').subscribe(item => {
@@ -113,9 +113,7 @@ describe('GroupService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}`
-            && item.params.get('groupId') === '1'
-            && item.params.get('category') === 'test');
+        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}/1/standings` && item.params.get('category') === 'test');
         expect(request.request.method).toBe('GET');
         expect(request.request.body).toBeFalsy();
         expect(request.request.withCredentials).toBe(true);
@@ -123,7 +121,7 @@ describe('GroupService', () => {
     });
 
 
-    it("should send '/groups?groupId={groupId}' PATCH requests without body", () =>
+    it("should send '/groups/{groupId}/memberships' POST requests", () =>
     {
         const mockResponse = 'Processed successfully!';
         service.joinGroup(1).subscribe(item => {
@@ -131,15 +129,15 @@ describe('GroupService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}` && item.params.get('groupId') === '1');
-        expect(request.request.method).toBe('PATCH');
+        const request = mockHttpClient.expectOne(`${baseUrl}/1/memberships`);
+        expect(request.request.method).toBe('POST');
         expect(request.request.body).toBeFalsy();
         expect(request.request.withCredentials).toBe(true);
         request.flush(mockResponse, { status: 202, statusText: 'Accepted' });
     });
 
 
-    it("should send '/groups?memberId={memberId}' DELETE requests", () =>
+    it("should send '/groups/members/{membershipId}' DELETE requests", () =>
     {
         const mockResponse = 'Left successfully!';
         service.leaveGroup(1).subscribe(item => {
@@ -147,7 +145,7 @@ describe('GroupService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}` && item.params.get('memberId') === '1');
+        const request = mockHttpClient.expectOne(`${baseUrl}/members/1`);
         expect(request.request.method).toBe('DELETE');
         expect(request.request.body).toBeFalsy();
         expect(request.request.withCredentials).toBe(true);
@@ -155,7 +153,7 @@ describe('GroupService', () => {
     });
 
 
-    it("should send '/groups?groupId={groupId}' DELETE requests", () =>
+    it("should send '/groups/{groupId}' DELETE requests", () =>
     {
         const mockResponse = 'Deleted successfully!';
         service.deleteGroup(1).subscribe(item => {
@@ -163,7 +161,7 @@ describe('GroupService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}` && item.params.get('groupId') === '1');
+        const request = mockHttpClient.expectOne(`${baseUrl}/1`);
         expect(request.request.method).toBe('DELETE');
         expect(request.request.body).toBeFalsy();
         expect(request.request.withCredentials).toBe(true);

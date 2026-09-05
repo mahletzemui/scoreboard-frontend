@@ -3,12 +3,12 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input, ou
 
 
 import { Vault } from '../../models/responses';
-import { Match, Scorecard } from '../../models/requests';
-import { GAME_GUIDES, GAME_LABELS, GAME_PREVIEWS, createOutcomeMessage } from '../../constants/games';
+import { Scorecard } from '../../models/requests';
+import { GAME_GUIDES, GAME_LABELS, GAME_PREVIEWS, createOutcomeMessage, createPlayers } from '../../constants/games';
 import { Message } from '../../models/prompts';
+import { createConfirmationMessage } from '../../constants/prompts';
 import { Filter, Page, Slice } from '../../models/queries';
 import { createGameFilter } from '../../constants/queries';
-import { createConfirmationMessage } from '../../constants/prompts';
 
 import { ToolBox } from '../../utils';
 import { GameService, NoticeService } from '../../services';
@@ -53,13 +53,17 @@ export class GameRecapComponent {
     private terms = signal<string[]>([]);
     private criteria = signal<Filter[]>([]);
 
-    // TODO : Fix this for Heat objects as well...
     private searched = computed(() => {
         const terms = this.terms();
-        return terms.length === 0 ? this.overview()
-                                  : this.overview().filter(item => terms.some(term =>
-                                        item.organiser.toLowerCase().includes(term)
-                                        || (item.scores as Match[]).some(entry => entry.username.toLowerCase().includes(term))));
+        if (terms.length === 0) {
+            return this.overview();
+        }
+
+        const gameId = this.id();
+        return this.overview().filter(item => {
+            const usernames = createPlayers(gameId, item.scores).map(player => player.username);
+            return terms.some(term => item.organiser.toLowerCase().includes(term) || usernames.some(entry => entry.toLowerCase().includes(term)));
+        });
     });
 
     private filtered = computed(() => {
@@ -194,7 +198,7 @@ export class GameRecapComponent {
      */
     onEditGame(event: Scorecard): void
     {
-        // TODO : Finish this...
+        // TODO: Game Update - Get back to this after backend implementation
         console.log('Edit Game: Initiated...');
         this.delivered.emit('edited');
         this.activeModal.set(undefined);
@@ -208,7 +212,7 @@ export class GameRecapComponent {
         console.log('Delete Game: Initiated...');
         const entryId = this.currentVault()?.id ?? -1;
 
-        this.server.requestGameDeletion(this.id(), entryId).subscribe({
+        this.server.requestGameDeletion(entryId).subscribe({
             next: () => {
                 this.notice.showBanner('Success! Request to delete game has been submitted.');
                 this.delivered.emit('deleted');

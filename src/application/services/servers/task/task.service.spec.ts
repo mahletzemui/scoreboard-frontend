@@ -55,7 +55,7 @@ describe('TaskService', () => {
     });
 
 
-    it("should send '/tasks?reviewId={reviewId}&status={status}' PATCH requests", () =>
+    it("should send '/tasks/votes/{reviewId}' PATCH requests", () =>
     {
         const mockResponse = { id: 1, seeker: 'johndoe', action: 'Join Family', reference: 1, previous: 'Family #1 wants to be joined by janesmith.', current: '', verdict: 'Approved', reviewers: [ { id: 1, reporter: 'johndoe', verdict: 'Approved' } ] };
         service.updateVote(1, 'approved').subscribe(item => {
@@ -63,17 +63,15 @@ describe('TaskService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}`
-            && item.params.get('reviewId') === '1'
-            && item.params.get('status') === 'approved');
+        const request = mockHttpClient.expectOne(`${baseUrl}/votes/1`);
         expect(request.request.method).toBe('PATCH');
-        expect(request.request.body).toBeFalsy();
+        expect(request.request.body).toBe('approved');
         expect(request.request.withCredentials).toBe(true);
         request.flush(mockResponse, { status: 200, statusText: 'Ok' });
     });
 
 
-    it("should send '/tasks?requestId={taskId}' DELETE requests", () =>
+    it("should send '/tasks/{taskId}' DELETE requests", () =>
     {
         const mockResponse = 'Task has been successfully cancelled.';
         service.cancelTask(1).subscribe(item => {
@@ -81,7 +79,7 @@ describe('TaskService', () => {
             expect(item.body).toBe(mockResponse);
         });
 
-        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}` && item.params.get('requestId') === '1');
+        const request = mockHttpClient.expectOne(`${baseUrl}/1`);
         expect(request.request.method).toBe('DELETE');
         expect(request.request.body).toBeFalsy();
         expect(request.request.withCredentials).toBe(true);
