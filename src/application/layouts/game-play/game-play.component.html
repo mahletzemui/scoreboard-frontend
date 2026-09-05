@@ -27,6 +27,13 @@
             <ng-content />
         </div>
     </div>
+
+    @if (currentScores().length > 0) {
+    <div class="section">
+        <h3 class="title">Leaderboard</h3>
+        <app-leaderboard [players]="currentScores()" />
+    </div>
+    }
 </div>
 
 @if (showPlaybook()) {

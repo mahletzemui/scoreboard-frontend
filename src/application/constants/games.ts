@@ -444,6 +444,16 @@ export const GAME_STEPS: Record<string, Entry[]> =
 
 
 /**
+ * Holds point/label combinations of supported games.
+ */
+export const GAME_POINTS: Record<string, Record<string, number>> =
+{
+    [ GAME_STORE['connect4'].id ]: { 'Loss': 0, 'Win': 1, 'Draw': 1 },
+    [ GAME_STORE['conquer'].id ]: { 'Loss': 0, 'Regular Win': 1, 'Joker Drop Win': 2, 'Bottom Draw Win': 2, 'Combo Win': 3 },
+    [ GAME_STORE['domino'].id ]: { 'Loss': 0, 'Regular Win': 1, 'Double Zero Win': 2 }
+};
+
+/**
  * Creates a game's player scores.
  * 
  * @param gameId - Id of game to create for.
@@ -487,7 +497,7 @@ export function createOutcomeMessage(gameId: string, scores: Scorecard): string
         label = String(winner!.score).toLowerCase();
     }
 
-    return `As a result of their ${label}, ${usernames} ${verb} ${points} pt(s).`;
+    return `As a result of their ${label}, <b>${usernames}</b> ${verb} <b>${points} pt(s)</b>.`;
 };
 
 /**
@@ -497,15 +507,17 @@ export function createOutcomeMessage(gameId: string, scores: Scorecard): string
  */
 function createConnect4Players(matches: Match[]): Player[]
 {
+    const system = GAME_POINTS[GAME_STORE['connect4'].id];
+
     let players: Player[] = [];
     matches.forEach((item, i) => {
         const other = i === 0 ? matches[1].username : matches[0].username;
         if (item.score === 'Draw') {
-            players.push({ username: item.username, points: 1, summaries: [`Drew against ${other}.`] });
+            players.push({ username: item.username, points: system[item.score], summaries: [`Drew against ${other}.`] });
         } else if (item.score === 'Win') {
-            players.push({ username: item.username, points: 1, summaries: [`Won against ${other}.`] });
+            players.push({ username: item.username, points: system[item.score], summaries: [`Won against ${other}.`] });
         } else {
-            players.push({ username: item.username, points: 0, summaries: [`Lost against ${other}.`] });
+            players.push({ username: item.username, points: system[item.score], summaries: [`Lost against ${other}.`] });
         }
     });
     return players;
@@ -518,21 +530,23 @@ function createConnect4Players(matches: Match[]): Player[]
  */
 function createConquerPlayers(matches: Match[]): Player[]
 {
+    const system = GAME_POINTS[GAME_STORE['conquer'].id];
+
     let players: Player[] = [];
     const winner = matches.filter(item => item.score !== 'Loss').map(item => item.username);
     const losers = ToolBox.formatList(matches.filter(item => item.score === 'Loss').map(item => item.username));
 
     matches.forEach(item => {
         if (item.score === 'Regular Win') {
-            players.push({ username: item.username, points: 1, summaries: [`Won regularly against ${losers}.`] });
+            players.push({ username: item.username, points: system[item.score], summaries: [`Won regularly against ${losers}.`] });
         } else if (item.score === 'Joker Drop Win') {
-            players.push({ username: item.username, points: 2, summaries: [`Won with a joker drop against ${losers}.`] });
+            players.push({ username: item.username, points: system[item.score], summaries: [`Won with a joker drop against ${losers}.`] });
         } else if (item.score === 'Bottom Draw Win') {
-            players.push({ username: item.username, points: 2, summaries: [`Won with a bottom draw against ${losers}.`] });
+            players.push({ username: item.username, points: system[item.score], summaries: [`Won with a bottom draw against ${losers}.`] });
         } else if (item.score === 'Combo Win') {
-            players.push({ username: item.username, points: 3, summaries: [`Won with a joker drop & bottom draw against ${losers}.`] });
+            players.push({ username: item.username, points: system[item.score], summaries: [`Won with a joker drop & bottom draw against ${losers}.`] });
         } else {
-            players.push({ username: item.username, points: 0, summaries: [`Lost against ${winner}.`] });
+            players.push({ username: item.username, points: system[item.score], summaries: [`Lost against ${winner}.`] });
         }
     });
     return players;
@@ -545,6 +559,8 @@ function createConquerPlayers(matches: Match[]): Player[]
  */
 function createDominoPlayers(lastHeat: Heat): Player[]
 {
+    const system = GAME_POINTS[GAME_STORE['domino'].id];
+
     let players: Player[] = [];
     const losers = ToolBox.formatList(lastHeat.matches.filter(item => item.score !== 100).map(item => item.username));
     const winners = ToolBox.formatList(lastHeat.matches.filter(item => item.score === 100).map(item => item.username));
@@ -552,9 +568,9 @@ function createDominoPlayers(lastHeat: Heat): Player[]
     lastHeat.matches.forEach(item => {
         if (item.score === 100) {
             const method = lastHeat.special ? `Won with a double zero against ${losers}.` : `Won regularly against ${losers}.`;
-            players.push({ username: item.username, points: lastHeat.special ? 2 : 1, summaries: [method] });
+            players.push({ username: item.username, points: lastHeat.special ? system['Double Zero Win'] : system['Regular Win'], summaries: [method] });
         } else {
-            players.push({ username: item.username, points: 0, summaries: [`Lost against ${winners}.`] });
+            players.push({ username: item.username, points: system['Loss'], summaries: [`Lost against ${winners}.`] });
         }
     });
     return players;

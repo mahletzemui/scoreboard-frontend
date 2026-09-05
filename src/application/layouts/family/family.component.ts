@@ -310,11 +310,11 @@ export class FamilyComponent extends BaseLayout {
     private onLeaveGroup(group: Group): void
     {
         console.log('Leave Group: Initiated...');
-        const membershipId = group.member!;
+        const membershipId = group.membershipId!;
 
         this.server.leaveGroup(membershipId).subscribe({
             next: () => {
-                this.overview.update(current => current.map(item => item.id === group.id ? { ...item, member: null } : item));
+                this.overview.update(current => current.map(item => item.id === group.id ? { ...item, membershipId: null } : item));
                 this.notice.showBanner('Success! Request to leave family has been processed.');
                 this.showMessage.set(false);
             },
@@ -355,7 +355,7 @@ export class FamilyComponent extends BaseLayout {
             return active.some(item => (item.name === 'yes') === (group.organiser === this.username));
         }
         if (filter.heading === 'Part Of') {
-            return active.some(item => (item.name === 'yes') === (group.member !== null));
+            return active.some(item => (item.name === 'yes') === (group.membershipId !== null));
         }
         return true;
     }

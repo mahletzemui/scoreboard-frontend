@@ -1,0 +1,32 @@
+<div class="wrapper">
+    @for (item of ranked(); track item.player.username) {
+    <article class="card" [class.expanded]="expanded() === item.player.username" (click)="toggle(item.player.username)">
+        <div class="row">
+            <span class="rank" [class]="medal(item.rank)">{{ item.rank }}</span>
+            <span class="username">{{ item.player.username }}</span>
+            <span class="points">{{ item.player.points }} pt{{ item.player.points === 1 ? '' : 's' }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                <path d="M480-357.85 253.85-584 296-626.15l184 184 184-184L706.15-584 480-357.85Z" />
+            </svg>
+        </div>
+
+        @if (expanded() === item.player.username) {
+        <div class="details" (click)="$event.stopPropagation()">
+            @if (item.player.summaries.length > 0) {
+            <ul class="summaries">
+                @for (entry of item.player.summaries; track entry) {
+                <li>{{ entry }}</li>
+                }
+            </ul>
+            }
+
+            @if (data()?.[item.player.username]; as slices) {
+            <div class="breakdown">
+                <app-donut-chart [data]="slices" />
+            </div>
+            }
+        </div>
+        }
+    </article>
+    }
+</div>

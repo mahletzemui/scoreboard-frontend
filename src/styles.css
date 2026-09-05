@@ -101,6 +101,10 @@
     --healthy-900: rgb(9, 32, 19);
     --healthy-950: rgb(5, 16, 10);
 
+    --gold: rgb(212, 175, 55);
+    --silver: rgb(168, 168, 168);
+    --bronze: rgb(176, 110, 60);
+    
     --label-loss: var(--danger-500);
     --label-draw: rgb(199, 148, 22);
     --label-win: rgb(46, 160, 96);
@@ -207,6 +211,10 @@
     --healthy-800: rgb(171, 217, 191);
     --healthy-900: rgb(213, 236, 223);
     --healthy-950: rgb(234, 246, 239);
+
+    --gold: rgb(212, 175, 55);
+    --silver: rgb(168, 168, 168);
+    --bronze: rgb(176, 110, 60);
 
     --label-loss: var(--danger-500);
     --label-draw: rgb(230, 175, 60);
@@ -378,6 +386,13 @@ app-finder, app-paginator {
     max-width: 600px;
 }
 
+app-leaderboard {
+    width: 70%;
+    min-width: 350px;
+    max-width: 800px;
+    margin: auto;
+}
+
 
 /* ---------------------------------- Frames ------------------------------------ */
 
@@ -492,6 +507,10 @@ app-finder, app-paginator {
     color: var(--text-500);
 }
 
+
+.section .title {
+    color: var(--text-300);
+}
 
 .section .controls {
     gap: 10px;

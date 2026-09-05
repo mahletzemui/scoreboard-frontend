@@ -6,7 +6,7 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { BASE_API } from '../../../constants/general';
 
 import { Family } from '../../../models/requests';
-import { Group } from '../../../models/responses';
+import { Group, Standing } from '../../../models/responses';
 
 
 /**
@@ -73,6 +73,20 @@ export class GroupService {
     updateGroup(groupId: number, detail: Family): Observable<HttpResponse<string>> {
         const params = new HttpParams().set('groupId', groupId.toString());
         return this.http.patch(`${this.base}`, detail, { params, observe: 'response', responseType: 'text', withCredentials: true });
+    }
+
+    /**
+     * Initiates a fetch standings request with the server.
+     *
+     * @param groupId - Id of group to fetch for.
+     * @param gameId  - Id of game to fetch for.
+     *
+     * @return an http response observable with each player's standings.
+     */
+    fetchStandings(groupId: number, gameId: string): Observable<HttpResponse<Standing[]>> {
+        const params = new HttpParams().set('groupId', groupId)
+                                       .set('category', gameId);
+        return this.http.get<Standing[]>(`${this.base}`, { params, observe: 'response', responseType: 'json', withCredentials: true });
     }
 
     /**

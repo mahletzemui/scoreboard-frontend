@@ -38,16 +38,6 @@ export class TaskService {
         return this.http.get<Task[]>(`${this.base}`, { observe: 'response', responseType: 'json', withCredentials: true });
     }
 
-    // /**
-    //  * Initiates a fetch pending tasks request with the server.
-    //  *
-    //  * @return an http response observable with the user's pending tasks.
-    //  */
-    // fetchMyPendingTasks(): Observable<HttpResponse<Task[]>> {
-    //     const params = new HttpParams().set('awaitingMe', 'Y');
-    //     return this.http.get<Task[]>(`${this.base}`, { params, observe: 'response', responseType: 'json', withCredentials: true });
-    // }
-
     /**
      * Initiates an update vote request with the server.
      *

@@ -41,7 +41,7 @@ describe('GroupService', () => {
 
     it("should send '/groups' GET requests", () =>
     {
-        const mockResponse = [ { id: 1, organiser: 'johndoe', name: 'Does Group', description: 'A group for members of the Doe family to play and keep track of games together.', member: 1 } ];
+        const mockResponse = [ { id: 1, organiser: 'johndoe', name: 'Does Group', description: 'A group for members of the Doe family to play and keep track of games together.', membershipId: 1, members: [] } ];
         service.fetchGroups().subscribe(item => {
             expect(item.status).toBe(200);
             expect(item.body).toBe(mockResponse);
@@ -74,7 +74,7 @@ describe('GroupService', () => {
 
     it("should send '/groups?groupId={groupId}' GET requests", () =>
     {
-        const mockResponse = { id: 1, organiser: 'johndoe', name: 'Does Group', description: 'A group for members of the Doe family to play and keep track of games together.', member: 1 };
+        const mockResponse = { id: 1, organiser: 'johndoe', name: 'Does Group', description: 'A group for members of the Doe family to play and keep track of games together.', membershipId: 1, members: [ 'johndoe', 'mikejohnson' ] };
         service.fetchGroup(1).subscribe(item => {
             expect(item.status).toBe(200);
             expect(item.body).toBe(mockResponse);
@@ -100,6 +100,24 @@ describe('GroupService', () => {
         const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}` && item.params.get('groupId') === '1');
         expect(request.request.method).toBe('PATCH');
         expect(request.request.body).toBe(payload);
+        expect(request.request.withCredentials).toBe(true);
+        request.flush(mockResponse, { status: 200, statusText: 'Ok' });
+    });
+
+
+    it("should send '/groups?groupId={groupId}&category={gameId}' GET requests", () =>
+    {
+        const mockResponse = [ { player: 'johndoe', standings: [ 'Win', 'Loss' ] } ];
+        service.fetchStandings(1, 'test').subscribe(item => {
+            expect(item.status).toBe(200);
+            expect(item.body).toBe(mockResponse);
+        });
+
+        const request = mockHttpClient.expectOne(item => item.url === `${baseUrl}`
+            && item.params.get('groupId') === '1'
+            && item.params.get('category') === 'test');
+        expect(request.request.method).toBe('GET');
+        expect(request.request.body).toBeFalsy();
         expect(request.request.withCredentials).toBe(true);
         request.flush(mockResponse, { status: 200, statusText: 'Ok' });
     });

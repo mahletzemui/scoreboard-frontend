@@ -18,7 +18,7 @@ describe('Games Constants', () => {
                 { username: 'johndoe', points: 1, summaries: ['Won against janesmith.'] },
                 { username: 'janesmith', points: 0, summaries: ['Lost against johndoe.'] }
             ]);
-            expect(createOutcomeMessage('connect4', participants)).toBe('As a result of their win, johndoe will be awarded 1 pt(s).');
+            expect(createOutcomeMessage('connect4', participants)).toBe('As a result of their win, <b>johndoe</b> will be awarded <b>1 pt(s)</b>.');
         });
 
 
@@ -32,7 +32,7 @@ describe('Games Constants', () => {
                 { username: 'johndoe', points: 1, summaries: ['Drew against janesmith.'] },
                 { username: 'janesmith', points: 1, summaries: ['Drew against johndoe.'] }
             ]);
-            expect(createOutcomeMessage('connect4', participants)).toBe('As a result of their draw, johndoe & janesmith will each be awarded 1 pt(s).');
+            expect(createOutcomeMessage('connect4', participants)).toBe('As a result of their draw, <b>johndoe & janesmith</b> will each be awarded <b>1 pt(s)</b>.');
         });
     });
 
@@ -49,7 +49,7 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 0, summaries: ['Lost against johndoe.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against johndoe.'] }
             ]);
-            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their regular win, johndoe will be awarded 1 pt(s).');
+            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their regular win, <b>johndoe</b> will be awarded <b>1 pt(s)</b>.');
         });
 
 
@@ -65,7 +65,7 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 2, summaries: ['Won with a joker drop against johndoe & maggiewells.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against janesmith.'] }
             ]);
-            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their joker drop win, janesmith will be awarded 2 pt(s).');
+            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their joker drop win, <b>janesmith</b> will be awarded <b>2 pt(s)</b>.');
         });
 
 
@@ -81,7 +81,7 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 2, summaries: ['Won with a bottom draw against johndoe & maggiewells.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against janesmith.'] }
             ]);
-            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their bottom draw win, janesmith will be awarded 2 pt(s).');
+            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their bottom draw win, <b>janesmith</b> will be awarded <b>2 pt(s)</b>.');
         });
 
 
@@ -97,7 +97,7 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 0, summaries: ['Lost against maggiewells.'] },
                 { username: 'maggiewells', points: 3, summaries: ['Won with a joker drop & bottom draw against johndoe & janesmith.'] }
             ]);
-            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their combo win, maggiewells will be awarded 3 pt(s).');
+            expect(createOutcomeMessage('conquer', participants)).toBe('As a result of their combo win, <b>maggiewells</b> will be awarded <b>3 pt(s)</b>.');
         });
     });
 
@@ -114,7 +114,7 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 1, summaries: ['Won regularly against johndoe & maggiewells.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against janesmith.'] }
             ]);
-            expect(createOutcomeMessage('domino', rounds)).toBe('As a result of their regular win, janesmith will be awarded 1 pt(s).');
+            expect(createOutcomeMessage('domino', rounds)).toBe('As a result of their regular win, <b>janesmith</b> will be awarded <b>1 pt(s)</b>.');
         });
 
 
@@ -126,7 +126,7 @@ describe('Games Constants', () => {
                 { username: 'janesmith', points: 2, summaries: ['Won with a double zero against johndoe & maggiewells.'] },
                 { username: 'maggiewells', points: 0, summaries: ['Lost against janesmith.'] }
             ]);
-            expect(createOutcomeMessage('domino', rounds)).toBe('As a result of their double zero win, janesmith will be awarded 2 pt(s).');
+            expect(createOutcomeMessage('domino', rounds)).toBe('As a result of their double zero win, <b>janesmith</b> will be awarded <b>2 pt(s)</b>.');
         });
     });
 

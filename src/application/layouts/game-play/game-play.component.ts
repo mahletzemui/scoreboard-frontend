@@ -2,14 +2,15 @@ import { Router } from '@angular/router';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal } from '@angular/core';
 
 
+import { Player } from '../../models/games';
 import { Scorecard } from '../../models/requests';
 import { Form, Message } from '../../models/prompts';
 import { createConfirmationMessage } from '../../constants/prompts';
-import { GAME_GUIDES, GAME_PREVIEWS, GAME_STEPS, createOutcomeMessage } from '../../constants/games';
+import { GAME_GUIDES, GAME_PREVIEWS, GAME_STEPS, createOutcomeMessage, createPlayers } from '../../constants/games';
 
 import { ToolBox, FormValidator } from '../../utils';
 import { GameService, NoticeService } from '../../services';
-import { FormModalComponent, MessageModalComponent, PlaybookModalComponent } from '../../components';
+import { FormModalComponent, LeaderboardComponent, MessageModalComponent, PlaybookModalComponent } from '../../components';
 
 
 /**
@@ -17,7 +18,7 @@ import { FormModalComponent, MessageModalComponent, PlaybookModalComponent } fro
  */
 @Component({
     selector: 'app-game-play',
-    imports: [ FormModalComponent, MessageModalComponent, PlaybookModalComponent ],
+    imports: [ FormModalComponent, LeaderboardComponent, MessageModalComponent, PlaybookModalComponent ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './game-play.component.html',
     styleUrl: './game-play.css'
@@ -39,6 +40,13 @@ export class GamePlayComponent {
     currentPlayer = input<number>();
     scores = input<Scorecard>([]);
 
+    private recentScores = signal<Map<string, Player[]>>(new Map());
+    currentScores = computed<Player[]>(() => {
+        const usernames = this.players().filter(item => item !== '');
+        const cached = this.recentScores().get(this.defineMapKey(usernames));
+        return cached ?? usernames.map(item => ({ username: item, points: 0, summaries: [] }));
+    });
+
     showSteps = signal(false);
     showPlaybook = signal(false);
 
@@ -47,7 +55,6 @@ export class GamePlayComponent {
     private pendingUsername = signal<string|undefined>(undefined);
 
     message = computed<Message>(() => {
-        this.requestError.set('');
         const step = this.activeModal();
         if (step === 'add') {
             return { ...createConfirmationMessage(), notice: `Adding <b>${this.pendingUsername()}</b> to the current game will adjust scores for the remaining players.` };
@@ -125,6 +132,7 @@ export class GamePlayComponent {
                     this.delivered.emit(username);
                     this.activeModal.set(undefined);
                 } else {
+                    this.requestError.set('');
                     this.pendingUsername.set(username);
                     this.activeModal.set('add');
                 }
@@ -173,6 +181,7 @@ export class GamePlayComponent {
 
         this.server.submitGame(this.id(), this.scores()).subscribe({
             next: () => {
+                this.recordScores(createPlayers(this.id(), this.scores()));
                 this.notice.showBanner('Success! Scores have been submitted.');
                 this.delivered.emit('submitted');
                 this.activeModal.set(undefined);
@@ -189,5 +198,44 @@ export class GamePlayComponent {
                 }
             }
         });
+    }
+
+    /**
+     * Records submitted scores into the running totals for the current roster of
+     * the 5 most recently played unique rosters.
+     *
+     * @param entries - Scores to add.
+     */
+    private recordScores(entries: Player[]): void
+    {
+        const usernames = this.players().filter(username => username !== '');
+        const key = this.defineMapKey(usernames);
+
+        this.recentScores.update(current => {
+            const previous = current.get(key) ?? usernames.map(item => ({ username: item, points: 0, summaries: [] }));
+            const merged = previous.map(player => {
+                const addition = entries.find(item => item.username === player.username);
+                return addition ? { username: player.username, points: player.points + addition.points, summaries: [ ...player.summaries, ...addition.summaries ] } : player;
+            });
+
+            const next = new Map(current);
+            next.delete(key);
+            next.set(key, merged);
+
+            while (next.size > 5) {
+                next.delete(next.keys().next().value!);
+            }
+            return next;
+        });
+    }
+
+    /**
+     * Defines a canonical key for the score map.
+     *
+     * @param usernames - Usernames to define for.
+     */
+    private defineMapKey(usernames: string[]): string
+    {
+        return [ ...usernames ].sort().join('|');
     }
 }

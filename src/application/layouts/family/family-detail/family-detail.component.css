@@ -31,10 +31,6 @@
 }
 
 
-.title {
-    color: var(--text-300);
-}
-
 .members {
     gap: 25px;
     display: flex;
@@ -79,63 +75,14 @@
 
 .picker {
     align-self: center;
-    width: 200px;
-    border-radius: 5px;
-    border: 1.5px solid var(--primary-30);
-}
-.picker:hover {
-    border-color: var(--accent-300);
-}
-
-/* .leaderboard {
-    gap: 10px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-}
-
-.rank {
-    gap: 15px;
-    display: flex;
-    align-items: center;
-    padding: 10px 16px;
-    border-radius: 12px;
+    width: 250px;
+    border-radius: 14px;
+    border: 1px solid var(--primary-30);
     background-color: var(--background-50);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow var(--default-animation-delay) ease;
 }
-
-.rank .position {
-    flex: 0 0 30px;
-    font-weight: 600;
-    color: var(--text-500);
+.picker:hover, .picker:focus-within {
+    border: 1px solid var(--accent-300);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.09);
 }
-
-.rank .avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--background-50);
-    border-radius: 50%;
-    background-color: var(--healthy-400);
-}
-.rank:nth-of-type(even) .avatar {
-    background-color: var(--primary-400);
-}
-
-.rank .username {
-    flex: 1;
-    font-weight: 600;
-    color: var(--text);
-}
-
-.rank .points {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-500);
-} */

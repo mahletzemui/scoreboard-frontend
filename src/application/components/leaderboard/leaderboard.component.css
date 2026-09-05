@@ -1,0 +1,99 @@
+.wrapper {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.card {
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background-color: var(--background-50);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow var(--default-animation-delay) ease;
+}
+.card.expanded {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+.card:hover {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+    gap: 14px;
+    display: flex;
+    align-items: center;
+}
+
+
+.rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--background-50);
+    border-radius: 50%;
+    background-color: var(--primary-400);
+}
+.rank.gold {
+    background-color: var(--gold);
+}
+.rank.silver {
+    background-color: var(--silver);
+}
+.rank.bronze {
+    background-color: var(--bronze);
+}
+
+.username {
+    flex: 1;
+    font-weight: 600;
+    color: var(--text);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.points {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-500);
+    white-space: nowrap;
+}
+
+.row svg {
+    width: 20px;
+    fill: var(--text-500);
+    transition: transform var(--default-animation-delay) ease;
+}
+.card.expanded .row svg {
+    transform: rotate(180deg);
+}
+
+
+.details {
+    cursor: default;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--primary-30);
+}
+
+.summaries li {
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--text-500);
+    margin-bottom: 4px;
+}
+
+.breakdown {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.breakdown ::ng-deep .chart {
+    width: 250px;
+}

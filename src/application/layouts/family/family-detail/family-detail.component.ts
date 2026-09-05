@@ -4,13 +4,16 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 
 import { BaseLayout } from '../../base-layout.directive';
 
-import { Group } from '../../../models/responses';
+import { Player } from '../../../models/games';
+import { Group, Standing } from '../../../models/responses';
 import { Form } from '../../../models/prompts';
+import { Slice } from '../../../models/queries';
 import { createGamePicker } from '../../../constants/queries';
+import { GAME_LABELS, GAME_POINTS } from '../../../constants/games';
 
 import { ToolBox } from '../../../utils';
 import { GroupService, LoaderService, NoticeService } from '../../../services';
-import { DropdownComponent, FormModalComponent } from '../../../components';
+import { DropdownComponent, FormModalComponent, LeaderboardComponent } from '../../../components';
 
 
 /**
@@ -18,7 +21,7 @@ import { DropdownComponent, FormModalComponent } from '../../../components';
  */
 @Component({
     selector: 'app-family-detail',
-    imports: [ DropdownComponent, FormModalComponent ],
+    imports: [ DropdownComponent, FormModalComponent, LeaderboardComponent ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './family-detail.component.html',
     styleUrl: './family-detail.component.css'
@@ -35,19 +38,22 @@ export class FamilyDetailComponent extends BaseLayout {
     family = signal<Group|undefined>(undefined);
 
     gamePicker = computed(() => createGamePicker());
-    // selectedGame = signal<string|undefined>(undefined);
+    selectedGame = signal<string|undefined>(undefined);
+    
+    standings = signal<Standing[]>([]);
+    members = computed<Player[]>(() => {
+        const gameId = this.selectedGame();
+        return gameId ? this.standings().map(item => this.buildPlayer(gameId, item)) : [];
+    });
 
-    // TODO : Replace with a real members endpoint once one exists.
-    private readonly players: { username: string, points: number }[] =
-    [
-        { username: 'johndoe', points: 18 },
-        { username: 'janesmith', points: 24 },
-        { username: 'maggiewells', points: 9 },
-        { username: 'mikejohnson', points: 15 }
-    ];
-    members = this.players;
-    leaderboard = computed(() => [ ...this.players ].sort((a, b) => b.points - a.points));
-    overview = signal<string[]>([]);
+    chartData = computed<Record<string, Slice[]>|undefined>(() => {
+        const gameId = this.selectedGame();
+        if (!gameId) {
+            return undefined;
+        }
+        const labels = GAME_LABELS[gameId] ?? [];
+        return Object.fromEntries(this.standings().map(item => [ item.player, this.buildSlices(item.standings, labels) ]));
+    });
 
     private notice = inject(NoticeService);
     showEdit = signal(false);
@@ -111,15 +117,40 @@ export class FamilyDetailComponent extends BaseLayout {
         this.showEdit.set(true);
     }
 
-    // /**
-    //  * Updates the selected game.
-    //  *
-    //  * @param event - Event with the selected game.
-    //  */
-    // onGameSelection(event: string[]): void
-    // {
-    //     this.selectedGame.set(event[0]);
-    // }
+    /**
+     * Processes standing requests for a game.
+     *
+     * @param event - Event with the selected game.
+     */
+    onGameSelection(event: string[]): void
+    {
+        const gameId = event[0];
+        this.selectedGame.set(gameId);
+        console.log(`Fetch Standings: Initiated...`);
+
+        this.standings.set([]);
+        this.server.fetchStandings(this.id, gameId).subscribe({
+            next: (response) => {
+                if (!response.body) {
+                    this.generalError.set('An unexpected error occurred. Please try again later.');
+                    console.error(`Fetch Group ${this.id} (cont.): Details are not present despite a successful response.`);
+                } else {
+                    this.standings.set(response.body);
+                }
+            },
+            error: (error) => {
+                const code = error.status;
+                if (code === 401) {
+                    ToolBox.clearSession();
+                } else if (code === 406) {
+                    // TODO : Find all other types of errors
+                } else {
+                    this.generalError.set('An unexpected error occurred, try again later.');
+                    console.error(`Fetch Standings (cont.): Denied because of an unexpected error - '${code}': '${error.message}'.`);
+                }
+            }
+        });
+    }
 
     /**
      * Processes update group requests.
@@ -151,5 +182,37 @@ export class FamilyDetailComponent extends BaseLayout {
                 }
             }
         });
+    }
+
+    // Helpers --------------------------------------------------------------------
+
+    /**
+     * Builds a player from their standings.
+     *
+     * @param gameId - Id of game to build for.
+     * @param entry  - Standing to build from.
+     *
+     * @return the corresponding player.
+     */
+    private buildPlayer(gameId: string, entry: Standing): Player
+    {
+        const points = entry.standings.reduce((total, item) => total + (GAME_POINTS[gameId]?.[item] ?? 0), 0);
+        // const summary = total === 0 ? 'No games played yet.' : `Won ${wins} of ${total} game${total === 1 ? '' : 's'} played.`;
+        return { username: entry.player, points, summaries: [] };
+    }
+
+    /**
+     * Builds chart slices from a player's standings.
+     *
+     * @param standings - Standings to tally.
+     * @param labels    - Outcome labels to distribute across.
+     *
+     * @return the corresponding chart slices.
+     */
+    private buildSlices(standings: string[], labels: { label: string, value: string }[]): Slice[]
+    {
+        const counts: Record<string, number> = {};
+        standings.forEach(item => counts[item] = (counts[item] ?? 0) + 1);
+        return labels.map(item => ToolBox.createPartialSlice(item.label, counts[item.label] ?? 0, item.value));
     }
 }

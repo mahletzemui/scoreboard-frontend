@@ -28,19 +28,6 @@ export interface Profile
 
 
 /**
- * Represents group models.
- */
-export interface Group
-{
-    id: number,
-    organiser: string,
-    name: string,
-    description: string,
-    member: number|null
-}
-
-
-/**
  * Represents vault models.
  */
 export interface Vault
@@ -51,6 +38,29 @@ export interface Vault
     scores: Match[]|Heat[],
     played: string,
     updated?: string
+}
+
+
+/**
+ * Represents group models.
+ */
+export interface Group
+{
+    id: number,
+    organiser: string,
+    name: string,
+    description: string,
+    membershipId: number|null,
+    members: string[]
+}
+
+/**
+ * Represents standing models.
+ */
+export interface Standing
+{
+    player: string,
+    standings: string[]
 }
 
 

@@ -1,5 +1,5 @@
 export { DonutChartComponent } from './donut-chart/donut-chart.component';
-// export { LeaderboardComponent } from './leaderboard/leaderboard.component';
+export { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 export { BannerComponent } from './banner/banner.component';
 export { DropdownComponent } from './dropdown/dropdown.component';
